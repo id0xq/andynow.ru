@@ -21,7 +21,7 @@ rsync -a --delete --exclude .git --exclude .venv --exclude node_modules --exclud
 cd "$CLONE"
 git add -A
 if git diff --cached --quiet; then echo "nothing new to publish"; else git commit -q -m "$MSG"; fi
-git push -q -u origin main
+git -c http.postBuffer=524288000 push -q -u origin main
 echo "pushed to https://github.com/$REPO"
 
 # Pages: built by the workflow, served on the domain
