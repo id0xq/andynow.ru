@@ -44,8 +44,8 @@ async function build() {
 
   const posts = loadPosts();
   const pages = [
-    { path: '/', title: 'Andy Now — ханг: обучение, инструменты, живой звук', description: 'Andy Now — музыкант и исследователь звука. Обучаю игре на ханге, подбираю инструменты, звучу на ретритах и событиях, собираю цифровые продукты.', body: P.home(posts), jsonld: PERSON, scripts: ['/assets/js/flock.js'], bodyClass: 'is-home', preload: '<link rel="preload" href="/assets/figure.bin" as="fetch" type="application/octet-stream" crossorigin>\n' },
-    { path: '/learn/', title: 'Обучение игре на ханге', description: 'Занятия на ханге онлайн и вживую: разовое занятие, курс из 1, 4 или 8 встреч, наставничество и курс ведущего звуковых сессий. Музыкальный опыт не нужен.', body: P.learn() },
+    { path: '/', title: 'Andy Now — ханг: обучение, инструменты, живой звук', description: 'Andy Now — музыкант и исследователь звука. Обучаю игре на ханге, подбираю инструменты, звучу на ретритах и событиях, собираю цифровые продукты.', body: P.home(posts), jsonld: PERSON, scripts: ['/assets/js/live.js'], bodyClass: 'is-home', preload: '<link rel="preload" href="/assets/img/hero-cut.webp" as="image" type="image/webp">\n' },
+    { path: '/learn/', title: 'Обучение игре на ханге', description: 'Занятия на ханге онлайн и вживую: разовое занятие, курс из 2, 4 или 8 встреч, наставничество и курс ведущего звуковых сессий. Музыкальный опыт не нужен.', body: P.learn() },
     { path: '/instruments/', title: 'Подбор ханга', description: 'Помогу выбрать ханг по звуку, задаче и рукам. Три вопроса, строи на девять нот и расширенные, наличие, сроки и стоимость.', body: P.instruments() },
     { path: '/sound/', title: 'Живой ханг на ретритах и событиях', description: 'Звуковые сессии и сеты на ханге от 15 до 90 минут: ретриты, йога, фестивали, свадьбы и частные события.', body: P.sound() },
     { path: '/digital/', title: 'Цифровые продукты', description: 'Сайты, Telegram-боты и Mini Apps, автоматизация и ai-агенты. Беру проекты как технический специалист: от идеи до продукта.', body: P.digital() },

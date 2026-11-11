@@ -28,12 +28,12 @@
     $$('a', menu).forEach((a) => a.addEventListener('click', () => setMenu(false)));
   }
 
-  // first screen: each statement changes the flock and opens its note
+  // first screen: each statement gathers the living photo into its form and opens its note
   const statements = $('.statements');
   if (statements) {
     const buttons = $$('.statement', statements);
     const notes = $$('.note');
-    const body = $('.hero-body');
+    const body = $('.hero-text');
     let pinned = null, leaveTimer = null;
 
     const show = (key) => {
@@ -45,7 +45,7 @@
         if (!on) n.hidden = true;
       });
       const b = buttons.find((x) => x.dataset.key === key);
-      window.dispatchEvent(new CustomEvent('flock:form', { detail: b ? b.dataset.form : 'figure' }));
+      window.dispatchEvent(new CustomEvent('flock:form', { detail: b ? b.dataset.form : 'photo' }));
     };
 
     buttons.forEach((b) => {
@@ -60,11 +60,28 @@
       if (pinned) return;
       leaveTimer = setTimeout(() => show(null), 1400);
     });
-    // a click outside the hero text lets the figure come back
+    // a click outside the hero text brings the photo back
     document.addEventListener('click', (e) => {
       if (pinned && !body.contains(e.target)) { pinned = null; show(null); }
     });
   }
+
+  // living photos: each develops when it first enters the screen, then drifts slowly while visible
+  const photos = $$('.photo');
+  if (photos.length && 'IntersectionObserver' in window) {
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      const el = e.target;
+      if (e.isIntersecting && !el.classList.contains('is-seen')) {
+        el.classList.add('is-seen');
+        if (!still) el._alive = setTimeout(() => el.classList.add('is-alive'), 1800);
+      } else if (el.classList.contains('is-seen') && !still) {
+        clearTimeout(el._alive);
+        el.classList.toggle('is-alive', e.isIntersecting);
+      }
+    }), { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    photos.forEach((el) => io.observe(el));
+  } else photos.forEach((el) => el.classList.add('is-seen'));
 
   // scale picker (instruments page)
   const quizForm = $('#quizForm');
