@@ -28,13 +28,14 @@
     $$('a', menu).forEach((a) => a.addEventListener('click', () => setMenu(false)));
   }
 
-  // first screen: each statement gathers the living photo into its form and opens its note
+  // first screen: a statement is chosen with a click (or Enter); it gathers the photo into its form and
+  // opens its note, and both stay until another statement is chosen or the same one is clicked again.
+  // Hover only hints: the mouse can travel down to the buttons across other statements.
   const statements = $('.statements');
   if (statements) {
     const buttons = $$('.statement', statements);
     const notes = $$('.note');
-    const body = $('.hero-text');
-    let pinned = null, leaveTimer = null;
+    let chosen = null;
 
     const show = (key) => {
       statements.classList.toggle('has-active', !!key);
@@ -48,22 +49,10 @@
       window.dispatchEvent(new CustomEvent('flock:form', { detail: b ? b.dataset.form : 'photo' }));
     };
 
-    buttons.forEach((b) => {
-      b.addEventListener('mouseenter', () => { clearTimeout(leaveTimer); if (!pinned) show(b.dataset.key); });
-      b.addEventListener('focus', () => { clearTimeout(leaveTimer); show(b.dataset.key); });
-      b.addEventListener('click', () => {
-        pinned = pinned === b.dataset.key ? null : b.dataset.key;
-        show(pinned || b.dataset.key);
-      });
-    });
-    body.addEventListener('mouseleave', () => {
-      if (pinned) return;
-      leaveTimer = setTimeout(() => show(null), 1400);
-    });
-    // a click outside the hero text brings the photo back
-    document.addEventListener('click', (e) => {
-      if (pinned && !body.contains(e.target)) { pinned = null; show(null); }
-    });
+    buttons.forEach((b) => b.addEventListener('click', () => {
+      chosen = chosen === b.dataset.key ? null : b.dataset.key;
+      show(chosen);
+    }));
   }
 
   const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -543,7 +543,7 @@ export function journal(posts) {
     <p class="label">журнал</p>
     <h1>${split('Журнал о звуке')}</h1>
     <p class="lead">Заметки о звуке, практике и пути. Новые записи выходят в канале «Музыка Сфер» в Telegram, здесь они собраны, чтобы читать спокойно.</p>
-    <div class="actions">${action({ label: 'Канал в Telegram', href: SITE.channel })}${link('/journal/feed.xml', 'RSS')}</div>
+    <div class="actions">${action({ label: 'Канал в Telegram', href: SITE.channel })}</div>
   </div>
 </section>
 <section class="section section-tight journal-list"><div class="wrap"><div class="posts-grid">${posts.map((p) => postCard(p)).join('')}</div></div></section>`;
