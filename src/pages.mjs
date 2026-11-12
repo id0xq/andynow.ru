@@ -1,8 +1,9 @@
 // The pages of the space. Each function returns the inside of <main>; build.mjs wraps it with page().
 // Design code (site.css): white, ink, one orange; titles with a thin first word; section titles
 // between ~ and ./; numbered rows on hairlines; cards cast in clear resin; colour photos in one grade.
-import { esc, tg, action, link, split, secHead, photo, ctaBand, attrs, PHOTOS, GLASS } from './layout.mjs';
-import { SITE, STATEMENTS, FACTS, ROOMS, PROJECTS, OFFERS, SCALES, VIDEOS, MSG } from './content.mjs';
+import { esc, tg, action, link, split, secHead, photo, ctaBand, attrs, PHOTOS } from './layout.mjs';
+import { SITE, STATEMENTS, FACTS, ROOMS, PROJECTS, OFFERS, SCALES, VIDEOS, MSG, PLATFORMS } from './content.mjs';
+import { icon } from './icons.mjs';
 
 const n2 = (i) => String(i + 1).padStart(2, '0');
 const sgn = (v) => (v < 0 ? '−' : '+') + Math.abs(v).toFixed(2);
@@ -11,12 +12,12 @@ const sgn = (v) => (v < 0 ? '−' : '+') + Math.abs(v).toFixed(2);
 // trackers. Statements turn the photo into points that gather into a hang, waves or a cube (live.js).
 const HERO_TRACKS = [[0.637, 0.505, 'ханг'], [0.22, 0.588, 'горизонт'], [0.16, 0.82, 'камни']];
 function heroStage() {
-  const h = PHOTOS['hero-sea'];
+  const h = PHOTOS.hero;
   const trackers = HERO_TRACKS.map(([x, y, label], i) => `<span class="tracker is-on" style="--x:${(x * 100).toFixed(1)}%;--y:${(y * 100).toFixed(1)}%" data-x="${x}" data-y="${y}" data-label="${label}"><i></i><span>${n2(i)} ${sgn(x * 2 - 1)} ${sgn(1 - y * 2)} ${label}</span></span>`).join('');
   return `<div class="live" data-live data-form="photo">
       <canvas aria-hidden="true"></canvas>
       <div class="stage" style="--frame:${(h.frameTop * 100).toFixed(1)}%">
-        <img class="stage-photo" src="/assets/img/hero-sea.webp" srcset="/assets/img/hero-sea-s.webp 720w, /assets/img/hero-sea.webp ${h.w}w" sizes="(max-width: 900px) 92vw, 46vw" width="${h.w}" height="${h.h}" alt="${esc(h.alt)}" fetchpriority="high">
+        <img class="stage-photo" src="/assets/img/hero.webp" srcset="/assets/img/hero-s.webp ${h.small}w, /assets/img/hero.webp ${h.w}w" sizes="(max-width: 900px) 92vw, 46vw" width="${h.w}" height="${h.h}" alt="${esc(h.alt)}" fetchpriority="high">
         <span class="stage-meta mono" aria-hidden="true"><span>кадр 0134</span><span>7.9° N · 98.4° E</span></span>
         <span class="stage-glow" aria-hidden="true"><span></span></span>
         <span class="live-scan" aria-hidden="true"></span>
@@ -44,10 +45,13 @@ function postCard(p) {
 </article>`;
 }
 
+// the album on every platform, as on band.link/andynow
+const platforms = () => `<ul class="platforms" aria-label="Альбом на площадках">${PLATFORMS.map(([name, href, ic]) => `<li><a href="${esc(href)}" target="_blank" rel="noopener">${icon(ic)}<span>${esc(name)}</span></a></li>`).join('')}</ul>`;
+
 function videos() {
   return `<div class="videos">${VIDEOS.map((v, i) => `<figure class="video" data-rutube="${v.id}">
-  <button type="button" class="video-play ice-box" aria-label="Смотреть: ${esc(v.title)}, ${v.time}">
-    <span class="video-pic"><img src="/assets/img/video/${v.poster}.webp" width="960" height="540" alt="" loading="lazy" decoding="async"></span><span class="play" aria-hidden="true"></span>${GLASS}
+  <button type="button" class="video-play" aria-label="Смотреть: ${esc(v.title)}, ${v.time}">
+    <span class="video-pic"><img src="/assets/img/video/${v.poster}.webp" width="960" height="540" alt="" loading="lazy" decoding="async"></span><span class="play" aria-hidden="true"></span>
   </button>
   <figcaption><span class="mono">${n2(i)}</span><span>${esc(v.title)}</span><span class="mono">${v.time}</span></figcaption>
 </figure>`).join('')}</div>`;
@@ -64,7 +68,7 @@ function pageHead({ label, title, lead, cta = [], img, pos = '', tag = '', note 
       ${note ? `<p class="note-line">${note}</p>` : ''}
       <div class="actions">${cta.join('')}</div>
     </div>
-    ${img ? photo(img, { ratio: '4/5', pos, loading: 'eager', tag, sizes: '(max-width: 980px) 100vw, 42vw', cls: 'page-head-photo' }) : ''}
+    ${img ? photo(img, { ratio: '4/5', pos, loading: 'eager', tag, sizes: '(max-width: 980px) 100vw, 42vw', cls: 'page-head-photo ice' }) : ''}
   </div>
 </section>`;
 }
@@ -81,14 +85,13 @@ export function home(posts) {
   <p>${esc(s.text)}</p>
   <div class="actions">${action(s.cta)}${action(s.more, 'btn btn-line')}</div>
 </div>`).join('');
-  const rooms = ROOMS.map((r, i) => `<a class="room ice-box" href="${r.href}">
+  const rooms = ROOMS.map((r, i) => `<a class="room resin" href="${r.href}">
   ${photo(r.photo, { ratio: '3/4', pos: r.pos, sizes: '(max-width: 760px) 80vw, (max-width: 1100px) 45vw, 25vw', cls: 'room-photo' })}
   <span class="room-n mono">${n2(i)}</span>
   <h3>${esc(r.title)}</h3>
   <p>${esc(r.text)}</p>
   <span class="room-go" aria-hidden="true">→</span>
   <span class="corners" aria-hidden="true"></span>
-  ${GLASS}
 </a>`).join('');
   const latest = posts.slice(0, 3).map((p) => postCard(p)).join('');
   const projects = PROJECTS.map((p, i) => `<li class="proj-row">
@@ -119,13 +122,13 @@ export function home(posts) {
   <div class="wrap intro-grid">
     <div class="intro-text">
       <p class="label">кто я</p>
-      <h2 id="intro-title" class="h-big">${split('Звук меняет дыхание')}</h2>
-      <p class="lead">Меня зовут Андрей, в музыке я Andy Now. Играю на ханге, пишу музыку и веду канал «Музыка Сфер».</p>
+      <h2 id="intro-title" class="h-big">${split('Звук меняет состояние')}</h2>
+      <p class="lead">Меня зовут Андрей, творческий псевдоним Andy Now. Играю на ханге, пишу музыку и веду канал «Музыка Сфер».</p>
       <p>Больше семи лет я исследую, как звук влияет на внимание, дыхание и восприятие времени: в школе ханга Animara, на медитациях в Таиланде, в зеркальном Храме Звука на Алтае.</p>
       <p>Вторая моя половина инженерная. Handpan Sphere, виртуальный ханг в браузере и Telegram, я собрал сам, от идеи до кода.</p>
       <div class="actions">${action({ label: 'Моя история', href: '/about/' }, 'btn btn-line')}</div>
     </div>
-    ${photo('andy-hat', { ratio: '4/5', pos: '40% 30%', tag: 'Алтай', sizes: '(max-width: 760px) 100vw, 40vw', cls: 'intro-photo' })}
+    ${photo('sunset', { ratio: '4/5', pos: '47% 50%', tag: 'закат', sizes: '(max-width: 760px) 100vw, 40vw', cls: 'intro-photo' })}
   </div>
   <div class="wrap">${facts()}</div>
 </section>
@@ -144,7 +147,7 @@ export function home(posts) {
 
 <section class="section night listen" aria-labelledby="listen-title">
   <div class="wrap">
-    ${secHead('listen-title', 'послушать', 'Альбом Music of the Sphere’s и записи с Алтая. Наушники и десять спокойных минут.', { actions: action({ label: 'Слушать альбом', href: SITE.album }, 'btn btn-orange') + link(SITE.rutube, 'Все видео') })}
+    ${secHead('listen-title', 'послушать', 'Альбом Music of the Sphere’s и записи с Алтая. Наушники и десять спокойных минут.', { extra: platforms(), actions: action({ label: 'Слушать альбом', href: SITE.album }, 'btn btn-orange') + link(SITE.rutube, 'Все видео') })}
     ${videos()}
   </div>
 </section>
@@ -361,7 +364,7 @@ export function sound() {
       ${photo('session-forest', { ratio: '3/4', pos: '40% 50%', caption: 'Бали: запись в туманном лесу у вулкана', sizes: '(max-width: 760px) 100vw, 33vw' })}
       ${photo('session-wedding', { ratio: '3/4', caption: 'Свадьбы и вечерние события', sizes: '(max-width: 760px) 100vw, 33vw' })}
       ${photo('event-portrait', { ratio: '3/4', caption: 'Музыка для открытых практик', sizes: '(max-width: 760px) 100vw, 33vw' })}
-      ${photo('sculpture', { ratio: '3/4', caption: 'Земли Силы: вечерние сеты под открытым небом', sizes: '(max-width: 760px) 100vw, 33vw' })}
+      ${photo('sky-play', { ratio: '3/4', pos: '50% 40%', caption: 'Сеты под открытым небом', sizes: '(max-width: 760px) 100vw, 33vw' })}
     </div>
   </div>
 </section>
@@ -417,23 +420,23 @@ export function digital() {
     ${secHead('cases-title', 'сделано')}
     <div class="cases">
       <a class="case" href="${SITE.hps}" target="_blank" rel="noopener">
-        ${photo('hps-chords', { ratio: '3/4', tag: 'web · telegram', sizes: '(max-width: 760px) 100vw, 30vw' })}
+        ${photo('hps-chords', { ratio: '3/4', tag: 'web · telegram', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
         <h3>Handpan Sphere</h3><p>Виртуальный ханг и атмосферный бэк: аккорды, ритм и природа звучат в строе инструмента. Сайт, офлайн-приложение и Telegram Mini App на одном коде, бот на Cloudflare Workers.</p><span class="link">handpansphere.ru</span>
       </a>
       <a class="case" href="${SITE.cinematic}" target="_blank" rel="noopener">
-        ${photo('cinematic', { ratio: '3/4', pos: '38% 50%', tag: 'telegram · оплаты', sizes: '(max-width: 760px) 100vw, 30vw' })}
+        ${photo('cinematic', { ratio: '3/4', pos: '38% 50%', tag: 'telegram · оплаты', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
         <h3>Синематик</h3><p>Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Настроил приём оплат и веду проект целиком как технический специалист.</p><span class="link">@cinematiqbot</span>
       </a>
       <a class="case" href="${SITE.zemli}" target="_blank" rel="noopener">
-        ${photo('temple-sunrise', { ratio: '3/4', tag: 'процессы · команда', sizes: '(max-width: 760px) 100vw, 30vw' })}
+        ${photo('temple-sunrise', { ratio: '3/4', tag: 'процессы · команда', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
         <h3>Земли Силы</h3><p>Операционный менеджер автономного комплекса в первозданной природе Алтая. Настраиваю и автоматизирую процессы, управляю персоналом, вместе с единомышленниками развиваю проект.</p><span class="link">Проект «Земли Силы»</span>
       </a>
       <div class="case">
-        ${photo('play-sun', { ratio: '3/4', tag: 'webgl · скан', sizes: '(max-width: 760px) 100vw, 30vw' })}
+        ${photo('play-sun', { ratio: '3/4', tag: 'webgl · скан', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
         <h3>andynow.ru</h3><p>Этот сайт: фото первого экрана рассыпается на десятки тысяч точек и собирается в ханг, волны и куб на WebGL. Журнал из канала, единая цветовая обработка фото. Статический, быстрый, без лишних зависимостей.</p>
       </div>
       <div class="case">
-        ${photo('otf-sphere', { ratio: '3/4', tag: 'next.js · payload', sizes: '(max-width: 760px) 100vw, 30vw' })}
+        ${photo('otf-sphere', { ratio: '3/4', tag: 'next.js · payload', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
         <h3>~ontheflow./</h3><p>Магазин редких артефактов на Next.js и Payload CMS: витрина, корзина, заказы с уведомлениями в Telegram, админка на русском.</p>
       </div>
     </div>
@@ -461,7 +464,7 @@ ${ctaBand({ title: 'Обсудим проект', text: 'Опишите зада
 
 export function projects() {
   const items = PROJECTS.map((p, i) => `<article class="project">
-  ${p.photo ? photo(p.photo, { ratio: '4/5', tag: n2(i) + ' / 0' + PROJECTS.length, sizes: '(max-width: 980px) 100vw, 40vw', cls: 'project-photo' }) : `<div class="project-photo project-empty resin" aria-hidden="true"><span>${esc(p.name)}</span></div>`}
+  ${p.photo ? photo(p.photo, { ratio: '4/5', tag: n2(i) + ' / 0' + PROJECTS.length, sizes: '(max-width: 980px) 100vw, 40vw', cls: 'project-photo ice' }) : `<div class="project-photo project-empty resin" aria-hidden="true"><span>${esc(p.name)}</span></div>`}
   <div class="project-text">
     <span class="state${p.live ? ' is-live' : ''}">${esc(p.state)}</span>
     <h2>${esc(p.name)}</h2>

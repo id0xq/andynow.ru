@@ -92,7 +92,7 @@
   // resin cards and ice cases lean a little towards the cursor; the gloss follows it, the picture
   // inside moves the other way, as if seen through a thick clear block
   if (!still && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    $$('.resin, .slab, .ice-box').forEach((el) => {
+    $$('.resin, .slab').forEach((el) => {
       let frame = 0;
       el.addEventListener('pointermove', (e) => {
         cancelAnimationFrame(frame);

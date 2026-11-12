@@ -33,10 +33,10 @@ export function split(text, { dot = false } = {}) {
 
 // Section title between a tilde and a dot-slash: ~ чем могу быть полезен ./ (as in ~ontheflow./),
 // with an optional line under it.
-export function secHead(id, title, sub = '', { align = 'center', actions = '' } = {}) {
+export function secHead(id, title, sub = '', { align = 'center', actions = '', extra = '' } = {}) {
   return `<div class="sec-head sec-${align}">
   <h2 id="${id}" class="bracket"><span>${esc(title)}</span></h2>
-  ${sub ? `<p class="sec-sub">${esc(sub)}</p>` : ''}${actions ? `<div class="actions">${actions}</div>` : ''}
+  ${sub ? `<p class="sec-sub">${esc(sub)}</p>` : ''}${extra}${actions ? `<div class="actions">${actions}</div>` : ''}
 </div>`;
 }
 
@@ -44,10 +44,10 @@ export function secHead(id, title, sub = '', { align = 'center', actions = '' } 
 // pos: object-position for that crop; without ratio the photo keeps its own proportions.
 // A 16 px preview of the photo covers the frame at once; the file loads under it (the browser sees the
 // image the whole time, so its own lazy loading works) and the preview slides away behind the scan line
-// when the photo is loaded and on screen (see site.css, .photo). Every photo sits in an ice case, a
-// thick clear block (.slab + .glass); cls 'flat' (or a photo that is part of a card) leaves it bare.
+// when the photo is loaded and on screen (see site.css, .photo). Photos have softly rounded corners;
+// cls 'ice' sets the main ones (section heads, projects) in a thin clear frame (.slab + .glass).
 const SUFFIXES = { 1: [''], 2: ['-s', ''], 3: ['-s', '-m', ''] };
-// the light inside the ice case: refraction in its thick edge and the bevel round the picture
+// the light in the clear frame: the iridescent edge and the bevel round the picture
 export const GLASS = '<span class="glass" aria-hidden="true"></span>';
 export function photo(name, { ratio = '', pos = '', sizes = '(max-width: 760px) 100vw, 50vw', loading = 'lazy', caption = '', cls = '', tag = '' } = {}) {
   const p = PHOTOS[name];
@@ -58,13 +58,12 @@ export function photo(name, { ratio = '', pos = '', sizes = '(max-width: 760px) 
   const cap = caption ? `<figcaption>${esc(caption)}</figcaption>` : '';
   const mark = tag ? `<span class="photo-tag" aria-hidden="true">${esc(tag)}</span>` : '';
   const inner = `<span class="photo-in" style="--lq:url(${p.lq})">${img}${mark}</span>`;
-  const flat = /\b(flat|offer-photo|room-photo)\b/.test(cls);
-  const body = flat ? inner : `<span class="slab">${inner}${GLASS}</span>`;
+  const body = /\bice\b/.test(cls) ? `<span class="slab">${inner}${GLASS}</span>` : inner;
   return `<figure class="photo${ratio ? ' is-framed' : ''}${cls ? ' ' + cls : ''}"${style ? ` style="${style}"` : ''}>${body}${cap}</figure>`;
 }
 
 // The last block of most pages: four ways to start, each a message already typed in Telegram.
-export function ctaBand({ title = 'Напишите мне', text = 'Выберите, с чем вы пришли: сообщение уже будет набрано, останется отправить. Отвечаю лично.' } = {}) {
+export function ctaBand({ title = 'Напишите мне', text = 'Выберите, с чем вы пришли, сообщение автоматически напишется, останется отправить. Отвечаю лично.' } = {}) {
   const items = [['Хочу учиться играть', 'lesson', 'занятие или курс'], ['Подобрать инструмент', 'instrument', 'ханг под ваш звук'], ['Пригласить звучать', 'event', 'ретрит, событие, практика'], ['Обсудить проект', 'project', 'сайт, приложение, автоматизация']];
   return `<section class="section cta" aria-labelledby="cta-title">
   <div class="wrap cta-grid">

@@ -41,7 +41,6 @@ PHOTOS = {
     'play-sun':        (BANK + '/andy nika phuket/DSC09931.JPG', 'Andy Now играет на ханге на камнях у моря'),
     'river-hat':       (ALTAI + '/DSC09998-1.jpg', 'Andy Now играет на ханге у реки на Алтае'),
     'river-wide':      (ALTAI + '/DSC09957-3.jpg', 'Andy Now играет на ханге у реки в горах Алтая'),
-    'sculpture':       (ALTAI + '/DSC09370-1.jpg', 'Andy Now с хангом у светящейся скульптуры на Алтае'),
     'temple-arch':     (ALTAI + '/DSC00080-1.jpg', 'Andy Now у круглой арки перед Храмом Звука'),
     'hang-chest':      (BANK + '/andy nika phuket/DSC09753.JPG', 'Ханг в руках у моря'),
     'hangs-back':      (BANK + '/andy nika phuket/DSC09837.JPG', 'Двое музыкантов спиной к спине с хангами'),
@@ -61,9 +60,10 @@ PHOTOS = {
     'altai-tipi':      (os.path.expanduser('~/Downloads/handpan-sphere/marketing/carousels/assets/photos/altai-valley-hd.jpg'), 'Типи на поляне в долине Катуни на рассвете'),
     'temple-sunrise':  (HPS + '/temple-sunrise.webp', 'Зеркальный Храм Звука на рассвете, Алтай'),
     'temple-summer':   (BANK + '/DJI_20240401003113_0213_D.JPG', 'Зеркальный Храм Звука летом в долине Катуни'),
+    'sunset':          (os.path.join(ROOT, 'sources', 'sunset.jpg'), 'Andy Now с хангом на камне в море на закате'),
+    'sky-play':        (os.path.join(ROOT, 'sources', 'sky.jpg'), 'Andy Now играет на ханге под открытым небом'),
     'cinematic':       (os.path.expanduser('~/Downloads/now./синематик 2/DSC01232.jpg'), 'Съёмка на телефон: кадр школы мобильной видеосъёмки Синематик'),
     # the learning photos of handpansphere.ru
-    'andy-hat':        (HPS + '/andy-hat.jpg', 'Andy Now в шляпе играет на ханге на закате, Алтай'),
     'andy-river':      (HPS + '/andy-river.jpg', 'Andy Now с хангом у горной реки на Алтае'),
     'altai-glow':      (HPS + '/altai-glow.jpg', 'Ханг у светящейся скульптуры в долине Алтая'),
     'beach-djembe':    (HPS + '/beach-djembe.jpg', 'Занятие на пляже: ханг и джембе'),
@@ -79,9 +79,17 @@ SCREENS = {
     'otf-sphere': (os.path.join(ROOT, 'sources', 'ontheflow-sphere.png'), '~ontheflow./: оранжевая сфера в мурмурации (tools/sphere.py)', None),
 }
 # the first screen: DSC00134 at 2400x3200 and its subject mask (swift tools/lift.swift sources/sea.jpg cut.png sources/sea-mask.png)
-SEA = os.path.join(ROOT, 'sources', 'sea.jpg')
-SEA_MASK = os.path.join(ROOT, 'sources', 'sea-mask.png')
-FRAME_TOP = 0.36   # the frame starts here; above it only Andy stands out, over the page
+# the first screen: a frame cut from the photo (crop, 3:4) that starts at `frame` of its height; above
+# that line only Andy stands out of it, over the page. The mask: swift tools/lift.swift SRC cut.png MASK
+HERO = {
+    'src': os.path.join(ROOT, 'sources', 'sea.jpg'),             # DSC00134, Phuket, 2400x3200
+    'mask': os.path.join(ROOT, 'sources', 'sea-mask.png'),
+    'crop': (0, 0, 2400, 3200),
+    'frame': 0.36,                                                # 0 would be the whole frame, no figure above it
+    'scale': 0.5,                                                 # 1600 px high; a small source goes up with a touch of sharpening
+    'subject_stats': True,                                        # grade measured on Andy, the sky stays itself
+    'alt': 'Andy Now с хангом на камнях у моря, Пхукет',
+}
 SIZES = {'': 1600, '-m': 1200, '-s': 720}   # longest side of each file
 SEED = 7
 
@@ -143,29 +151,35 @@ def save_set(name, im, meta, alt, graded=True):
 
 
 def hero(meta):
-    """The first screen: the photo in a frame that starts at FRAME_TOP, and Andy above that line cut
-    out of the sky, so he stands out of the frame onto the page. One RGBA file per size."""
-    src, m = Image.open(SEA).convert('RGB'), Image.open(SEA_MASK).convert('L')
+    """The first screen (HERO): the photo in a frame that starts at HERO['frame'], and Andy above that
+    line cut out of the sky, so he stands out of the frame onto the page. One RGBA file per size."""
+    H = HERO
+    src = Image.open(H['src']).convert('RGB').crop(H['crop'])
+    m = Image.open(H['mask']).convert('L').crop(H['crop'])
+    big = round(src.height * H['scale'])
     core = m.filter(ImageFilter.MinFilter(9))     # the inside of the subject, for clean edge colours
-    for suffix, side in (('', 1600), ('-s', 960)):
+    for suffix, side in (('', big), ('-s', min(960, big))):
         h = side
         w = round(src.width * h / src.height)
         mask = np.asarray(m.resize((w, h), Image.LANCZOS), np.float32) / 255
-        a = grain(grade(src.resize((w, h), Image.LANCZOS), mask=mask > 0.5, blue=0.16), 2.4 if not suffix else 2.0)
+        pic = src.resize((w, h), Image.LANCZOS)
+        if h > src.height:
+            pic = pic.filter(ImageFilter.UnsharpMask(radius=1.2, percent=60, threshold=2))
+        a = grain(grade(pic, mask=(mask > 0.5) if H['subject_stats'] else None), 2.4 if not suffix else 2.0)
         # above the frame the edge pixels carry blue sky: give them the colour of the subject next to them
         c = np.asarray(core.resize((w, h), Image.LANCZOS), np.float32)[..., None] / 255
         num, den = blur_rgb(a * c, 6), blur_rgb(np.repeat(c, 3, -1), 6)
-        top = round(h * FRAME_TOP)
+        top = round(h * H['frame'])
         edge = (mask < 0.995) & (den[..., 0] > 0.03)
         edge[top:] = False
         a[edge] = (num / np.maximum(den, 1e-3))[edge]
         alpha = np.clip((mask - 0.1) / 0.9, 0, 1)
         alpha[top:] = 1
         im = Image.fromarray((np.dstack([a, alpha]) * 255 + 0.5).astype(np.uint8), 'RGBA')
-        im.save(os.path.join(OUT, 'hero-sea' + suffix + '.webp'), 'WEBP', quality=84, method=6)
+        im.save(os.path.join(OUT, 'hero' + suffix + '.webp'), 'WEBP', quality=86, method=6)
         if not suffix:
-            meta['hero-sea'] = {'w': w, 'h': h, 'alt': 'Andy Now с хангом на камнях у моря, Пхукет', 'frameTop': FRAME_TOP}
-    print('hero-sea done')
+            meta['hero'] = {'w': w, 'h': h, 'alt': H['alt'], 'frameTop': H['frame'], 'small': round(src.width * min(960, big) / src.height)}
+    print('hero done', w, h)
 
 
 def blur_rgb(x, r):
@@ -189,6 +203,8 @@ def only(names):
         if name in PHOTOS:
             src, alt = PHOTOS[name]
             save_set(name, grade(fit(open_any(src), SIZES[''])), meta, alt)
+        elif name == 'hero':
+            hero(meta)
         elif name in SCREENS:
             src, alt, box = SCREENS[name]
             im = Image.open(src).convert('RGB')

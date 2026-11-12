@@ -1,5 +1,5 @@
 // The first screen.
-// At rest it is a photo (assets/img/hero-sea.webp: Andy by the sea, stepping out of the frame onto the
+// At rest it is a photo (assets/img/hero.webp, made by tools/photos.py from HERO: Andy by the sea, stepping out of the frame onto the
 // page) with a scan line (CSS) and three trackers whose coordinates stay alive (here, without WebGL).
 // When a statement of the headline is chosen, the photo is taken apart into tens of thousands of
 // coloured points (position from the pixel, colour from the photo) that lift off into a murmuration

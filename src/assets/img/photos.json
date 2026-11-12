@@ -54,17 +54,6 @@
   ],
   "lq": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAsAAwBSJZwAAuOHJLKupYAA/QGh0TiFVpGROS+EnwEpSPd2NZhdlbhyyWjt9StzNm/R64wHAAAA"
  },
- "sculpture": {
-  "w": 1067,
-  "h": 1600,
-  "alt": "Andy Now с хангом у светящейся скульптуры на Алтае",
-  "widths": [
-   480,
-   800,
-   1067
-  ],
-  "lq": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoQABgAPt1cpkyopSOiMAgBEBuJQBOkDgBcAVOYO87/rivaMAD7nlDdNUlfLajdlHI1MN6eotcJZ8+zDa/yQS4qtcdhj8173Lo7HOiY7aw8SopmakYXo396t8YfHCrIt52qS7pEM/EGgPFugWh60AAA"
- },
  "temple-arch": {
   "w": 1067,
   "h": 1600,
@@ -252,17 +241,6 @@
   ],
   "lq": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoQABAAAwBSJQBOgB6MzUIM2hoA/uzhqtv6SJ5aT+9V59Qnh/plRwYzyMIATHHzVZp66aw8TSOQbvrXvJnJWK/xY28iY5arW+yIlVClAAA="
  },
- "andy-hat": {
-  "w": 1108,
-  "h": 1600,
-  "alt": "Andy Now в шляпе играет на ханге на закате, Алтай",
-  "widths": [
-   499,
-   831,
-   1108
-  ],
-  "lq": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAABQBACdASoQABcAPt1cp0yopSOiMAgBEBuJQBOgA/C7EEDcsRahTJLDJTpAAP7HYVtZEsa1WlAAguksLJ7h699N2zmVNDLv7HVcJhFfE4b2PTxTjC0w81AtkHC8aEE2UAAAAA=="
- },
  "andy-river": {
   "w": 1600,
   "h": 898,
@@ -373,12 +351,6 @@
   ],
   "lq": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAABQAwCdASoQABUAPt1apkyopSOiMAgBEBuJaQAAW+oWZHIIcAD+9Bt5mn8SL6VG+PW0es54E9I5sSZkry14QAAA"
  },
- "hero-sea": {
-  "w": 1200,
-  "h": 1600,
-  "alt": "Andy Now с хангом на камнях у моря, Пхукет",
-  "frameTop": 0.36
- },
  "temple-summer": {
   "w": 1600,
   "h": 900,
@@ -411,5 +383,34 @@
    1600
   ],
   "lq": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoQAAoAAwBSJZgCdAEVuJyKjZgA/sHZtT87BNL38c45Ft+6Cd6usQFVIty6SEDX6QdvzwivFQGyTfulUXhraAAA"
+ },
+ "hero": {
+  "w": 1200,
+  "h": 1600,
+  "alt": "Andy Now с хангом на камнях у моря, Пхукет",
+  "frameTop": 0.36,
+  "small": 720
+ },
+ "sky-play": {
+  "w": 1600,
+  "h": 1200,
+  "alt": "Andy Now играет на ханге под открытым небом",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoQAAwAAwBSJbACdADcJb3GtoAA/lM+0+OJZZOMfAlIAUq7Z8x5nWGwbb5HA/JkpNlRM+pR3NbKF7gLZD4vLs+ST2+siIm2WN9QcFAh4AA="
+ },
+ "sunset": {
+  "w": 1600,
+  "h": 806,
+  "alt": "Andy Now с хангом на камне в море на закате",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoQAAgAAwBSJZACdACeersEAP717+MYZiSPvy3sIMjED7aNfMpjsiHa41JEjYNYcnpGvSC4mknO2AXmN9wAAA=="
  }
 }

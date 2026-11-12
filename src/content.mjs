@@ -81,6 +81,17 @@ export const ROOMS = [
   { href: '/digital/', photo: 'laptop', pos: '50% 60%', title: 'Цифровые продукты', text: 'Сайты, Telegram-приложения и автоматизация для ваших проектов.' },
 ];
 
+// the album Music of the Sphere's on the platforms (as on band.link/andynow); icon: key of ICONS
+export const PLATFORMS = [
+  ['Яндекс Музыка', 'https://music.yandex.ru/album/39825812', 'yandexmusic'],
+  ['Spotify', 'https://open.spotify.com/album/2NLiiE7YaUAMY7rhpDIdKW', 'spotify'],
+  ['Apple Music', 'https://music.apple.com/album/1862473933?app=music', 'applemusic'],
+  ['iTunes', 'https://music.apple.com/album/1862473933?app=itunes', 'itunes'],
+  ['YouTube Music', 'https://music.youtube.com/playlist?list=OLAK5uy_lXXkUceikfXJ_QX0kc0ZdQS8gT9uMZA9k', 'youtubemusic'],
+  ['Amazon Music', 'https://music.amazon.com/albums/B0G8CP1Y67', 'amazonmusic'],
+  ['VK', 'https://vk.com/music_ofspheres', 'vk'],
+];
+
 export const PROJECTS = [
   {
     name: 'Handpan Sphere', state: 'работает', live: true, photo: 'hps-atmo',

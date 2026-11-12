@@ -6,7 +6,7 @@ import { existsSync, createReadStream, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { dirname, join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { page, esc } from './src/layout.mjs';
+import { page, esc, PHOTOS } from './src/layout.mjs';
 import { SITE } from './src/content.mjs';
 import { loadPosts } from './src/journal.mjs';
 import * as P from './src/pages.mjs';
@@ -44,7 +44,7 @@ async function build() {
 
   const posts = loadPosts();
   const pages = [
-    { path: '/', title: 'Andy Now — ханг: обучение, инструменты, живой звук', description: 'Andy Now — музыкант и исследователь звука. Обучаю игре на ханге, подбираю инструменты, звучу на ретритах и событиях, собираю цифровые продукты.', body: P.home(posts), jsonld: PERSON, scripts: ['/assets/js/live.js'], bodyClass: 'is-home', preload: '<link rel="preload" as="image" type="image/webp" href="/assets/img/hero-sea.webp" imagesrcset="/assets/img/hero-sea-s.webp 720w, /assets/img/hero-sea.webp 1200w" imagesizes="(max-width: 900px) 92vw, 46vw" fetchpriority="high">\n' },
+    { path: '/', title: 'Andy Now — ханг: обучение, инструменты, живой звук', description: 'Andy Now — музыкант и исследователь звука. Обучаю игре на ханге, подбираю инструменты, звучу на ретритах и событиях, собираю цифровые продукты.', body: P.home(posts), jsonld: PERSON, scripts: ['/assets/js/live.js'], bodyClass: 'is-home', preload: `<link rel="preload" as="image" type="image/webp" href="/assets/img/hero.webp" imagesrcset="/assets/img/hero-s.webp ${PHOTOS.hero.small}w, /assets/img/hero.webp ${PHOTOS.hero.w}w" imagesizes="(max-width: 900px) 92vw, 46vw" fetchpriority="high">\n` },
     { path: '/learn/', title: 'Обучение игре на ханге', description: 'Занятия на ханге онлайн и вживую: разовое занятие, курс из 2, 4 или 8 встреч, наставничество и курс ведущего звуковых сессий. Музыкальный опыт не нужен.', body: P.learn() },
     { path: '/instruments/', title: 'Подбор ханга', description: 'Помогу выбрать ханг по звуку, задаче и рукам. Три вопроса, строи на девять нот и расширенные, наличие, сроки и стоимость.', body: P.instruments() },
     { path: '/sound/', title: 'Живой ханг на ретритах и событиях', description: 'Звуковые сессии и сеты на ханге от 15 до 90 минут: ретриты, йога, фестивали, свадьбы и частные события.', body: P.sound() },

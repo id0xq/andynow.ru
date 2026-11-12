@@ -114,7 +114,7 @@ p { margin: 0 0 1em; }
 
 /* ── photos: develop on entering, drift while on screen ───────────────────────────────────────── */
 .photo { position: relative; margin: 0; }
-.photo-in { position: relative; display: block; overflow: hidden; background: var(--paper-2); }
+.photo-in { position: relative; display: block; overflow: hidden; border-radius: 14px; background: var(--paper-2); }
 .photo img { display: block; width: 100%; height: auto; }
 .photo.is-framed .photo-in { aspect-ratio: var(--ratio, 4 / 5); }
 .photo.is-framed img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
@@ -207,7 +207,7 @@ p { margin: 0 0 1em; }
 .live.is-points .stage-meta, .live.is-points .stage-trackers { opacity: 0; }
 .live-scan { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--orange); box-shadow: 0 0 10px rgba(255, 90, 31, 0.7); pointer-events: none; animation: scan 7.5s cubic-bezier(.45, 0, .55, 1) infinite; }
 /* the glow behind the line lights the photo only: its layer is masked by the photo's own alpha */
-.stage-glow { position: absolute; inset: 0; pointer-events: none; -webkit-mask: url(/assets/img/hero-sea-s.webp) 0 0 / 100% 100% no-repeat; mask: url(/assets/img/hero-sea-s.webp) 0 0 / 100% 100% no-repeat; }
+.stage-glow { position: absolute; inset: 0; pointer-events: none; -webkit-mask: url(/assets/img/hero-s.webp) 0 0 / 100% 100% no-repeat; mask: url(/assets/img/hero-s.webp) 0 0 / 100% 100% no-repeat; }
 .stage-glow span { position: absolute; left: 0; right: 0; top: 0; height: 110px; margin-top: -110px; background: linear-gradient(0deg, rgba(255, 110, 50, 0.24), rgba(255, 110, 50, 0)); animation: scan 7.5s cubic-bezier(.45, 0, .55, 1) infinite; }
 @keyframes scan { 0% { top: 0; opacity: 0; } 6% { opacity: 1; } 82% { opacity: 1; } 88%, 100% { top: 100%; opacity: 0; } }
 .live.no-scan .live-scan, .live.no-scan .stage-glow { display: none; }
@@ -254,66 +254,42 @@ p { margin: 0 0 1em; }
     inset 0 0 28px rgba(200, 234, 244, 0.1); }
 .resin .photo-in img { scale: 1.035; translate: var(--dx) var(--dy); transition: transform 1s var(--ease), translate .8s var(--ease); }
 .resin.is-tilting .photo-in img { transition: transform 1s var(--ease), translate .18s linear; }
-/* ── ice case: every photo is set in a thick block of clear resin or ice ───────────────────────────
-   The block (.slab, or .ice-box for rooms and videos) is a pale rounded slab with a bright rim; its
-   thick edge catches warm and cool light (.glass::before, a ring masked out of two gradients and a
-   little blurred); round the picture runs a bevel with a split of colour, red on one side and blue on
-   the other, and a sheen that follows the cursor (.glass::after). It leans towards the cursor. */
-.slab, .ice-box { --pad: clamp(10px, 1.4vw, 20px); --r: 30px; --ri: 16px; --rx: 0deg; --ry: 0deg; --mx: 30%; --my: 0%; --dx: 0px; --dy: 0px;
+/* ── ice frame: a thin clear edge with light flowing through it ───────────────────────────────────
+   Only the main photos wear it: the head of each section page, the projects, the made cases.
+   The frame is clear: a hairline rim and a soft shadow; inside its narrow edge an iridescent light
+   (orange, gold, ice blue, lilac) slowly flows round, and a glint runs the other way, as if the block
+   turned in the sun. Round the picture a thin bevel with a split of colour. The frame sways a little
+   by itself and leans towards the cursor. Without @property support the light simply stands still. */
+@property --spin { syntax: '<angle>'; inherits: true; initial-value: 0deg; }
+@property --sway { syntax: '<angle>'; inherits: true; initial-value: 0deg; }
+.slab { --pad: clamp(5px, 0.5vw, 7px); --r: 20px; --ri: 15px; --rx: 0deg; --ry: 0deg; --mx: 30%; --my: 0%; --dx: 0px; --dy: 0px;
   position: relative; display: block; padding: var(--pad); border-radius: var(--r); isolation: isolate;
-  background: linear-gradient(140deg, #FFFFFF 0%, #E4ECF0 30%, #FBFDFD 50%, #D7E2E8 78%, #EEF3F5 100%);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.95),
-    inset 0 0 0 2px rgba(150, 170, 182, 0.25),
-    inset 0 3px 2px -1px #fff,
-    inset 0 -4px 8px rgba(100, 122, 135, 0.32),
-    inset 6px 0 10px -4px rgba(255, 145, 45, 0.55),
-    inset -6px 0 10px -4px rgba(80, 160, 255, 0.45),
-    0 0 0 1px rgba(16, 22, 27, 0.08),
-    0 3px 8px -3px rgba(16, 22, 27, 0.16),
-    0 40px 70px -36px rgba(16, 22, 27, 0.6);
-  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)); transition: transform .8s var(--ease), box-shadow .8s var(--ease); }
-.slab.is-tilting, .ice-box.is-tilting { transition-duration: .18s, .5s; }
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 0 1px rgba(20, 28, 34, 0.1), 0 2px 6px -2px rgba(16, 22, 27, 0.12), 0 28px 56px -32px rgba(16, 22, 27, 0.45);
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(calc(var(--ry) + var(--sway)));
+  transition: transform .8s var(--ease);
+  animation: ice-spin 12s linear infinite, ice-sway 9s ease-in-out infinite alternate; }
+@keyframes ice-spin { to { --spin: 360deg; } }
+@keyframes ice-sway { from { --sway: -2deg; } to { --sway: 2deg; } }
+.slab.is-tilting { transition-duration: .18s; }
 .slab > .photo-in { border-radius: var(--ri); }
-.slab .photo-in img, .ice-box .photo-in img, .ice-box .video-pic img { scale: 1.035; translate: var(--dx) var(--dy); transition: transform 1s var(--ease), translate .8s var(--ease), opacity .4s; }
-.is-tilting .photo-in img, .is-tilting .video-pic img { transition: transform 1s var(--ease), translate .18s linear, opacity .4s; }
+.slab .photo-in img { scale: 1.035; translate: var(--dx) var(--dy); transition: transform 1s var(--ease), translate .8s var(--ease); }
+.slab.is-tilting .photo-in img { transition: transform 1s var(--ease), translate .18s linear; }
 .glass { position: absolute; inset: 0; z-index: 5; border-radius: inherit; pointer-events: none; }
 .glass::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: var(--pad);
   background:
-    linear-gradient(125deg, rgba(255, 255, 255, 0) 26%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0) 35%),
-    linear-gradient(100deg, rgba(255, 128, 30, 0.85) 0%, rgba(255, 210, 100, 0.55) 8%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0) 72%, rgba(150, 120, 255, 0.35) 86%, rgba(90, 185, 255, 0.6) 94%, rgba(255, 110, 60, 0.7) 100%),
-    linear-gradient(180deg, rgba(255, 200, 80, 0.6) 0%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0) 78%, rgba(255, 110, 40, 0.7) 100%);
+    conic-gradient(from calc(40deg - var(--spin) * 2), rgba(255, 255, 255, 0) 0deg, rgba(255, 255, 255, 0.95) 9deg, rgba(255, 255, 255, 0) 24deg, rgba(255, 255, 255, 0) 360deg),
+    conic-gradient(from var(--spin), rgba(255, 138, 61, 0.9) 0deg, rgba(255, 214, 122, 0.75) 45deg, rgba(255, 255, 255, 0.15) 95deg, rgba(191, 243, 255, 0.7) 150deg, rgba(143, 180, 255, 0.75) 195deg, rgba(255, 255, 255, 0.15) 250deg, rgba(226, 180, 255, 0.7) 300deg, rgba(255, 138, 61, 0.9) 360deg);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
-  filter: blur(2px); opacity: 0.85; }
+  filter: blur(0.5px); opacity: 0.9; }
 .glass::after { content: ''; position: absolute; inset: var(--pad); border-radius: var(--ri);
-  background:
-    radial-gradient(80% 60% at var(--mx) var(--my), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 65%),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 28%);
+  background: radial-gradient(80% 60% at var(--mx) var(--my), rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 65%);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.95),
-    0 0 0 2px rgba(120, 142, 155, 0.3),
-    0 0 10px 3px rgba(80, 100, 112, 0.22),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    inset 2px 0 3px -1px rgba(255, 40, 80, 0.5),
-    inset -2px 0 3px -1px rgba(20, 160, 255, 0.5),
-    inset 0 2px 3px -1px rgba(255, 210, 80, 0.4),
-    inset 0 0 22px rgba(255, 255, 255, 0.12); }
-/* rooms: the whole card is the block; its picture and words sit inside the edge */
-.room.ice-box { overflow: visible; background: linear-gradient(140deg, #FFFFFF 0%, #E7EEF1 34%, #FAFCFC 52%, #DCE6EB 100%); }
-.room.ice-box .photo-in { border-radius: var(--ri); background: var(--night); }
-.room.ice-box::after { inset: var(--pad); border-radius: var(--ri); }
-.room.ice-box h3 { left: calc(22px + var(--pad)); top: calc(20px + var(--pad)); right: calc(60px + var(--pad)); }
-.room.ice-box .room-n { right: calc(22px + var(--pad)); top: calc(26px + var(--pad)); }
-.room.ice-box p { left: calc(22px + var(--pad)); right: calc(64px + var(--pad)); bottom: calc(20px + var(--pad)); }
-.room.ice-box .room-go { right: calc(22px + var(--pad)); bottom: calc(18px + var(--pad)); }
-.room.ice-box .corners { inset: calc(12px + var(--pad)); }
-.room.ice-box:hover .corners { inset: calc(16px + var(--pad)); }
-/* videos: the poster inside the block */
-.video-play.ice-box { padding: var(--pad); overflow: visible; background: linear-gradient(140deg, #FFFFFF 0%, #E7EEF1 34%, #FAFCFC 52%, #DCE6EB 100%); }
-.video-pic { position: absolute; inset: var(--pad); overflow: hidden; border-radius: var(--ri); background: #000; }
-.video-pic img { display: block; }
-.video-play .play { z-index: 6; }
+    0 0 0 1px rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    inset 2px 0 2px -1px rgba(255, 50, 90, 0.45),
+    inset -2px 0 2px -1px rgba(30, 160, 255, 0.45); }
 
 /* cards without a photo: a block of ice on the white */
 .free-item.resin, .quiz-result.resin, .facts-cards li, .project-empty.resin { border: 0; background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F6 100%); }
@@ -352,13 +328,22 @@ p { margin: 0 0 1em; }
 
 .videos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .video { margin: 0; }
-.video-play { position: relative; display: block; width: 100%; padding: 0; overflow: hidden; aspect-ratio: 16 / 9; border: 0; background: #000; cursor: pointer; }
+.video-play { position: relative; display: block; width: 100%; padding: 0; overflow: hidden; aspect-ratio: 16 / 9; border: 0; border-radius: 14px; background: #000; cursor: pointer; }
+.video-pic { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+.video-pic img { display: block; }
 .video-play img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .4s; opacity: 0.88; }
 .video-play:hover img { transform: scale(1.04); opacity: 1; }
 .play { position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; background: var(--orange); transition: transform .3s var(--ease); }
 .play::after { content: ''; position: absolute; left: 25px; top: 20px; border-left: 15px solid var(--ink); border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
 .video-play:hover .play { transform: scale(1.1); }
-.video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; display: block; }
+.video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 14px; display: block; }
+
+/* the album on the platforms: small rounded chips with the platform's mark */
+.platforms { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 760px; margin: 28px 0 0; padding: 0; }
+.platforms a { display: inline-flex; align-items: center; gap: 9px; padding: 9px 15px 9px 11px; border: 1px solid var(--line); border-radius: 999px; font: 500 12.5px/1 var(--sans); letter-spacing: 0.02em; color: var(--fg); text-decoration: none; transition: border-color .25s, color .25s, background-color .25s; }
+.platforms svg { flex: none; width: 18px; height: 18px; fill: currentColor; }
+.platforms a:hover { border-color: var(--orange); color: var(--orange); }
+.platforms a:focus-visible { outline-offset: 2px; }
 .video figcaption { display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); font-weight: 500; }
 .video figcaption .mono { color: var(--fg-2); }
 .video figcaption .mono:first-child { color: var(--orange); }
@@ -595,5 +580,5 @@ a.case:hover h3 { color: var(--orange); }
   .js .photo img { transform: none; }
   .js .photo.is-alive img { animation: none; }
   .live-scan, .stage-glow span { animation: none; top: 52%; }
-  .resin, .slab, .ice-box { transform: none; }
+  .resin, .slab { transform: none; animation: none; }
 }
