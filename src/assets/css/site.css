@@ -114,7 +114,7 @@ p { margin: 0 0 1em; }
 
 /* ── photos: develop on entering, drift while on screen ───────────────────────────────────────── */
 .photo { position: relative; margin: 0; }
-.photo-in { position: relative; display: block; overflow: hidden; background: var(--paper-2) no-repeat; background-size: cover; background-position: var(--pos, 50% 50%); }
+.photo-in { position: relative; display: block; overflow: hidden; background: var(--paper-2); }
 .photo img { display: block; width: 100%; height: auto; }
 .photo.is-framed .photo-in { aspect-ratio: var(--ratio, 4 / 5); }
 .photo.is-framed img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
@@ -122,8 +122,12 @@ p { margin: 0 0 1em; }
 .photo-tag { position: absolute; left: 14px; top: 14px; z-index: 2; padding-left: 14px; font: 400 10px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35); pointer-events: none; }
 .photo-tag::before { content: ''; position: absolute; left: 0; top: -3px; width: 8px; height: 8px; border-left: 1px solid var(--orange); border-top: 1px solid var(--orange); }
 .photo-in::after { content: ''; position: absolute; left: 0; right: 0; top: 0; z-index: 3; height: 1px; background: var(--orange); box-shadow: 0 0 12px rgba(255, 90, 31, 0.8); opacity: 0; pointer-events: none; }
-.js .photo img { clip-path: inset(0 0 100% 0); transform: scale(1.04); transition: clip-path .6s cubic-bezier(.6, 0, .2, 1), transform 1s var(--ease); }
-.js .photo.is-seen img { clip-path: inset(0 0 0 0); transform: scale(1); }
+/* the preview lies over the photo and slides away from the top, right behind the scan line; the photo
+   itself is never hidden from the browser, so it loads early on its own */
+.js .photo-in::before { content: ''; position: absolute; inset: 0; z-index: 1; background: var(--paper-2) var(--lq) no-repeat; background-size: cover; background-position: var(--pos, 50% 50%); pointer-events: none; transition: clip-path .6s cubic-bezier(.6, 0, .2, 1); clip-path: inset(0 0 0 0); }
+.js .photo.is-seen .photo-in::before { clip-path: inset(100% 0 0 0); }
+.js .photo img { transform: scale(1.04); transition: transform 1s var(--ease); }
+.js .photo.is-seen img { transform: scale(1); }
 .js .photo.is-seen .photo-in::after { animation: develop .6s cubic-bezier(.6, 0, .2, 1) both; }
 .js .photo.is-alive img { animation: drift 24s ease-in-out infinite alternate; }
 @keyframes develop { 0% { top: 0; opacity: 1; } 92% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
@@ -248,8 +252,8 @@ p { margin: 0 0 1em; }
     inset 0 -1px 0 rgba(0, 10, 18, 0.2),
     inset 0 -34px 54px -34px rgba(4, 14, 24, 0.38),
     inset 0 0 28px rgba(200, 234, 244, 0.1); }
-.resin .photo-in img { scale: 1.035; translate: var(--dx) var(--dy); transition: clip-path .6s cubic-bezier(.6, 0, .2, 1), transform 1s var(--ease), translate .8s var(--ease); }
-.resin.is-tilting .photo-in img { transition: clip-path .6s cubic-bezier(.6, 0, .2, 1), transform 1s var(--ease), translate .18s linear; }
+.resin .photo-in img { scale: 1.035; translate: var(--dx) var(--dy); transition: transform 1s var(--ease), translate .8s var(--ease); }
+.resin.is-tilting .photo-in img { transition: transform 1s var(--ease), translate .18s linear; }
 /* cards without a photo: a block of ice on the white */
 .free-item.resin, .quiz-result.resin, .facts-cards li, .project-empty.resin { border: 0; background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F6 100%); }
 .facts-cards li { position: relative; border-radius: 14px; box-shadow: 0 1px 1px rgba(16, 22, 27, 0.06), 0 2px 6px -2px rgba(16, 22, 27, 0.1), 0 26px 48px -30px rgba(16, 22, 27, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.9), inset 0 -14px 28px -18px rgba(90, 130, 150, 0.18); }
@@ -418,7 +422,7 @@ p { margin: 0 0 1em; }
 .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 16px; }
 
 /* digital */
-.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 28px; }
 .case { position: relative; display: flex; flex-direction: column; gap: 12px; color: inherit; text-decoration: none; }
 .case .photo { margin-bottom: 8px; }
 .case h3 { font-size: 24px; letter-spacing: -0.03em; }
@@ -445,6 +449,7 @@ a.case:hover h3 { color: var(--orange); }
 .temple-text p:not(.lead):not(.label) { font-weight: 300; color: var(--fg-2); }
 .temple-text .actions { margin-top: 28px; }
 .temple-b { margin-bottom: 64px; }
+.temple-c { grid-column: 1 / -1; margin-top: 24px; }
 
 /* journal */
 .article { padding: clamp(40px, 6vw, 88px) 0 clamp(64px, 8vw, 120px); }
@@ -526,7 +531,7 @@ a.case:hover h3 { color: var(--orange); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  .js .photo img { clip-path: none; transform: none; }
+  .js .photo img { transform: none; }
   .js .photo.is-alive img { animation: none; }
   .live-scan, .stage-glow span { animation: none; top: 52%; }
   .resin { transform: none; }

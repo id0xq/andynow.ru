@@ -42,8 +42,9 @@ export function secHead(id, title, sub = '', { align = 'center', actions = '' } 
 
 // A living photo. ratio: frame proportions ('4/5', '3/4', '16/9'…) with the picture covering it,
 // pos: object-position for that crop; without ratio the photo keeps its own proportions.
-// A 16 px preview of the photo fills the frame at once; the file itself loads in one of three sizes
-// and develops over it (see site.css, .photo). cls 'resin' makes it a card cast in clear resin.
+// A 16 px preview of the photo covers the frame at once; the file loads under it (the browser sees the
+// image the whole time, so its own lazy loading works) and the preview slides away behind the scan line
+// when the photo is loaded and on screen (see site.css, .photo). cls 'resin' makes it a resin card.
 const SUFFIXES = { 1: [''], 2: ['-s', ''], 3: ['-s', '-m', ''] };
 export function photo(name, { ratio = '', pos = '', sizes = '(max-width: 760px) 100vw, 50vw', loading = 'lazy', caption = '', cls = '', tag = '' } = {}) {
   const p = PHOTOS[name];
@@ -53,7 +54,7 @@ export function photo(name, { ratio = '', pos = '', sizes = '(max-width: 760px) 
   const img = `<img src="/assets/img/${name}.webp" srcset="${srcset}" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="${loading}"${loading === 'eager' ? ' fetchpriority="high"' : ' decoding="async"'}>`;
   const cap = caption ? `<figcaption>${esc(caption)}</figcaption>` : '';
   const mark = tag ? `<span class="photo-tag" aria-hidden="true">${esc(tag)}</span>` : '';
-  return `<figure class="photo${ratio ? ' is-framed' : ''}${cls ? ' ' + cls : ''}"${style ? ` style="${style}"` : ''}><span class="photo-in" style="background-image:url(${p.lq})">${img}${mark}</span>${cap}</figure>`;
+  return `<figure class="photo${ratio ? ' is-framed' : ''}${cls ? ' ' + cls : ''}"${style ? ` style="${style}"` : ''}><span class="photo-in" style="--lq:url(${p.lq})">${img}${mark}</span>${cap}</figure>`;
 }
 
 // The last block of most pages: four ways to start, each a message already typed in Telegram.

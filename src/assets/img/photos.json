@@ -388,5 +388,27 @@
   "h": 1600,
   "alt": "Andy Now с хангом на камнях у моря, Пхукет",
   "frameTop": 0.36
+ },
+ "temple-summer": {
+  "w": 1600,
+  "h": 900,
+  "alt": "Зеркальный Храм Звука летом в долине Катуни",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAkAAwBSJQBYdh9gAbr3gAD+8RkY88m/Ls/kbdJY++sHCi/Wxev30XObB/CiC+CPc4b50gAAAA=="
+ },
+ "cinematic": {
+  "w": 1600,
+  "h": 900,
+  "alt": "Съёмка на телефон: кадр школы мобильной видеосъёмки Синематик",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAkAAwBSJYwCdH8ADqx2HUUsAP70vgNzp23KS2nZvHDNDWeapuMB/r3Q0+9gvP9Z8XuRV3luNclowfclB4SEmYW/raAA"
  }
 }

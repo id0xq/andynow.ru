@@ -9,13 +9,15 @@ Output: src/assets/img/<name>.webp (1600 px), <name>-m.webp (1200 px), <name>-s.
 photos.json with widths, alt and a tiny blurred preview (lq) that shows while the photo loads;
 the first screen (hero-sea.webp: the frame and Andy stepping out of it, with alpha), the catalogue hangs, og.jpg.
 
-Usage: .venv/bin/python tools/photos.py   (numpy + Pillow, see tools/requirements.txt)
+Usage: .venv/bin/python tools/photos.py            everything (numpy + Pillow, see tools/requirements.txt)
+       .venv/bin/python tools/photos.py name …     only these photos
 """
 import base64
 import io
 import json
 import os
 import subprocess
+import sys
 import tempfile
 
 import numpy as np
@@ -58,6 +60,8 @@ PHOTOS = {
     'temple-inside':   (HPS + '/temple-inside.webp', 'Внутри зеркального купола Храма Звука'),
     'temple-winter':   (SUPER + '/temple-winter.webp', 'Зеркальный Храм Звука зимой'),
     'temple-sunrise':  (HPS + '/temple-sunrise.webp', 'Зеркальный Храм Звука на рассвете, Алтай'),
+    'temple-summer':   (BANK + '/DJI_20240401003113_0213_D.JPG', 'Зеркальный Храм Звука летом в долине Катуни'),
+    'cinematic':       (os.path.expanduser('~/Downloads/now./синематик 2/DSC01232.jpg'), 'Съёмка на телефон: кадр школы мобильной видеосъёмки Синематик'),
     # the learning photos of handpansphere.ru
     'andy-hat':        (HPS + '/andy-hat.jpg', 'Andy Now в шляпе играет на ханге на закате, Алтай'),
     'andy-river':      (HPS + '/andy-river.jpg', 'Andy Now с хангом у горной реки на Алтае'),
@@ -177,7 +181,27 @@ def videos():
     print('video posters done')
 
 
+def only(names):
+    """Re-renders just these photos and keeps everything else in photos.json."""
+    path = os.path.join(OUT, 'photos.json')
+    meta = json.load(open(path, encoding='utf-8'))
+    for name in names:
+        if name in PHOTOS:
+            src, alt = PHOTOS[name]
+            save_set(name, grade(fit(open_any(src), SIZES[''])), meta, alt)
+        elif name in SCREENS:
+            src, alt, box = SCREENS[name]
+            im = Image.open(src).convert('RGB')
+            save_set(name, fit(im.crop(box) if box else im, SIZES['']), meta, alt, graded=False)
+        else:
+            raise SystemExit('no photo ' + name)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(meta, f, ensure_ascii=False, indent=1)
+
+
 def main():
+    if len(sys.argv) > 1:                          # photos.py name …
+        return only(sys.argv[1:])
     os.makedirs(OUT, exist_ok=True)
     for f in os.listdir(OUT):                     # old files: names may have changed
         if f.endswith('.webp'):

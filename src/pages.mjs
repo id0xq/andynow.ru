@@ -164,7 +164,7 @@ export function learn() {
   // two columns that keep their own heights: 01 and 03 on the left, 02 and 04 on the right;
   // on a phone they fold back into one column in order (--i)
   const cards = OFFERS.map((o, i) => `<article class="offer-card resin" id="${o.id}" style="--i:${i}">
-  ${photo(o.photo, { ratio: '3/2', pos: o.pos || '', tag: n2(i) + ' / 0' + OFFERS.length, sizes: '(max-width: 900px) 100vw, 46vw', cls: 'offer-photo' })}
+  ${photo(o.photo, { ratio: o.full ? '' : '3/2', pos: o.pos || '', tag: n2(i) + ' / 0' + OFFERS.length, sizes: '(max-width: 900px) 100vw, 46vw', cls: 'offer-photo' })}
   <div class="offer-body">
     <h2>${esc(o.title)}</h2>
     <p class="offer-sub">${esc(o.lead)}</p>
@@ -419,6 +419,14 @@ export function digital() {
         ${photo('hps-chords', { ratio: '3/4', tag: 'web · telegram', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
         <h3>Handpan Sphere</h3><p>Виртуальный ханг и атмосферный бэк: аккорды, ритм и природа звучат в строе инструмента. Сайт, офлайн-приложение и Telegram Mini App на одном коде, бот на Cloudflare Workers.</p><span class="link">handpansphere.ru</span>
       </a>
+      <a class="case" href="https://t.me/cinematiqbot" target="_blank" rel="noopener">
+        ${photo('cinematic', { ratio: '3/4', pos: '38% 50%', tag: 'telegram · оплаты', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
+        <h3>Синематик</h3><p>Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Настроил приём оплат и веду проект целиком как технический специалист.</p><span class="link">@cinematiqbot</span>
+      </a>
+      <a class="case" href="${SITE.zemli}" target="_blank" rel="noopener">
+        ${photo('temple-sunrise', { ratio: '3/4', tag: 'процессы · команда', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
+        <h3>Земли Силы</h3><p>Операционный менеджер автономного комплекса в первозданной природе Алтая. Настраивал и автоматизировал процессы, управлял персоналом, вместе с единомышленниками развивал проект.</p><span class="link">Проект «Земли Силы»</span>
+      </a>
       <div class="case">
         ${photo('play-sun', { ratio: '3/4', tag: 'webgl · скан', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
         <h3>andynow.ru</h3><p>Этот сайт: фото первого экрана рассыпается на десятки тысяч точек и собирается в ханг, волны и куб на WebGL. Журнал из канала, единая цветовая обработка фото. Статический, быстрый, без лишних зависимостей.</p>
@@ -519,6 +527,7 @@ export function about() {
     </div>
     ${photo('temple-arch', { ratio: '3/4', tag: 'арка', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'temple-a' })}
     ${photo('temple-winter', { ratio: '3/4', pos: '50% 60%', tag: 'купол зимой', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'temple-b' })}
+    ${photo('temple-summer', { ratio: '16/9', pos: '50% 60%', tag: 'купол летом', sizes: '(max-width: 760px) 100vw, 90vw', cls: 'temple-c' })}
   </div>
 </section>
 
