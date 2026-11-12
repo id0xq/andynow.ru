@@ -3,15 +3,18 @@
 The grade ("Now grade") makes photos from different shoots and cameras look like one series:
 - white balance pulled halfway to a warm grey, so blue noon and orange sunset meet in the middle;
 - saturation brought to one common level, greens leaning to olive and blues to slate;
-- a soft S-curve with matte warm blacks and paper-coloured highlights (the site's ink and paper);
+- a soft S-curve with matte warm blacks and clean, nearly white highlights (the site's ink and white);
 - the same fine grain.
 The native aspect ratio is kept; the layout decides the frame.
 
-Output: src/assets/img/<name>.webp (large) and <name>-s.webp (small), photos.json with sizes and alt,
-the hero cutout (hero-cut.webp, with alpha) for the living photo, the catalogue hangs and og.jpg.
+Output: src/assets/img/<name>.webp (1600 px), <name>-m.webp (1200 px), <name>-s.webp (720 px, longest side),
+photos.json with widths, alt and a tiny blurred preview (lq) that shows while the photo loads;
+the first screen (hero-sea.webp: the frame and Andy stepping out of it, with alpha), the catalogue hangs, og.jpg.
 
 Usage: .venv/bin/python tools/photos.py   (numpy + Pillow, see tools/requirements.txt)
 """
+import base64
+import io
 import json
 import os
 import subprocess
@@ -25,17 +28,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BANK = os.path.expanduser('~/Downloads/Andy Photo Bank')
 ALTAI = BANK + '/andy paulina/2025-10-05 ANDY/ANDY'
 HPS = os.path.expanduser('~/Downloads/handpan-sphere/docs/photos/src')
-APP = os.path.expanduser('~/Downloads/handpan-sphere/marketing/carousels/assets/app')
+CAROUSEL = os.path.expanduser('~/Downloads/handpan-sphere/marketing/carousels/out/publish/ig-ru')
 SUPER = os.path.join(ROOT, 'sources', 'super')
 OUT = os.path.join(ROOT, 'src', 'assets', 'img')
 
 # name: (source, alt text)
 PHOTOS = {
     'hero-play':       (BANK + '/andy nika phuket/DSC09938.JPG', 'Andy Now играет на ханге'),
-    'figure-sea':      (BANK + '/andy nika phuket/DSC00133.JPG', 'Andy Now с хангом на берегу моря'),
     'portrait-smile':  (BANK + '/photo andy handpan/IMG_7040.JPG', 'Andy Now смеётся и играет на ханге'),
     'portrait-band':   (BANK + '/andy/IMG_5736.JPG', 'Andy Now в повязке и очках играет на ханге'),
-    'portrait-sun':    (BANK + '/andy nika phuket/DSC09495.JPG', 'Портрет Andy Now на берегу'),
     'play-sun':        (BANK + '/andy nika phuket/DSC09941.JPG', 'Andy Now играет на ханге на солнце'),
     'river-hat':       (ALTAI + '/DSC09998-1.jpg', 'Andy Now играет на ханге у реки на Алтае'),
     'river-play':      (ALTAI + '/DSC09964-1.jpg', 'Andy Now с хангом на камнях у Катуни'),
@@ -45,7 +46,7 @@ PHOTOS = {
     'temple-arch':     (ALTAI + '/DSC00080-1.jpg', 'Andy Now у круглой арки перед Храмом Звука'),
     'hang-chest':      (BANK + '/andy nika phuket/DSC09753.JPG', 'Ханг в руках у моря'),
     'hangs-duo':       (BANK + '/andy nika phuket/DSC00281.JPG', 'Два ханга в руках на фоне моря'),
-    'hangs-back':      (BANK + '/andy nika phuket/DSC09830.JPG', 'Двое музыкантов спиной к спине с хангами'),
+    'hangs-back':      (BANK + '/andy nika phuket/DSC09837.JPG', 'Двое музыкантов спиной к спине с хангами'),
     'hang-detail':     (BANK + '/photo for claude/DSC00087.JPG', 'Край ханга крупным планом'),
     'play-close':      (BANK + '/andy/IMG_5735.JPG', 'Руки над хангом во время игры'),
     'hands-top':       (BANK + '/photo for claude/DSC00012.JPG', 'Руки на ханге и барабане, вид сверху'),
@@ -62,21 +63,26 @@ PHOTOS = {
     'event-portrait':  (BANK + '/photo andy handpan/3C6728CF-64FE-4E7F-A4C1-4C23041F4D0D.JPG', 'Andy Now играет на ханге на событии'),
     'temple-inside':   (HPS + '/temple-inside.webp', 'Внутри зеркального купола Храма Звука'),
     'temple-winter':   (SUPER + '/temple-winter.webp', 'Зеркальный Храм Звука зимой'),
+    'temple-sunrise':  (HPS + '/temple-sunrise.webp', 'Зеркальный Храм Звука на рассвете, Алтай'),
     'laptop':          (BANK + '/photo_2023-06-23 19.03.08.jpeg', 'Andy Now за ноутбуком'),
     'scarf-gong':      (BANK + '/andy/DSC04273.JPG', 'Andy Now играет на ханге рядом с гонгом'),
 }
-# screens of the Handpan Sphere app: kept as they are, no grade; (source, alt, crop box in source pixels)
+# Handpan Sphere: covers of the Instagram carousels, kept as they are, no grade; (source, alt, crop box)
 SCREENS = {
-    'hps-app': (APP + '/ru-dark-playing.webp', 'Экран Handpan Sphere: ханг D Kurd 10 играет аккорды', (0, 0, 1170, 1462)),
-    'hps-pan': (APP + '/ru-dark-pan.webp', 'Ханг в приложении Handpan Sphere: ноты подсвечены цветом', None),
+    'hps-atmo':   (CAROUSEL + '/01-intro/01.jpg', 'Handpan Sphere: атмосфера в строе твоего ханга', None),
+    'hps-chords': (CAROUSEL + '/03-learn/01.jpg', 'Handpan Sphere: аккорды загораются на схеме', None),
+    'hps-start':  (CAROUSEL + '/09-start/01.jpg', 'Handpan Sphere: начни за минуту, бесплатно и без регистрации', None),
 }
-HERO_CUT = os.path.join(ROOT, 'sources', 'hero-cut.png')   # tools/lift.swift on DSC09938, cropped
-LARGE, SMALL = 1600, 760   # longest side
+# the first screen: DSC00134 at 2400x3200 and its subject mask (swift tools/lift.swift sources/sea.jpg cut.png sources/sea-mask.png)
+SEA = os.path.join(ROOT, 'sources', 'sea.jpg')
+SEA_MASK = os.path.join(ROOT, 'sources', 'sea-mask.png')
+FRAME_TOP = 0.36   # the frame starts here; above it only Andy stands out, over the page
+SIZES = {'': 1600, '-m': 1200, '-s': 720}   # longest side of each file
 SEED = 7
 LUM = np.array([0.2126, 0.7152, 0.0722], np.float32)
 WARM_GREY = np.array([0.53, 0.50, 0.46], np.float32)
 INK = np.array([0.16, 0.115, 0.085], np.float32)      # where the shadows lean
-PAPER = np.array([0.985, 0.955, 0.905], np.float32)   # where the highlights lean
+PAPER = np.array([0.99, 0.977, 0.952], np.float32)    # where the highlights lean: nearly white
 
 
 def open_any(path):
@@ -86,7 +92,7 @@ def open_any(path):
         subprocess.run(['sips', '-s', 'format', 'jpeg', path, '--out', tmp], check=True, capture_output=True)
         path = tmp
     im = Image.open(path)
-    im.draft('RGB', (LARGE * 2, LARGE * 2))
+    im.draft('RGB', (SIZES[''] * 2, SIZES[''] * 2))
     return ImageOps.exif_transpose(im).convert('RGB')
 
 
@@ -102,8 +108,9 @@ def band(h, centre, width):
     return np.clip(1 - np.abs(((h - centre + 180) % 360) - 180) / width, 0, 1)
 
 
-def grade(im, mask=None):
-    """The Now grade. mask (bool array) limits the statistics to the subject of a cutout."""
+def grade(im, mask=None, blue=0.3):
+    """The Now grade. mask (bool array) limits the statistics to the subject; blue: how much of the
+    blue saturation goes (skies and sea turn from slate at 0.45 to pale ice at 0.15)."""
     a = np.asarray(im, dtype=np.float32) / 255
     sel = mask if mask is not None else np.ones(a.shape[:2], bool)
     Y = a @ LUM
@@ -121,8 +128,8 @@ def grade(im, mask=None):
     c = a - Y[..., None]
     k = np.clip(0.05 / max(float(np.abs(c[sel]).mean()), 1e-3), 0.5, 1.1)
     h = hue(a)
-    green, blue = band(h, 100, 70), band(h, 210, 45)
-    a = Y[..., None] + c * (k * (1 - 0.5 * green - 0.45 * blue))[..., None]
+    green, blue_band, blue_k = band(h, 100, 70), band(h, 210, 45), blue
+    a = Y[..., None] + c * (k * (1 - 0.5 * green - blue_k * blue_band))[..., None]
     a[..., 0] += 0.12 * green * np.clip(a[..., 1] - a[..., 2], 0, None)
     a = np.clip(a, 0, 1)
     # 4. tone: soft S, matte warm blacks, paper highlights, a warm push
@@ -131,7 +138,7 @@ def grade(im, mask=None):
     ws = ((1 - Yn) ** 2)[..., None] * 0.30
     wl = (Yn ** 2)[..., None] * 0.16
     x = x * (1 - ws - wl) + INK * ws + PAPER * wl
-    x = x * np.array([1.02, 1.0, 0.95], np.float32)
+    x = x * np.array([1.015, 1.0, 0.965], np.float32)
     x = 0.055 + 0.915 * x
     return np.clip(x, 0, 1)
 
@@ -157,11 +164,59 @@ def fit(im, side):
     return im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
 
 
-def save_pair(name, large, small, meta, alt):
-    large.save(os.path.join(OUT, name + '.webp'), 'WEBP', quality=82, method=6)
-    small.save(os.path.join(OUT, name + '-s.webp'), 'WEBP', quality=80, method=6)
-    meta[name] = {'w': large.width, 'h': large.height, 'alt': alt}
-    print('%-16s %4dx%-4d %4d KB' % (name, large.width, large.height, os.path.getsize(os.path.join(OUT, name + '.webp')) // 1024))
+def preview(im):
+    """A 16 px wide blurred preview as a data URI: the photo's colours show at once, the file follows."""
+    t = im.convert('RGB').resize((16, max(1, round(16 * im.height / im.width))), Image.LANCZOS).filter(ImageFilter.GaussianBlur(0.6))
+    buf = io.BytesIO()
+    t.save(buf, 'WEBP', quality=45)
+    return 'data:image/webp;base64,' + base64.b64encode(buf.getvalue()).decode()
+
+
+def save_set(name, im, meta, alt, graded=True):
+    """im: the picture at the largest size (graded array or PIL image). Writes the three sizes."""
+    big = to_image(im) if graded else im
+    widths = []
+    for suffix, side in SIZES.items():
+        k = min(1, side / max(big.size))
+        if suffix and k == 1 and widths:          # the source is smaller than this size: nothing to add
+            continue
+        out = big if k == 1 else big.resize((round(big.width * k), round(big.height * k)), Image.LANCZOS)
+        if graded:
+            out = to_image(grain(np.asarray(out, np.float32) / 255, 2.4 if not suffix else 2.0))
+        out.save(os.path.join(OUT, name + suffix + '.webp'), 'WEBP', quality=80 if suffix else 82, method=6)
+        widths.append(out.width)
+    meta[name] = {'w': big.width, 'h': big.height, 'alt': alt, 'widths': sorted(set(widths)), 'lq': preview(big)}
+    print('%-16s %4dx%-4d %4d KB  %s' % (name, big.width, big.height, os.path.getsize(os.path.join(OUT, name + '.webp')) // 1024, meta[name]['widths']))
+
+
+def hero(meta):
+    """The first screen: the photo in a frame that starts at FRAME_TOP, and Andy above that line cut
+    out of the sky, so he stands out of the frame onto the page. One RGBA file per size."""
+    src, m = Image.open(SEA).convert('RGB'), Image.open(SEA_MASK).convert('L')
+    core = m.filter(ImageFilter.MinFilter(9))     # the inside of the subject, for clean edge colours
+    for suffix, side in (('', 1600), ('-s', 960)):
+        h = side
+        w = round(src.width * h / src.height)
+        mask = np.asarray(m.resize((w, h), Image.LANCZOS), np.float32) / 255
+        a = grain(grade(src.resize((w, h), Image.LANCZOS), mask=mask > 0.5, blue=0.16), 2.4 if not suffix else 2.0)
+        # above the frame the edge pixels carry blue sky: give them the colour of the subject next to them
+        c = np.asarray(core.resize((w, h), Image.LANCZOS), np.float32)[..., None] / 255
+        num, den = blur_rgb(a * c, 6), blur_rgb(np.repeat(c, 3, -1), 6)
+        top = round(h * FRAME_TOP)
+        edge = (mask < 0.995) & (den[..., 0] > 0.03)
+        edge[top:] = False
+        a[edge] = (num / np.maximum(den, 1e-3))[edge]
+        alpha = np.clip((mask - 0.1) / 0.9, 0, 1)
+        alpha[top:] = 1
+        im = Image.fromarray((np.dstack([a, alpha]) * 255 + 0.5).astype(np.uint8), 'RGBA')
+        im.save(os.path.join(OUT, 'hero-sea' + suffix + '.webp'), 'WEBP', quality=84, method=6)
+        if not suffix:
+            meta['hero-sea'] = {'w': w, 'h': h, 'alt': 'Andy Now с хангом на камнях у моря, Пхукет', 'frameTop': FRAME_TOP}
+    print('hero-sea done')
+
+
+def blur_rgb(x, r):
+    return np.stack([np.asarray(Image.fromarray((x[..., k] * 255 + 0.5).clip(0, 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(r)), np.float32) / 255 for k in range(x.shape[-1])], -1)
 
 
 def videos():
@@ -180,26 +235,15 @@ def main():
             os.remove(os.path.join(OUT, f))
     meta = {}
     for name, (src, alt) in PHOTOS.items():
-        im = open_any(src)
-        large = to_image(grain(grade(fit(im, LARGE))))
-        small = to_image(grain(grade(fit(im, SMALL)), 2))
-        save_pair(name, large, small, meta, alt)
+        save_set(name, grade(fit(open_any(src), SIZES[''])), meta, alt)
     for name, (src, alt, box) in SCREENS.items():
         im = Image.open(src).convert('RGB')
         if box:
             im = im.crop(box)
-        save_pair(name, fit(im, 1200), fit(im, SMALL), meta, alt)
+        save_set(name, fit(im, SIZES['']), meta, alt, graded=False)
+    hero(meta)
     with open(os.path.join(OUT, 'photos.json'), 'w', encoding='utf-8') as f:
         json.dump(meta, f, ensure_ascii=False, indent=1)
-
-    # the living photo of the first screen: the cutout, graded on the subject only, alpha kept
-    cut = Image.open(HERO_CUT).convert('RGBA')
-    cut = cut.resize((round(cut.width * 1000 / cut.height), 1000), Image.LANCZOS)
-    alpha = np.asarray(cut.split()[3])
-    rgb = to_image(grade(cut.convert('RGB'), mask=alpha > 128))
-    rgb.putalpha(cut.split()[3])
-    rgb.save(os.path.join(OUT, 'hero-cut.webp'), 'WEBP', quality=86, method=6)
-    print('hero-cut', rgb.size)
 
     # the nine-note hangs of the Handpan Sphere catalogue, in the same grade
     hangs_src = os.path.expanduser('~/Downloads/handpan-sphere/dist/photos/hangs')

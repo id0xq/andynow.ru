@@ -82,7 +82,7 @@ export const ROOMS = [
 
 export const PROJECTS = [
   {
-    name: 'Handpan Sphere', state: 'работает', live: true, photo: 'hps-app',
+    name: 'Handpan Sphere', state: 'работает', live: true, photo: 'hps-atmo',
     text: 'Виртуальный ханг и атмосферный бэк в строе вашего инструмента: танпура, бас, кахон, запись игры. Бесплатно, в браузере и в Telegram.',
     links: [{ href: SITE.hps, label: 'handpansphere.ru' }, { href: SITE.bot, label: '@handpansbot' }],
   },
@@ -92,7 +92,7 @@ export const PROJECTS = [
     links: [{ href: SITE.channel, label: 'открыть канал' }, { href: SITE.album, label: 'слушать альбом' }],
   },
   {
-    name: 'Земли Силы', state: 'работает', live: true, photo: 'sculpture',
+    name: 'Земли Силы', state: 'работает', live: true, photo: 'temple-sunrise',
     text: 'Ретритный центр проекта «Анимара» в частном заповеднике на Алтае. В его центре стоит зеркальный Храм Звука.',
     links: [{ href: SITE.zemli, label: 'канал проекта' }],
   },
@@ -125,7 +125,7 @@ export const OFFERS = [
     cta: { label: 'Записаться на пробное занятие', msg: 'course' },
   },
   {
-    id: 'mentor', photo: 'lesson-outdoor', title: 'Индивидуальное наставничество',
+    id: 'mentor', photo: 'lesson-dome', title: 'Индивидуальное наставничество',
     lead: 'Для тех, кто уже играет и хочет идти дальше: тесная работа над вашей музыкой и целями.',
     points: ['Свой стиль звучания, по которому вас узнают', 'Композиции: как из импровизации рождается цельная пьеса', 'Готовность к выступлениям и своим практикам', 'Альбом: от идеи до записи и выхода на площадки'],
     meta: 'регулярные встречи онлайн и вживую',

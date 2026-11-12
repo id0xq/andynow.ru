@@ -31,7 +31,8 @@ export function split(text, { dot = false } = {}) {
   return dot ? head.replace(/\.$/, '<span class="dot">.</span>') : head;
 }
 
-// Section title in brackets: [ чем могу быть полезен ], with an optional line under it.
+// Section title between a tilde and a dot-slash: ~ чем могу быть полезен ./ (as in ~ontheflow./),
+// with an optional line under it.
 export function secHead(id, title, sub = '', { align = 'center', actions = '' } = {}) {
   return `<div class="sec-head sec-${align}">
   <h2 id="${id}" class="bracket"><span>${esc(title)}</span></h2>
@@ -41,15 +42,18 @@ export function secHead(id, title, sub = '', { align = 'center', actions = '' } 
 
 // A living photo. ratio: frame proportions ('4/5', '3/4', '16/9'…) with the picture covering it,
 // pos: object-position for that crop; without ratio the photo keeps its own proportions.
-// The picture develops when it enters the screen and keeps a slow drift (see site.css, .photo).
+// A 16 px preview of the photo fills the frame at once; the file itself loads in one of three sizes
+// and develops over it (see site.css, .photo). cls 'resin' makes it a card cast in clear resin.
+const SUFFIXES = { 1: [''], 2: ['-s', ''], 3: ['-s', '-m', ''] };
 export function photo(name, { ratio = '', pos = '', sizes = '(max-width: 760px) 100vw, 50vw', loading = 'lazy', caption = '', cls = '', tag = '' } = {}) {
   const p = PHOTOS[name];
   if (!p) throw new Error('no photo ' + name);
   const style = [ratio && `--ratio:${ratio}`, pos && `--pos:${pos}`].filter(Boolean).join(';');
-  const img = `<img src="/assets/img/${name}.webp" srcset="/assets/img/${name}-s.webp 760w, /assets/img/${name}.webp ${p.w}w" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="${loading}" decoding="async"${loading === 'eager' ? ' fetchpriority="high"' : ''}>`;
+  const srcset = p.widths.map((w, i) => `/assets/img/${name}${SUFFIXES[p.widths.length][i]}.webp ${w}w`).join(', ');
+  const img = `<img src="/assets/img/${name}.webp" srcset="${srcset}" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="${loading}"${loading === 'eager' ? ' fetchpriority="high"' : ' decoding="async"'}>`;
   const cap = caption ? `<figcaption>${esc(caption)}</figcaption>` : '';
   const mark = tag ? `<span class="photo-tag" aria-hidden="true">${esc(tag)}</span>` : '';
-  return `<figure class="photo${ratio ? ' is-framed' : ''}${cls ? ' ' + cls : ''}"${style ? ` style="${style}"` : ''}><span class="photo-in">${img}${mark}</span>${cap}</figure>`;
+  return `<figure class="photo${ratio ? ' is-framed' : ''}${cls ? ' ' + cls : ''}"${style ? ` style="${style}"` : ''}><span class="photo-in" style="background-image:url(${p.lq})">${img}${mark}</span>${cap}</figure>`;
 }
 
 // The last block of most pages: four ways to start, each a message already typed in Telegram.
@@ -114,7 +118,7 @@ export function page({ path, title, description, body, active = path, image = '/
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
-<meta name="theme-color" content="#F1EEE8">
+<meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="${path.startsWith('/journal/') && path !== '/journal/' ? 'article' : 'website'}">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Andy Now">

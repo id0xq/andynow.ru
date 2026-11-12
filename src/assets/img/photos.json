@@ -2,176 +2,391 @@
  "hero-play": {
   "w": 1200,
   "h": 1600,
-  "alt": "Andy Now играет на ханге"
- },
- "figure-sea": {
-  "w": 1200,
-  "h": 1600,
-  "alt": "Andy Now с хангом на берегу моря"
+  "alt": "Andy Now играет на ханге",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAwBACdASoQABUAPt1apkyopSOiMAgBEBuJZQCsACPbHaA22u3kcnx+urAA/tyZmiZOUdAVBOYE8MfB+7rel1OkQt55GM4CivLCX52Q5eLSuQR00FDZ4S+fuL4AZal9Ebs2NcigfbaSq9+nLiW+kMXxuux9ENJj2iZ8y1cAAAA="
  },
  "portrait-smile": {
   "w": 853,
   "h": 1280,
-  "alt": "Andy Now смеётся и играет на ханге"
+  "alt": "Andy Now смеётся и играет на ханге",
+  "widths": [
+   480,
+   800,
+   853
+  ],
+  "lq": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABwBACdASoQABgAPt1ep00opSOiMAgBEBuJYwCdMoADcZBfcfEtqr1ZqQi7gAD+3tRrpkrrEg5N9GTY7wS1C7enmb8JqQ2xRAbcPbb4WSZwSdUa+2A23quHHSz3kp3UhfRMix8WIxL+SUg/r7eYAA=="
  },
  "portrait-band": {
   "w": 1200,
   "h": 1600,
-  "alt": "Andy Now в повязке и очках играет на ханге"
- },
- "portrait-sun": {
-  "w": 1200,
-  "h": 1600,
-  "alt": "Портрет Andy Now на берегу"
+  "alt": "Andy Now в повязке и очках играет на ханге",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoQABUAPt1apkyopSOiMAgBEBuJQBUehA8SJM7+YdUOBrLIAAD7dj/QUbse64kjuzVVy7t8n1i199e0mqIUDCpejwoR6tgxmvIcnEiKrsIn/NOYUB7AQ6XCuyPzXeAuTgne31XBve13Kt1eFd1tj2j0XFiv5PPrPgKBmWx60AA="
  },
  "play-sun": {
   "w": 1200,
   "h": 1600,
-  "alt": "Andy Now играет на ханге на солнце"
+  "alt": "Andy Now играет на ханге на солнце",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADwAwCdASoQABUAPt1apkyopSOiMAgBEBuJZQC06CFlz1U5mGIWSTJAAP7PXUABamtYt7EBw1gbasTZAzh/PTloeTm+4R1IHqcJ24o+EsKmYzDUOXFQUnYM7WJAWVLooW3Bm5OGetz1PUwhgbuYGL0iXxQ1gAAA"
  },
  "river-hat": {
   "w": 1079,
   "h": 1600,
-  "alt": "Andy Now играет на ханге у реки на Алтае"
+  "alt": "Andy Now играет на ханге у реки на Алтае",
+  "widths": [
+   486,
+   809,
+   1079
+  ],
+  "lq": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAwBACdASoQABgAPt1cpkyopSOiMAgBEBuJZQCdACP/xIt4hKPgWMJy9KAA/kEh+0ndDQy9mkdICDH1pJ2aXU9DEs8GuHq+OZ79HB6Q6klhqGXhVx0XlD+pfUv0wra+//i6Hv59HjeSRnY9kZ4aIslLdCoAAA=="
  },
  "river-play": {
   "w": 1067,
   "h": 1600,
-  "alt": "Andy Now с хангом на камнях у Катуни"
+  "alt": "Andy Now с хангом на камнях у Катуни",
+  "widths": [
+   480,
+   800,
+   1067
+  ],
+  "lq": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwBACdASoQABgAPt1cp0yopSOiMAgBEBuJZQC06Glfk/ZY6GvxsoNlr0AA/v2c8/Cvcs/2ax6HkAGz0RArGaKogqXz8kO81c7UKbrtk6LbSzqdH7Dan7yPM515M97qXQ17LbSxCcgAAA=="
  },
  "river-wide": {
   "w": 1600,
   "h": 1075,
-  "alt": "Andy Now играет на ханге у реки в горах Алтая"
+  "alt": "Andy Now играет на ханге у реки в горах Алтая",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAQAgCdASoQAAsAAwBSJZQCdAEO5MR+dN/QAP4LJkDITLki1Tea+2aDVdmcJ1dsXx/BWjAR+92QwDfIAAA="
  },
  "sculpture": {
   "w": 1067,
   "h": 1600,
-  "alt": "Andy Now с хангом у светящейся скульптуры на Алтае"
+  "alt": "Andy Now с хангом у светящейся скульптуры на Алтае",
+  "widths": [
+   480,
+   800,
+   1067
+  ],
+  "lq": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAQBACdASoQABgAPt1cpkyopSOiMAgBEBuJYwCdMoADKTrPy9AHFuWCnAD2LGA93mgbr9i8uyzqfl2NKKgch/Fz73bEMVYUjKJRSpYwWdZ/uFKhwvTVUbv98298n1sZzoU+QjgT8vhPkQmRwwKeAAAA"
  },
  "lesson-temple": {
   "w": 1107,
   "h": 1600,
-  "alt": "Занятие на ханге у зеркального Храма Звука"
+  "alt": "Занятие на ханге у зеркального Храма Звука",
+  "widths": [
+   498,
+   830,
+   1107
+  ],
+  "lq": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAACQBACdASoQABcAPt1cpkyopSOiMAgBEBuJYwCw7d0Y43+FryuC8R9a00XxiwAA/vHSv3aY46NmicEcjgpg7auOBgRquIXOAdsLJ4q5oGToMHdO8rhgOdVdI2kHxEcEMY0Z8+Be2BdDnuuNE6G1IGrgoGGNAHcO5rqhGW5+mNhrXRDzcSrTdjjnG+2ENmE9tIzvAMLWFQAAAA=="
  },
  "temple-arch": {
   "w": 1067,
   "h": 1600,
-  "alt": "Andy Now у круглой арки перед Храмом Звука"
+  "alt": "Andy Now у круглой арки перед Храмом Звука",
+  "widths": [
+   480,
+   800,
+   1067
+  ],
+  "lq": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwBACdASoQABgAPt1cpkyopSOiMAgBEBuJYgC2yB5z3fNGOQ15yN0TRIAA/ugzGvfFqYQcLtaS8U3Cr+lj0BJ+q48BSdiNY0j2+wzujMmcc09k/2YxqHxxZMGtQRnoHNCF9mFqPxhCAAAA"
  },
  "hang-chest": {
   "w": 1600,
   "h": 1200,
-  "alt": "Ханг в руках у моря"
+  "alt": "Ханг в руках у моря",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAQCdASoQAAwAAwBSJQBOgBUofDpkAAD+sg1OFzDaHGTocR8VqggXFr+Pg8bw/ZroCdJzUXwHXuYc0wV49JL1IjnZ+5NDPulB3Q4bRQXMg9QAAAA="
  },
  "hangs-duo": {
   "w": 1600,
   "h": 1200,
-  "alt": "Два ханга в руках на фоне моря"
+  "alt": "Два ханга в руках на фоне моря",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoQAAwAAwBSJZACdADRD+5B+cAA/tKEApT2H0fn1sPU5nyEFi4TsetgKMngTLJWAQkI0mVzzzjpuhrv670f4DPRjd0RJ6mVZQh65qVUtc4AAA=="
  },
  "hangs-back": {
-  "w": 1600,
-  "h": 1200,
-  "alt": "Двое музыкантов спиной к спине с хангами"
+  "w": 1200,
+  "h": 1600,
+  "alt": "Двое музыкантов спиной к спине с хангами",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAADQAwCdASoQABUAPt1apkyopSOiMAgBEBuJQBOgAza/2JLABr7n9QAA/lv+ZQ+5RRd4CKnvA8uTE6yM1VIde501E7aJ9ufXpby3iCfwkdhH42w00xrYpE01K1cr5bYkcSZ8abWHOEyecnAPgytrKqbpJT8XgZepKfbHVMTt51mVsdlDGBytev8YA+uPp2PRmQn5C9QtYfBi4AAA"
  },
  "hang-detail": {
   "w": 1200,
   "h": 1600,
-  "alt": "Край ханга крупным планом"
+  "alt": "Край ханга крупным планом",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAwBACdASoQABUAPt1apkyopSOiMAgBEBuJZQCnFCIHjiwj+n3P8WH9yAAA/ktFHhFvoszcPkX9IBK5qgHfzfDQaBIzSOWNBkcV8cNPK1C3IIrUgKhIQNYcrP6ZwgcgFTMoHiOo+4YLWUDFrcb2cB8NncqWtKmAAAA="
  },
  "play-close": {
   "w": 1200,
   "h": 1600,
-  "alt": "Руки над хангом во время игры"
+  "alt": "Руки над хангом во время игры",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABQBACdASoQABUAPt1apkyopSOiMAgBEBuJYwCdAywBTKuhlIwtW9Vor/sAAPZ1UeyaS1u7aKResyhaxOku12mpJlL3iV5N11uIR56mnFNmNqUgTj1NA93F8r5rujgqK1SAzJZv+Jyt9FxUjS0NJwQlss1AhjHZalv3mqC77sKQAA=="
  },
  "hands-top": {
   "w": 1200,
   "h": 1600,
-  "alt": "Руки на ханге и барабане, вид сверху"
+  "alt": "Руки на ханге и барабане, вид сверху",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABQBACdASoQABUAPt1apkyopSOiMAgBEBuJQBOmUABqa3uLym8dwZxlGdQAAP7SmhN04Fr6a0oh6zMNFaRe7jHd6LLJXWU2EwH9XqahXNsf1T5qaHzFQWrfubG+/oOQ5nj3PT4q48sJyfEWH4nQMNAHkwj91Wgs1K2iWUOCAAA="
  },
  "lesson-beach": {
   "w": 1600,
   "h": 1200,
-  "alt": "Занятие на ханге на пляже"
+  "alt": "Занятие на ханге на пляже",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAQCdASoQAAwAAwBSJQBOgB3wVm+mIAD+NH+fGmmXNjYJJXgPLezON0Yxc1RY4inHftgW0hLCCtYbLSrPnIce92x2LCt0tXcxqo00q7Ni5coDPw9IryAA"
  },
  "lesson-dome": {
   "w": 1206,
   "h": 1590,
-  "alt": "Занятие на ханге в куполе с видом на горы"
+  "alt": "Занятие на ханге в куполе с видом на горы",
+  "widths": [
+   546,
+   910,
+   1206
+  ],
+  "lq": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQBACdASoQABUAPt1apkyopSOiMAgBEBuJZwCdACIIzR/6r4rTtAGIYAD+8dqagrMpXWO2T8WjHw7IbnSzlNecN+ObdsHMW1qFkmAQP+lijdbyppjuTmVFXvGnP9Xz0lf1P+Ws8M7z+AAA"
  },
  "lesson-outdoor": {
   "w": 960,
   "h": 1280,
-  "alt": "Andy Now играет для группы на открытом воздухе"
+  "alt": "Andy Now играет для группы на открытом воздухе",
+  "widths": [
+   540,
+   900,
+   960
+  ],
+  "lq": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAABwAwCdASoQABUAPt1apkyopSOiMAgBEBuJQBOgAZ8zBADkDdAA+yIXcmNLpqa2NjmJkZ1NOaB3yT5CokebKxX8t3JMyUfsSNtpkwXrsRmn6pFR5bWouMFhbn15MYJuj6FUgyeSpMUydncOXlHtGvBU2/h+g0cOQiC+acrq1SMiyDTeB1T6o0rwqwIUbZC9Bm3MMAAA"
  },
  "school-group": {
   "w": 1600,
   "h": 1067,
-  "alt": "Группа учеников с хангами в школе Animara"
+  "alt": "Группа учеников с хангами в школе Animara",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoQAAsAAwBSJYwC7AEQ/ZqIc2iUgAD+9XBi9tfq2i4iowIhNpxepvrQIxsBuKrbxHPOma5+1FkgvGXtN06N4vc4LK60AA=="
  },
  "session-bowl": {
   "w": 1200,
   "h": 1600,
-  "alt": "Ханг и поющая чаша на звуковой практике"
+  "alt": "Ханг и поющая чаша на звуковой практике",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACwAwCdASoQABUAPt1apkyopSOiMAgBEBuJYwCdABgHp7aEFzi6AAD+wTeUzDxZa8lpHdk6I9YvGSjg39fH8T9J3EcGN69aYB1Azf2X12qFN+2UcY8f3balaK7Mxk1JDaUHv+nQ6VTlrz2zuStcSkKqJkwAAA=="
  },
  "session-hand": {
   "w": 1206,
   "h": 1586,
-  "alt": "Ладонь на ханге в полутьме"
+  "alt": "Ладонь на ханге в полутьме",
+  "widths": [
+   547,
+   912,
+   1206
+  ],
+  "lq": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAwCdASoQABUAPt1apkyopSOiMAgBEBuJZwDE2CLDJYIFQqei3V4AAP7vW6g1pmnN1veQFyPwKlTw5w1RhI6EZ4uDYBWaAAA="
  },
  "session-group": {
   "w": 1280,
   "h": 720,
-  "alt": "Медитация под открытым небом в Таиланде"
+  "alt": "Медитация под открытым небом в Таиланде",
+  "widths": [
+   720,
+   1200,
+   1280
+  ],
+  "lq": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAkAAwBSJQBOkCYi4y6CToAA/uYxOjaMhtKRdeLskpJtdeG2x4b17lMh95MIuSU0VW1dlCUIoI8V1cAAAA=="
  },
  "session-lake": {
   "w": 1206,
   "h": 1182,
-  "alt": "Звуковая медитация у озера в Таиланде"
+  "alt": "Звуковая медитация у озера в Таиланде",
+  "widths": [
+   720,
+   1200,
+   1206
+  ],
+  "lq": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQABAAAwBSJYwC7ADdshCtBYAA/vaLX7tYCUXaOUJRblkOL8Yqz3JT8BWZDvma6RM30pM+p8HxWCU4JbAAAA=="
  },
  "session-forest": {
   "w": 1600,
   "h": 1067,
-  "alt": "Музыканты играют в туманном лесу на Бали"
+  "alt": "Музыканты играют в туманном лесу на Бали",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAsAAwBSJZQCdAaTeiHxqDAA/Nl+NLOyjvyjfOLetK/L6cGCw33udeHFs67W94DL1ocMwyHRmwWgAAA="
  },
  "session-wedding": {
   "w": 854,
   "h": 1280,
-  "alt": "Живой ханг на вечернем событии в лесу"
+  "alt": "Живой ханг на вечернем событии в лесу",
+  "widths": [
+   480,
+   801,
+   854
+  ],
+  "lq": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoQABgAPt1cpkyopSOiMAgBEBuJZQC06CFUB5Aq0zQmCZLMAAD+70ncqdi9rEP+Be6A9i+Zzg6c7AG/b093H9LGgSkvX64G3k0oAnZkmgZqUGvo34m/fvXncfhXG/YFdYVunysIEWRJWLu63SiV2QAA"
  },
  "event-portrait": {
   "w": 1280,
   "h": 1600,
-  "alt": "Andy Now играет на ханге на событии"
+  "alt": "Andy Now играет на ханге на событии",
+  "widths": [
+   576,
+   960,
+   1280
+  ],
+  "lq": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAQBACdASoQABQAPt1apkyopSOiMAgBEBuJYwC/OCH4TT7Y+XcRfrGEAAD+7Ja3JR9uA32yiA3t1hsMkHK5KSCYvE9DkIuvL4ymn0OAzYPCSjcbmrMh7J1fip7S50Ws1nZ0N/7+Y2vPiXqP2CvTEGLEDdjZXbeSJ5izAAAA"
  },
  "temple-inside": {
   "w": 1028,
   "h": 1356,
-  "alt": "Внутри зеркального купола Храма Звука"
+  "alt": "Внутри зеркального купола Храма Звука",
+  "widths": [
+   546,
+   910,
+   1028
+  ],
+  "lq": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoQABUAPt1apkyopSOiMAgBEBuJZwC2yCHOEf8UOpJ1yyMgAP7r15E6Z3CmskxpPuRsX6NnKUnnkI4/lE9qFKt6zTA5iGs0CvvBAvIlbANoAA=="
  },
  "temple-winter": {
   "w": 1130,
   "h": 836,
-  "alt": "Зеркальный Храм Звука зимой"
+  "alt": "Зеркальный Храм Звука зимой",
+  "widths": [
+   720,
+   1130
+  ],
+  "lq": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoQAAwAAwBSJQBYdiPfH0npMAD+1cTsNICXvvBf1Y0jud/RCeAf0K9TGpRtVP9tp4hr1Mlxi/o+9aL+r4goAAAA"
+ },
+ "temple-sunrise": {
+  "w": 1386,
+  "h": 1380,
+  "alt": "Зеркальный Храм Звука на рассвете, Алтай",
+  "widths": [
+   720,
+   1200,
+   1386
+  ],
+  "lq": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQAgCdASoQABAAAwBSJYgCdAD0ZmnZFKgAAP7qAZtxQ6J3oukHvXyQ2implRZaL4XWM3Xp460Vc50Fh4kcre7vWXZS2e8kbR+LAgR3MLgAAA=="
  },
  "laptop": {
   "w": 960,
   "h": 1280,
-  "alt": "Andy Now за ноутбуком"
+  "alt": "Andy Now за ноутбуком",
+  "widths": [
+   540,
+   900,
+   960
+  ],
+  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACwAwCdASoQABUAPt1cpkyopSOiMAgBEBuJQAAKWr9sP3dFvOO3QAD9K0VI42EQkxtKST/FkWH5P/baZYcajHqmcsiI0PtpjtVEpsMEUHn+Ut8pqzUyK9LL+gRsmFVZQFxqy+ygmiIF3xBfILMohSCDsDTaKHgae5O3SjQAAAA="
  },
  "scarf-gong": {
   "w": 1600,
   "h": 1067,
-  "alt": "Andy Now играет на ханге рядом с гонгом"
+  "alt": "Andy Now играет на ханге рядом с гонгом",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQAgCdASoQAAsAAwBSJQBOgCPP4pH6o5joAP7kU56NExtmmk9AkT3FA5nSSV+eQ8k7ce6M+Icst5ac81pGg9FLymU7SN79edkjfPxzwlX/xUZYhQAAAA=="
  },
- "hps-app": {
-  "w": 960,
-  "h": 1200,
-  "alt": "Экран Handpan Sphere: ханг D Kurd 10 играет аккорды"
+ "hps-atmo": {
+  "w": 1080,
+  "h": 1440,
+  "alt": "Handpan Sphere: атмосфера в строе твоего ханга",
+  "widths": [
+   540,
+   900,
+   1080
+  ],
+  "lq": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADwAwCdASoQABUAPt1apkyopSOiMAgBEBuJZQAAYf44npuWBYnr9e4AAP7lInCaTVnV0VWt1qMDBUuk6DnTg8XH1rRU5ZWSeaom36rliL3aiyXBZTXWhXXWgAA="
  },
- "hps-pan": {
-  "w": 1068,
-  "h": 1008,
-  "alt": "Ханг в приложении Handpan Sphere: ноты подсвечены цветом"
+ "hps-chords": {
+  "w": 1080,
+  "h": 1440,
+  "alt": "Handpan Sphere: аккорды загораются на схеме",
+  "widths": [
+   540,
+   900,
+   1080
+  ],
+  "lq": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwBACdASoQABUAPt1cqE0opSQiMAgBEBuJZwC7AB4bIm7WTCcXKBMM2gAA/vF0MLlHl2StPGM28fsCXLAT3Ud1RJNLcxxLcVwQAA=="
+ },
+ "hps-start": {
+  "w": 1080,
+  "h": 1440,
+  "alt": "Handpan Sphere: начни за минуту, бесплатно и без регистрации",
+  "widths": [
+   540,
+   900,
+   1080
+  ],
+  "lq": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADQAwCdASoQABUAPt1cpkyopSOiMAgBEBuJQBZwBCzetNKBHpevWUAA/un5vE95A/GojhzbLT8Q7a/o175te/FnIhahCgQMWzpGbS4JXMj7TqKkNJjRfr5FgLMQQNtGZ4AAAA=="
+ },
+ "hero-sea": {
+  "w": 1200,
+  "h": 1600,
+  "alt": "Andy Now с хангом на камнях у моря, Пхукет",
+  "frameTop": 0.36
  }
 }

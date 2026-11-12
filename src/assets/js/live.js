@@ -1,24 +1,55 @@
-// The living photo of the first screen.
-// Andy with his hang is taken apart into tens of thousands of coloured points (assets/img/hero-cut.webp:
-// position from the pixel, colour from the photo, a little depth from brightness). The points breathe,
-// step aside from the cursor and lean with it. Each statement of the headline gathers them into its own
-// form: the hang being played, a hang turning in space, sound waves, a cube. Between forms they lift off
-// into a murmuration (a curl-noise flow around a moving centre) and land one by one.
-// Trackers follow a few points with live coordinates; a scan line runs over the scene.
-// Points are simulated on the CPU and drawn with WebGL in one call.
+// The first screen.
+// At rest it is a photo (assets/img/hero-sea.webp: Andy by the sea, stepping out of the frame onto the
+// page) with a scan line (CSS) and three trackers whose coordinates stay alive (here, without WebGL).
+// When a statement of the headline is chosen, the photo is taken apart into tens of thousands of
+// coloured points (position from the pixel, colour from the photo) that lift off into a murmuration
+// (a curl-noise flow around a moving centre) and land in the statement's form: the hang being played,
+// a hang turning in space, sound waves, a cube. Back to rest, they fly home, the photo shows again and
+// the simulation stops. Points are simulated on the CPU and drawn with WebGL in one call.
 (() => {
   'use strict';
   const stage = document.querySelector('[data-live]');
   if (!stage) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const box = stage.querySelector('.stage'), shot = stage.querySelector('.stage-photo');
+
+  // ── the trackers of the photo: a slow drift and live coordinates ─────────────────────────────────
+  const marks = Array.from(stage.querySelectorAll('.stage-trackers .tracker')).map((el, k) => ({ el, k, text: el.querySelector('span'), x: +el.dataset.x, y: +el.dataset.y, label: el.dataset.label, last: '' }));
+  const sgn = (v) => (v < 0 ? '−' : '+') + Math.abs(v).toFixed(2);
+  let markTick = 0, marksOn = false;
+  function placeMarks() {
+    const sw = box.clientWidth;
+    marks.forEach((m) => m.el.classList.toggle('is-left', m.x * sw + 180 > sw));
+  }
+  function driftMarks(now) {
+    if (!marksOn) return;
+    const t = now / 1000, sw = box.clientWidth || 1, sh = box.clientHeight || 1, write = (markTick++ & 7) === 0;
+    for (const m of marks) {
+      const dx = Math.sin(t * 0.55 + m.k * 2.1) * 5 + Math.sin(t * 1.7 + m.k) * 1.2, dy = Math.cos(t * 0.45 + m.k * 1.3) * 3.5;
+      m.el.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
+      if (write) {
+        const text = `0${m.k + 1} ${sgn((m.x + dx / sw) * 2 - 1)} ${sgn(1 - (m.y + dy / sh) * 2)} ${m.label}`;
+        if (text !== m.last) { m.text.textContent = text; m.last = text; }
+      }
+    }
+    requestAnimationFrame(driftMarks);
+  }
+  let seen = true;
+  const marksStart = () => { if (!marksOn && seen && !reduce && !document.hidden) { marksOn = true; requestAnimationFrame(driftMarks); } };
+  placeMarks();
+  new IntersectionObserver(([e]) => { seen = e.isIntersecting; seen ? marksStart() : (marksOn = false); }).observe(stage);
+  document.addEventListener('visibilitychange', () => (document.hidden ? (marksOn = false) : marksStart()));
+  let rm = 0;
+  window.addEventListener('resize', () => { clearTimeout(rm); rm = setTimeout(placeMarks, 120); });
+
   const canvas = stage.querySelector('canvas');
   const gl = canvas && canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false });
   if (!gl) { stage.classList.add('no-gl'); return; }
 
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // the points: everything below needs WebGL and the photo
   const phone = window.matchMedia('(max-width: 760px)').matches;
   const N = phone ? 24000 : 46000;
   const INK = [0.086, 0.08, 0.075], ORANGE = [1, 0.353, 0.122];
-  const PHOTO_SRC = '/assets/img/hero-cut.webp';
   const NOTES = ['A3', 'Bb3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4'];   // D Kurd 9 around the ding D3
 
   // deterministic randomness: the forms look the same on every visit
@@ -38,14 +69,15 @@
   // ── models ───────────────────────────────────────────────────────────────────────────────────────
 
   // The photo: most points on a jittered grid, so the picture is covered evenly and reads as a photo;
-  // the rest go to edges and detail, so the face and hands stay sharp.
-  let photo = null;   // { u, v, z, r, g, b, w, step } in figure units, height = 1
+  // the rest go to edges and detail, so the face and hands stay sharp. Read from the photo on the page,
+  // drawn small: where its alpha is solid there are points.
+  let photo = null;   // { u, v, z, r, g, b, w, step } in photo units, height = 1
   function samplePhoto(img, n) {
-    const w = img.naturalWidth, h = img.naturalHeight;
+    const h = phone ? 640 : 800, w = Math.round((h * img.naturalWidth) / img.naturalHeight);
     const c = document.createElement('canvas');
     c.width = w; c.height = h;
     const x = c.getContext('2d', { willReadFrequently: true });
-    x.drawImage(img, 0, 0);
+    x.drawImage(img, 0, 0, w, h);
     const d = x.getImageData(0, 0, w, h).data;
     const L = (i) => 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
     const inside = (px0, py0) => px0 > 0 && py0 > 0 && px0 < w - 1 && py0 < h - 1 && d[(py0 * w + px0) * 4 + 3] > 150;
@@ -97,8 +129,6 @@
     }
     return out;
   }
-  // where the trackers sit on the photo (figure units)
-  const PHOTO_TRACKS = [[0.37, 0.19, 'взгляд'], [0.6, 0.47, 'касание'], [0.45, 0.67, 'ханг']];
 
   // A hang seen from above, in a unit circle: rim, ding, eight tone fields, sparse steel.
   function hangTop(n) {
@@ -186,12 +216,10 @@
 
   // ── layout ───────────────────────────────────────────────────────────────────────────────────────
   let W = 0, H = 0, DPR = 1;
-  const frame = { fx: 0, top: 0, FH: 0 };   // where the photo stands
+  const frame = { fx: 0, top: 0, FH: 0 };   // where the photo stands: the box of .stage in the canvas
   function layout() {
-    if (!photo) return;
-    let FH = H * (phone ? 0.94 : 0.9);
-    if (photo.w * FH > W * 0.98) FH = (W * 0.98) / photo.w;
-    frame.FH = FH; frame.top = H - FH; frame.fx = (W - photo.w * FH) / 2;
+    const c = canvas.getBoundingClientRect(), r = box.getBoundingClientRect();
+    frame.fx = r.left - c.left; frame.top = r.top - c.top; frame.FH = r.height;
   }
 
   // 3D rotation for the shell and the cube
@@ -214,20 +242,12 @@
   function targets(t) {
     const S = Math.min(W, H);
     if (form === 'photo' && photo) {
-      const { fx, top, FH } = frame, edge = photo.w;
-      const breathe = 1 + 0.004 * Math.sin(t * 0.7);   // the figure breathes from its feet
-      const cx = fx + (edge / 2) * FH, bottom = top + FH;
-      for (let i = 0; i < N; i++) {
-        const u = photo.u[i], v = photo.v[i], z = photo.z[i];
-        tx[i] = cx + (u - edge / 2) * FH * breathe + z * sway.x;
-        ty[i] = bottom - (1 - v) * FH * breathe + z * sway.y;
-        ta[i] = smooth(edge, edge - 0.05, u) * smooth(1, 0.96, v);
-        free[i] = 0;
-      }
+      const { fx, top, FH } = frame;   // exactly where the photo is, so the hand-over is seamless
+      for (let i = 0; i < N; i++) { tx[i] = fx + photo.u[i] * FH; ty[i] = top + photo.v[i] * FH; ta[i] = 1; free[i] = 0; }
       return;
     }
     const n = COUNT[form];
-    for (let i = n; i < N; i++) { free[i] = 1; ta[i] = 0.04; setColor(i, INK); }
+    for (let i = n; i < N; i++) { free[i] = 1; ta[i] = 0.016; setColor(i, INK); }
     if (form === 'hang') {
       const m = M.hang, R = S * 0.4, beat = 0.48, step = Math.floor(t / beat), since = t - step * beat;
       const field = MELODY[step % MELODY.length];
@@ -282,9 +302,7 @@
   }
   function trackerSpots(t) {
     const S = Math.min(W, H), out = [];
-    if (form === 'photo' && photo) {
-      for (const [u, v, label] of PHOTO_TRACKS) out.push([frame.fx + u * frame.FH + sway.x * 0.3, frame.top + v * frame.FH + sway.y * 0.3, label]);
-    } else if (form === 'hang' && active.centre) {
+    if (form === 'hang' && active.centre) {
       const c = Math.cos(active.rot), s = Math.sin(active.rot), [u, v] = active.centre;
       out.push([W / 2, H / 2, 'D3 · динг']);
       if (active.field !== 1) out.push([W / 2 + (u * c - v * s) * active.R, H / 2 + (u * s + v * c) * active.R, NOTES[active.field - 2]]);
@@ -368,7 +386,7 @@
       if (md < 8100) { const dd = Math.sqrt(md) + 0.1, push = (1 - dd / 90) * 2.6; vx[i] += (mx / dd) * push * k; vy[i] += (my / dd) * push * k; }
       px[i] += vx[i] * k; py[i] += vy[i] * k;
       const j = i * 3;
-      const aim = flocking ? (free[i] ? 0.04 : 0.75) : (t < formStart + delay[i] && !free[i] ? 0.75 : ta[i]);
+      const aim = flocking ? (free[i] ? 0.016 : 0.75) : (t < formStart + delay[i] && !free[i] ? 0.75 : ta[i]);
       pos[j] = px[i]; pos[j + 1] = py[i]; pos[j + 2] += (aim - pos[j + 2]) * ease;
       if (colorsMoving) {
         const landed = !flying || free[i];
@@ -379,6 +397,23 @@
       }
     }
     colorsMoving = moving || form === 'hang' || form === 'shell' || form === 'waves' || flocking;
+    // home again: show the photo over the landed points, then stop
+    if (form === 'photo' && !flocking && t > formStart + 1.9) {
+      if (stage.classList.contains('is-points')) { stage.classList.remove('is-points'); restAt = t; }
+      else if (t > restAt + 0.9) { settle(); stop(); }
+    }
+  }
+  let restAt = 0;
+  // every point exactly on the photo, in the photo's colour
+  function settle() {
+    targets(0);
+    for (let i = 0; i < N; i++) {
+      const j = i * 3;
+      px[i] = tx[i]; py[i] = ty[i]; vx[i] = vy[i] = 0;
+      pos[j] = px[i]; pos[j + 1] = py[i]; pos[j + 2] = 1;
+      col[j] = tr[i]; col[j + 1] = tg[i]; col[j + 2] = tb[i];
+    }
+    colorsMoving = false; uploadColors = true;
   }
 
   // ── WebGL ────────────────────────────────────────────────────────────────────────────────────────
@@ -425,9 +460,11 @@ void main() {
     return Math.min(6.5, Math.max(1.3, photo.step * frame.FH * 1.85));
   }
 
-  function draw(t) {
+  function draw() {
     pointSize += (sizeAim - pointSize) * 0.06;
-    const scanY = (((t * 0.085) % 1.25) - 0.12) * H;
+    // the scan line is CSS; the points it crosses glow
+    let scanY = -999;
+    if (scanLine && scanOn) scanY = scanLine.getBoundingClientRect().top - canvas.getBoundingClientRect().top;
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.uniform2f(U.res, W, H);
@@ -438,27 +475,33 @@ void main() {
     if (uploadColors) { gl.bindBuffer(gl.ARRAY_BUFFER, colBuf); gl.bufferSubData(gl.ARRAY_BUFFER, 0, col); }
     uploadColors = colorsMoving;
     gl.drawArrays(gl.POINTS, 0, N);
-    if (scanLine) scanLine.style.transform = `translateY(${scanY.toFixed(1)}px)`;
   }
 
   // ── switching forms ──────────────────────────────────────────────────────────────────────────────
   function setForm(next, { lift = 0.55 } = {}) {
     if (next === 'figure' || !next) next = 'photo';
-    if (next === form && clock > phaseUntil) return;
+    if (!photo || (next === form && (running || form === 'photo'))) return;
+    const leaving = form === 'photo' && next !== 'photo';
     form = next;
     stage.dataset.form = form;
     sizeAim = form === 'photo' ? photoPointSize() : (phone ? 1.5 : 1.7);
     colorsMoving = true; uploadColors = true;
     if (form === 'photo') for (let i = 0; i < N; i++) { tr[i] = photo.r[i]; tg[i] = photo.g[i]; tb[i] = photo.b[i]; }
     if (reduce) {
-      formStart = clock; phaseUntil = 0; targets(0);
+      formStart = clock; phaseUntil = 0;
+      if (form === 'photo') { stage.classList.remove('is-points'); return; }
+      targets(0);
       for (let i = 0; i < N; i++) { const j = i * 3; px[i] = tx[i]; py[i] = ty[i]; pos[j] = px[i]; pos[j + 1] = py[i]; pos[j + 2] = free[i] ? 0 : ta[i]; col[j] = tr[i]; col[j + 1] = tg[i]; col[j + 2] = tb[i]; }
-      pointSize = sizeAim; uploadColors = true; draw(0); drawTrackers(0, true);
+      pointSize = sizeAim; uploadColors = true; draw(); drawTrackers(0, true);
+      stage.classList.add('is-points');
       return;
     }
+    if (leaving) { layout(); settle(); pointSize = photoPointSize(); }   // start exactly from the photo
+    stage.classList.add('is-points');
     phaseUntil = clock + lift;
     formStart = phaseUntil;
     for (let i = 0; i < N; i++) delay[i] = Math.pow(rnd(), 1.6) * 0.75;
+    start();
   }
   let pending = 0;
   window.addEventListener('flock:form', (e) => { clearTimeout(pending); pending = setTimeout(() => setForm(e.detail), 90); });
@@ -466,13 +509,11 @@ void main() {
   // ── size, loop, input ────────────────────────────────────────────────────────────────────────────
   function resize() {
     const r = canvas.getBoundingClientRect();
-    const first = !W;
     W = Math.max(1, r.width); H = Math.max(1, r.height); DPR = Math.min(2, window.devicePixelRatio || 1);
     canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
     layout();
-    if (form === 'photo') sizeAim = photoPointSize();
-    if (first) for (let i = 0; i < N; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()) * Math.min(W, H) * 0.45; px[i] = W * 0.5 + Math.cos(a) * rr; py[i] = H * 0.55 + Math.sin(a) * rr * 0.9; }
-    if (reduce && photo) { const was = form; form = ''; setForm(was); }
+    if (form === 'photo') { sizeAim = pointSize = photoPointSize(); if (!running) settle(); }
+    if (reduce && photo && form !== 'photo') { const was = form; form = 'photo'; setForm(was); }
   }
 
   let running = false, visible = true, last = 0;
@@ -480,10 +521,11 @@ void main() {
     if (!running) return;
     const dt = Math.min(0.05, (now - (last || now)) / 1000);
     last = now;
-    step(dt); draw(clock); drawTrackers(clock);
-    requestAnimationFrame(loop);
+    step(dt);
+    if (running) { draw(); drawTrackers(clock); requestAnimationFrame(loop); }
   }
-  function start() { if (running || reduce || !visible || document.hidden || !photo) return; running = true; last = 0; requestAnimationFrame(loop); }
+  // the simulation runs only while the points are out
+  function start() { if (running || reduce || !visible || document.hidden || !photo || !stage.classList.contains('is-points')) return; running = true; last = 0; requestAnimationFrame(loop); }
   function stop() { running = false; }
 
   stage.addEventListener('pointermove', (e) => {
@@ -495,7 +537,7 @@ void main() {
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; visible ? start() : stop(); }).observe(stage);
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   let rz = 0;
-  window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(resize, 120); });
+  window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => photo && resize(), 120); });
 
   // legend: trackers and scan on/off
   stage.querySelectorAll('[data-toggle]').forEach((b) => b.addEventListener('click', () => {
@@ -503,19 +545,18 @@ void main() {
     b.setAttribute('aria-pressed', String(on));
     if (b.dataset.toggle === 'scan') { scanOn = on; stage.classList.toggle('no-scan', !on); }
     else stage.classList.toggle('no-trackers', !on);
-    if (reduce) draw(0);
+    if (reduce && stage.classList.contains('is-points')) draw();
   }));
 
-  const img = new Image();
-  img.decoding = 'async';
-  img.onload = () => {
-    photo = samplePhoto(img, N);
+  // the points are made from the photo on the page once it is shown and the page is quiet
+  const prepare = () => {
+    photo = samplePhoto(shot, N);
+    form = 'photo';
+    for (let i = 0; i < N; i++) { tr[i] = photo.r[i]; tg[i] = photo.g[i]; tb[i] = photo.b[i]; }
     resize();
-    form = '';
     stage.classList.add('is-live');
-    setForm('photo', { lift: 1.1 });
-    start();
   };
-  img.onerror = () => stage.classList.add('no-gl');
-  img.src = PHOTO_SRC;
+  const whenQuiet = (fn) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 300));
+  const ready = () => (shot.decode ? shot.decode() : Promise.resolve()).catch(() => {}).then(() => whenQuiet(prepare));
+  if (shot.complete && shot.naturalWidth) ready(); else shot.addEventListener('load', ready, { once: true });
 })();

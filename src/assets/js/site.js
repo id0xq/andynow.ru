@@ -1,4 +1,4 @@
-// andynow.ru — header, menu, the statements of the first screen, the scale picker, video players.
+// andynow.ru — header, menu, the statements of the first screen, photos, resin cards, the scale picker, video players.
 // Every link works without this file; it only adds behaviour.
 (() => {
   'use strict';
@@ -66,22 +66,55 @@
     });
   }
 
-  // living photos: each develops when it first enters the screen, then drifts slowly while visible
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // living photos: the preview is there at once; the photo develops over it as soon as it is on the
+  // screen and loaded, then drifts slowly while visible
   const photos = $$('.photo');
   if (photos.length && 'IntersectionObserver' in window) {
-    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const develop = (el) => {
+      el.classList.add('is-seen');
+      if (!still) el._alive = setTimeout(() => el.classList.add('is-alive'), 700);
+    };
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       const el = e.target;
-      if (e.isIntersecting && !el.classList.contains('is-seen')) {
-        el.classList.add('is-seen');
-        if (!still) el._alive = setTimeout(() => el.classList.add('is-alive'), 1800);
+      if (e.isIntersecting && !el._asked) {
+        el._asked = true;
+        const img = $('img', el);
+        if (!img || (img.complete && img.naturalWidth)) develop(el);
+        else { img.addEventListener('load', () => develop(el), { once: true }); img.addEventListener('error', () => develop(el), { once: true }); }
       } else if (el.classList.contains('is-seen') && !still) {
         clearTimeout(el._alive);
         el.classList.toggle('is-alive', e.isIntersecting);
       }
-    }), { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    }), { rootMargin: '0px 0px 6% 0px', threshold: 0.01 });
     photos.forEach((el) => io.observe(el));
   } else photos.forEach((el) => el.classList.add('is-seen'));
+
+  // resin cards lean a little towards the cursor; the gloss follows it, the picture inside moves back
+  if (!still && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    $$('.resin').forEach((el) => {
+      let frame = 0;
+      el.addEventListener('pointermove', (e) => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+          el.classList.add('is-tilting');
+          el.style.setProperty('--rx', ((0.5 - y) * 5).toFixed(2) + 'deg');
+          el.style.setProperty('--ry', ((x - 0.5) * 6).toFixed(2) + 'deg');
+          el.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+          el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+          el.style.setProperty('--dx', ((0.5 - x) * 6).toFixed(1) + 'px');
+          el.style.setProperty('--dy', ((0.5 - y) * 5).toFixed(1) + 'px');
+        });
+      });
+      el.addEventListener('pointerleave', () => {
+        cancelAnimationFrame(frame);
+        el.classList.remove('is-tilting');
+        ['--rx', '--ry', '--mx', '--my', '--dx', '--dy'].forEach((k) => el.style.removeProperty(k));
+      });
+    });
+  }
 
   // scale picker (instruments page)
   const quizForm = $('#quizForm');
