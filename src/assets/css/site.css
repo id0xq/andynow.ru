@@ -254,6 +254,67 @@ p { margin: 0 0 1em; }
     inset 0 0 28px rgba(200, 234, 244, 0.1); }
 .resin .photo-in img { scale: 1.035; translate: var(--dx) var(--dy); transition: transform 1s var(--ease), translate .8s var(--ease); }
 .resin.is-tilting .photo-in img { transition: transform 1s var(--ease), translate .18s linear; }
+/* ── ice case: every photo is set in a thick block of clear resin or ice ───────────────────────────
+   The block (.slab, or .ice-box for rooms and videos) is a pale rounded slab with a bright rim; its
+   thick edge catches warm and cool light (.glass::before, a ring masked out of two gradients and a
+   little blurred); round the picture runs a bevel with a split of colour, red on one side and blue on
+   the other, and a sheen that follows the cursor (.glass::after). It leans towards the cursor. */
+.slab, .ice-box { --pad: clamp(10px, 1.4vw, 20px); --r: 30px; --ri: 16px; --rx: 0deg; --ry: 0deg; --mx: 30%; --my: 0%; --dx: 0px; --dy: 0px;
+  position: relative; display: block; padding: var(--pad); border-radius: var(--r); isolation: isolate;
+  background: linear-gradient(140deg, #FFFFFF 0%, #E4ECF0 30%, #FBFDFD 50%, #D7E2E8 78%, #EEF3F5 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 2px rgba(150, 170, 182, 0.25),
+    inset 0 3px 2px -1px #fff,
+    inset 0 -4px 8px rgba(100, 122, 135, 0.32),
+    inset 6px 0 10px -4px rgba(255, 145, 45, 0.55),
+    inset -6px 0 10px -4px rgba(80, 160, 255, 0.45),
+    0 0 0 1px rgba(16, 22, 27, 0.08),
+    0 3px 8px -3px rgba(16, 22, 27, 0.16),
+    0 40px 70px -36px rgba(16, 22, 27, 0.6);
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)); transition: transform .8s var(--ease), box-shadow .8s var(--ease); }
+.slab.is-tilting, .ice-box.is-tilting { transition-duration: .18s, .5s; }
+.slab > .photo-in { border-radius: var(--ri); }
+.slab .photo-in img, .ice-box .photo-in img, .ice-box .video-pic img { scale: 1.035; translate: var(--dx) var(--dy); transition: transform 1s var(--ease), translate .8s var(--ease), opacity .4s; }
+.is-tilting .photo-in img, .is-tilting .video-pic img { transition: transform 1s var(--ease), translate .18s linear, opacity .4s; }
+.glass { position: absolute; inset: 0; z-index: 5; border-radius: inherit; pointer-events: none; }
+.glass::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: var(--pad);
+  background:
+    linear-gradient(125deg, rgba(255, 255, 255, 0) 26%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0) 35%),
+    linear-gradient(100deg, rgba(255, 128, 30, 0.85) 0%, rgba(255, 210, 100, 0.55) 8%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0) 72%, rgba(150, 120, 255, 0.35) 86%, rgba(90, 185, 255, 0.6) 94%, rgba(255, 110, 60, 0.7) 100%),
+    linear-gradient(180deg, rgba(255, 200, 80, 0.6) 0%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0) 78%, rgba(255, 110, 40, 0.7) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
+  filter: blur(2px); opacity: 0.85; }
+.glass::after { content: ''; position: absolute; inset: var(--pad); border-radius: var(--ri);
+  background:
+    radial-gradient(80% 60% at var(--mx) var(--my), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 65%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 28%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.95),
+    0 0 0 2px rgba(120, 142, 155, 0.3),
+    0 0 10px 3px rgba(80, 100, 112, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    inset 2px 0 3px -1px rgba(255, 40, 80, 0.5),
+    inset -2px 0 3px -1px rgba(20, 160, 255, 0.5),
+    inset 0 2px 3px -1px rgba(255, 210, 80, 0.4),
+    inset 0 0 22px rgba(255, 255, 255, 0.12); }
+/* rooms: the whole card is the block; its picture and words sit inside the edge */
+.room.ice-box { overflow: visible; background: linear-gradient(140deg, #FFFFFF 0%, #E7EEF1 34%, #FAFCFC 52%, #DCE6EB 100%); }
+.room.ice-box .photo-in { border-radius: var(--ri); background: var(--night); }
+.room.ice-box::after { inset: var(--pad); border-radius: var(--ri); }
+.room.ice-box h3 { left: calc(22px + var(--pad)); top: calc(20px + var(--pad)); right: calc(60px + var(--pad)); }
+.room.ice-box .room-n { right: calc(22px + var(--pad)); top: calc(26px + var(--pad)); }
+.room.ice-box p { left: calc(22px + var(--pad)); right: calc(64px + var(--pad)); bottom: calc(20px + var(--pad)); }
+.room.ice-box .room-go { right: calc(22px + var(--pad)); bottom: calc(18px + var(--pad)); }
+.room.ice-box .corners { inset: calc(12px + var(--pad)); }
+.room.ice-box:hover .corners { inset: calc(16px + var(--pad)); }
+/* videos: the poster inside the block */
+.video-play.ice-box { padding: var(--pad); overflow: visible; background: linear-gradient(140deg, #FFFFFF 0%, #E7EEF1 34%, #FAFCFC 52%, #DCE6EB 100%); }
+.video-pic { position: absolute; inset: var(--pad); overflow: hidden; border-radius: var(--ri); background: #000; }
+.video-pic img { display: block; }
+.video-play .play { z-index: 6; }
+
 /* cards without a photo: a block of ice on the white */
 .free-item.resin, .quiz-result.resin, .facts-cards li, .project-empty.resin { border: 0; background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F6 100%); }
 .facts-cards li { position: relative; border-radius: 14px; box-shadow: 0 1px 1px rgba(16, 22, 27, 0.06), 0 2px 6px -2px rgba(16, 22, 27, 0.1), 0 26px 48px -30px rgba(16, 22, 27, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.9), inset 0 -14px 28px -18px rgba(90, 130, 150, 0.18); }
@@ -264,7 +325,7 @@ p { margin: 0 0 1em; }
 .intro-text > p:not(.label):not(.lead) { max-width: 560px; color: var(--fg-2); font-weight: 300; }
 .intro-text .actions { margin-top: 28px; }
 
-.rooms-rail { overflow: hidden; }
+.rooms-rail { overflow: hidden; padding: 24px 0 64px; margin: -24px 0 -64px; }
 .rooms-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .room { position: relative; display: block; overflow: hidden; color: #fff; text-decoration: none; background: var(--night); }
 .room .photo-in { border-radius: 0; }
@@ -344,7 +405,7 @@ p { margin: 0 0 1em; }
 
 .teacher { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 96px); }
 .teacher p:not(.lead) { color: var(--fg-2); font-weight: 300; max-width: 620px; }
-.strip { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(220px, 22vw, 340px); gap: 12px; margin-top: clamp(56px, 7vw, 96px); padding: 0 var(--gut); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.strip { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(220px, 22vw, 340px); gap: 16px; margin-top: clamp(32px, 5vw, 72px); margin-bottom: -48px; padding: 24px var(--gut) 64px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .strip::-webkit-scrollbar { display: none; }
 .strip .photo { scroll-snap-align: start; }
 
@@ -534,5 +595,5 @@ a.case:hover h3 { color: var(--orange); }
   .js .photo img { transform: none; }
   .js .photo.is-alive img { animation: none; }
   .live-scan, .stage-glow span { animation: none; top: 52%; }
-  .resin { transform: none; }
+  .resin, .slab, .ice-box { transform: none; }
 }

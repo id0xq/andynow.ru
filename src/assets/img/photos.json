@@ -24,13 +24,13 @@
  "play-sun": {
   "w": 1200,
   "h": 1600,
-  "alt": "Andy Now играет на ханге на солнце",
+  "alt": "Andy Now играет на ханге на камнях у моря",
   "widths": [
    540,
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoQABUAPt1cpkyopSOiMAgBEBuJZQAAXKPY2BeUJ3m7zE+wAP7kRs3rj6kWep3adbdedf/yn9aPwyTSWnDOk/LU2lTZErF+m0cIEnTHH3RMeHJCUV/DszeAZbfO8nyTaYb7UmhKwl3gdgNEGi9oIJqAAAA="
+  "lq": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABwBACdASoQABUAPt1apkyopSOiMAgBEBuJYwC/WMgDAtCixz0TO6/WLsrEgAD+zgUisHwS7Ni2JWnFjZjmXQUdjC6vnxviApUq0C1tRn3OX5urwZNyl1o1J7uIzbXnVzL8IkUsbgW+MzqDdsVGutNmdxXSmHOJytAhSJZ88ecn9eL2dddFbWAAAAA="
  },
  "river-hat": {
   "w": 1079,
@@ -241,16 +241,6 @@
   ],
   "lq": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAwCdASoQABUAPt1apkyopSOiMAgBEBuJZwCo9CHNzaHATxRW2OgA/u6Jjk2f9lKgdqESacIlWyKJw+neUkvuJNQ5eO7/eRiVaPzTFlb9GZBczSyPKnHO+ydOAAAA"
  },
- "temple-winter": {
-  "w": 1130,
-  "h": 836,
-  "alt": "Зеркальный Храм Звука зимой",
-  "widths": [
-   720,
-   1130
-  ],
-  "lq": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoQAAwAAwBSJZgCdAEekorI6b3oAAD+s3ZaUek2qCdfKEK7jlGGWgkmE+upsv+i9H0liIvyaWcWAB4O7Jq9y2tTNYAAAA=="
- },
  "temple-sunrise": {
   "w": 1386,
   "h": 1380,
@@ -410,5 +400,16 @@
    1600
   ],
   "lq": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAkAAwBSJYwCdH8ADqx2HUUsAP70vgNzp23KS2nZvHDNDWeapuMB/r3Q0+9gvP9Z8XuRV3luNclowfclB4SEmYW/raAA"
+ },
+ "altai-tipi": {
+  "w": 1600,
+  "h": 1018,
+  "alt": "Типи на поляне в долине Катуни на рассвете",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoQAAoAAwBSJZgCdAEVuJyKjZgA/sHZtT87BNL38c45Ft+6Cd6usQFVIty6SEDX6QdvzwivFQGyTfulUXhraAAA"
  }
 }

@@ -1,7 +1,7 @@
 // The pages of the space. Each function returns the inside of <main>; build.mjs wraps it with page().
 // Design code (site.css): white, ink, one orange; titles with a thin first word; section titles
 // between ~ and ./; numbered rows on hairlines; cards cast in clear resin; colour photos in one grade.
-import { esc, tg, action, link, split, secHead, photo, ctaBand, attrs, PHOTOS } from './layout.mjs';
+import { esc, tg, action, link, split, secHead, photo, ctaBand, attrs, PHOTOS, GLASS } from './layout.mjs';
 import { SITE, STATEMENTS, FACTS, ROOMS, PROJECTS, OFFERS, SCALES, VIDEOS, MSG } from './content.mjs';
 
 const n2 = (i) => String(i + 1).padStart(2, '0');
@@ -46,8 +46,8 @@ function postCard(p) {
 
 function videos() {
   return `<div class="videos">${VIDEOS.map((v, i) => `<figure class="video" data-rutube="${v.id}">
-  <button type="button" class="video-play" aria-label="Смотреть: ${esc(v.title)}, ${v.time}">
-    <img src="/assets/img/video/${v.poster}.webp" width="960" height="540" alt="" loading="lazy" decoding="async"><span class="play" aria-hidden="true"></span>
+  <button type="button" class="video-play ice-box" aria-label="Смотреть: ${esc(v.title)}, ${v.time}">
+    <span class="video-pic"><img src="/assets/img/video/${v.poster}.webp" width="960" height="540" alt="" loading="lazy" decoding="async"></span><span class="play" aria-hidden="true"></span>${GLASS}
   </button>
   <figcaption><span class="mono">${n2(i)}</span><span>${esc(v.title)}</span><span class="mono">${v.time}</span></figcaption>
 </figure>`).join('')}</div>`;
@@ -81,13 +81,14 @@ export function home(posts) {
   <p>${esc(s.text)}</p>
   <div class="actions">${action(s.cta)}${action(s.more, 'btn btn-line')}</div>
 </div>`).join('');
-  const rooms = ROOMS.map((r, i) => `<a class="room resin" href="${r.href}">
+  const rooms = ROOMS.map((r, i) => `<a class="room ice-box" href="${r.href}">
   ${photo(r.photo, { ratio: '3/4', pos: r.pos, sizes: '(max-width: 760px) 80vw, (max-width: 1100px) 45vw, 25vw', cls: 'room-photo' })}
   <span class="room-n mono">${n2(i)}</span>
   <h3>${esc(r.title)}</h3>
   <p>${esc(r.text)}</p>
   <span class="room-go" aria-hidden="true">→</span>
   <span class="corners" aria-hidden="true"></span>
+  ${GLASS}
 </a>`).join('');
   const latest = posts.slice(0, 3).map((p) => postCard(p)).join('');
   const projects = PROJECTS.map((p, i) => `<li class="proj-row">
@@ -176,7 +177,7 @@ export function learn() {
   const offers = `<div class="offers-col">${cards.filter((_, i) => i % 2 === 0).join('')}</div><div class="offers-col">${cards.filter((_, i) => i % 2 === 1).join('')}</div>`;
 
   const strip = [['hero-play', 'Пхукет'], ['altai-glow', 'Алтай'], ['play-close', 'Руки'], ['hands-top', 'Ритм'], ['hangs-back', 'Дуэт']]
-    .map(([n, t], i) => photo(n, { ratio: '3/4', pos: n === 'hangs-back' ? '50% 20%' : '', tag: n2(i) + ' ' + t, sizes: '(max-width: 760px) 70vw, 22vw', cls: 'resin' })).join('');
+    .map(([n, t], i) => photo(n, { ratio: '3/4', pos: n === 'hangs-back' ? '50% 20%' : '', tag: n2(i) + ' ' + t, sizes: '(max-width: 760px) 70vw, 22vw' })).join('');
 
   return `${pageHead({
     label: 'обучение',
@@ -416,23 +417,23 @@ export function digital() {
     ${secHead('cases-title', 'сделано')}
     <div class="cases">
       <a class="case" href="${SITE.hps}" target="_blank" rel="noopener">
-        ${photo('hps-chords', { ratio: '3/4', tag: 'web · telegram', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
+        ${photo('hps-chords', { ratio: '3/4', tag: 'web · telegram', sizes: '(max-width: 760px) 100vw, 30vw' })}
         <h3>Handpan Sphere</h3><p>Виртуальный ханг и атмосферный бэк: аккорды, ритм и природа звучат в строе инструмента. Сайт, офлайн-приложение и Telegram Mini App на одном коде, бот на Cloudflare Workers.</p><span class="link">handpansphere.ru</span>
       </a>
-      <a class="case" href="https://t.me/cinematiqbot" target="_blank" rel="noopener">
-        ${photo('cinematic', { ratio: '3/4', pos: '38% 50%', tag: 'telegram · оплаты', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
+      <a class="case" href="${SITE.cinematic}" target="_blank" rel="noopener">
+        ${photo('cinematic', { ratio: '3/4', pos: '38% 50%', tag: 'telegram · оплаты', sizes: '(max-width: 760px) 100vw, 30vw' })}
         <h3>Синематик</h3><p>Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Настроил приём оплат и веду проект целиком как технический специалист.</p><span class="link">@cinematiqbot</span>
       </a>
       <a class="case" href="${SITE.zemli}" target="_blank" rel="noopener">
-        ${photo('temple-sunrise', { ratio: '3/4', tag: 'процессы · команда', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
-        <h3>Земли Силы</h3><p>Операционный менеджер автономного комплекса в первозданной природе Алтая. Настраивал и автоматизировал процессы, управлял персоналом, вместе с единомышленниками развивал проект.</p><span class="link">Проект «Земли Силы»</span>
+        ${photo('temple-sunrise', { ratio: '3/4', tag: 'процессы · команда', sizes: '(max-width: 760px) 100vw, 30vw' })}
+        <h3>Земли Силы</h3><p>Операционный менеджер автономного комплекса в первозданной природе Алтая. Настраиваю и автоматизирую процессы, управляю персоналом, вместе с единомышленниками развиваю проект.</p><span class="link">Проект «Земли Силы»</span>
       </a>
       <div class="case">
-        ${photo('play-sun', { ratio: '3/4', tag: 'webgl · скан', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
+        ${photo('play-sun', { ratio: '3/4', tag: 'webgl · скан', sizes: '(max-width: 760px) 100vw, 30vw' })}
         <h3>andynow.ru</h3><p>Этот сайт: фото первого экрана рассыпается на десятки тысяч точек и собирается в ханг, волны и куб на WebGL. Журнал из канала, единая цветовая обработка фото. Статический, быстрый, без лишних зависимостей.</p>
       </div>
       <div class="case">
-        ${photo('otf-sphere', { ratio: '3/4', tag: 'next.js · payload', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
+        ${photo('otf-sphere', { ratio: '3/4', tag: 'next.js · payload', sizes: '(max-width: 760px) 100vw, 30vw' })}
         <h3>~ontheflow./</h3><p>Магазин редких артефактов на Next.js и Payload CMS: витрина, корзина, заказы с уведомлениями в Telegram, админка на русском.</p>
       </div>
     </div>
@@ -460,7 +461,7 @@ ${ctaBand({ title: 'Обсудим проект', text: 'Опишите зада
 
 export function projects() {
   const items = PROJECTS.map((p, i) => `<article class="project">
-  ${p.photo ? photo(p.photo, { ratio: '4/5', tag: n2(i) + ' / 0' + PROJECTS.length, sizes: '(max-width: 980px) 100vw, 40vw', cls: 'project-photo resin' }) : `<div class="project-photo project-empty resin" aria-hidden="true"><span>${esc(p.name)}</span></div>`}
+  ${p.photo ? photo(p.photo, { ratio: '4/5', tag: n2(i) + ' / 0' + PROJECTS.length, sizes: '(max-width: 980px) 100vw, 40vw', cls: 'project-photo' }) : `<div class="project-photo project-empty resin" aria-hidden="true"><span>${esc(p.name)}</span></div>`}
   <div class="project-text">
     <span class="state${p.live ? ' is-live' : ''}">${esc(p.state)}</span>
     <h2>${esc(p.name)}</h2>
@@ -526,7 +527,7 @@ export function about() {
       <div class="actions">${action({ label: 'Курс ведущего', href: '/learn/#leader' }, 'btn btn-orange')}${link(SITE.zemli, 'Проект «Земли Силы»')}</div>
     </div>
     ${photo('temple-arch', { ratio: '3/4', tag: 'арка', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'temple-a' })}
-    ${photo('temple-winter', { ratio: '3/4', pos: '50% 60%', tag: 'купол зимой', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'temple-b' })}
+    ${photo('altai-tipi', { ratio: '3/4', pos: '48% 50%', tag: 'долина Катуни', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'temple-b' })}
     ${photo('temple-summer', { ratio: '16/9', pos: '50% 60%', tag: 'купол летом', sizes: '(max-width: 760px) 100vw, 90vw', cls: 'temple-c' })}
   </div>
 </section>

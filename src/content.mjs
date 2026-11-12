@@ -14,7 +14,8 @@ export const SITE = {
   instagram: 'https://www.instagram.com/now.andy_',
   hps: 'https://handpansphere.ru/',
   bot: 'https://t.me/handpansbot',
-  zemli: 'https://t.me/zemli_sili',
+  zemli: 'https://t.me/zemli_sili',   // the Instagram of Земли Силы goes here once known
+  cinematic: 'https://t.me/cinematiqbot',
   practice: 'https://t.me/Music_ofSpheres/69',
 };
 
@@ -93,8 +94,13 @@ export const PROJECTS = [
   },
   {
     name: 'Земли Силы', state: 'работает', live: true, photo: 'temple-sunrise',
-    text: 'Ретритный центр проекта «Анимара» в частном заповеднике на Алтае. В его центре стоит зеркальный Храм Звука.',
-    links: [{ href: SITE.zemli, label: 'канал проекта' }],
+    text: 'Операционный менеджер автономного комплекса в первозданной природе Алтая. Настраиваю и автоматизирую процессы, управляю персоналом, вместе с единомышленниками развиваю проект.',
+    links: [{ href: SITE.zemli, label: 'проект «Земли Силы»' }],
+  },
+  {
+    name: 'Синематик', state: 'работает', live: true, photo: 'cinematic',
+    text: 'Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Веду проект целиком как технический специалист: от уроков до приёма оплат.',
+    links: [{ href: SITE.cinematic, label: '@cinematiqbot' }],
   },
   {
     name: '~ontheflow./', state: 'скоро', live: false, photo: 'otf-sphere',

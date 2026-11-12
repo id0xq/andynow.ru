@@ -38,7 +38,7 @@ OUT = os.path.join(ROOT, 'src', 'assets', 'img')
 PHOTOS = {
     'hero-play':       (BANK + '/andy nika phuket/DSC09938.JPG', 'Andy Now играет на ханге'),
     'portrait-band':   (BANK + '/andy/IMG_5736.JPG', 'Andy Now в повязке и очках играет на ханге'),
-    'play-sun':        (BANK + '/andy nika phuket/DSC09941.JPG', 'Andy Now играет на ханге на солнце'),
+    'play-sun':        (BANK + '/andy nika phuket/DSC09931.JPG', 'Andy Now играет на ханге на камнях у моря'),
     'river-hat':       (ALTAI + '/DSC09998-1.jpg', 'Andy Now играет на ханге у реки на Алтае'),
     'river-wide':      (ALTAI + '/DSC09957-3.jpg', 'Andy Now играет на ханге у реки в горах Алтая'),
     'sculpture':       (ALTAI + '/DSC09370-1.jpg', 'Andy Now с хангом у светящейся скульптуры на Алтае'),
@@ -58,7 +58,7 @@ PHOTOS = {
     'session-wedding': (BANK + '/хэндпан свадьба/photo_2026-02-04 14.56.30.jpeg', 'Живой ханг на вечернем событии в лесу'),
     'event-portrait':  (BANK + '/photo andy handpan/3C6728CF-64FE-4E7F-A4C1-4C23041F4D0D.JPG', 'Andy Now играет на ханге на событии'),
     'temple-inside':   (HPS + '/temple-inside.webp', 'Внутри зеркального купола Храма Звука'),
-    'temple-winter':   (SUPER + '/temple-winter.webp', 'Зеркальный Храм Звука зимой'),
+    'altai-tipi':      (os.path.expanduser('~/Downloads/handpan-sphere/marketing/carousels/assets/photos/altai-valley-hd.jpg'), 'Типи на поляне в долине Катуни на рассвете'),
     'temple-sunrise':  (HPS + '/temple-sunrise.webp', 'Зеркальный Храм Звука на рассвете, Алтай'),
     'temple-summer':   (BANK + '/DJI_20240401003113_0213_D.JPG', 'Зеркальный Храм Звука летом в долине Катуни'),
     'cinematic':       (os.path.expanduser('~/Downloads/now./синематик 2/DSC01232.jpg'), 'Съёмка на телефон: кадр школы мобильной видеосъёмки Синематик'),
