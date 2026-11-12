@@ -14,7 +14,7 @@ export const SITE = {
   instagram: 'https://www.instagram.com/now.andy_',
   hps: 'https://handpansphere.ru/',
   bot: 'https://t.me/handpansbot',
-  zemli: 'https://t.me/zemli_sili',   // the Instagram of Земли Силы goes here once known
+  zemli: 'https://www.instagram.com/zemli_sili/',
   cinematic: 'https://t.me/cinematiqbot',
   practice: 'https://t.me/Music_ofSpheres/69',
 };
