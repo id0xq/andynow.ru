@@ -9,7 +9,7 @@ const sgn = (v) => (v < 0 ? '−' : '+') + Math.abs(v).toFixed(2);
 
 // The first screen: Andy by the sea, stepping out of the frame onto the page, with a scan line and
 // trackers. Statements turn the photo into points that gather into a hang, waves or a cube (live.js).
-const HERO_TRACKS = [[0.603, 0.15, 'взгляд'], [0.637, 0.505, 'ханг'], [0.3, 0.588, 'горизонт']];
+const HERO_TRACKS = [[0.637, 0.505, 'ханг'], [0.22, 0.588, 'горизонт'], [0.16, 0.82, 'камни']];
 function heroStage() {
   const h = PHOTOS['hero-sea'];
   const trackers = HERO_TRACKS.map(([x, y, label], i) => `<span class="tracker is-on" style="--x:${(x * 100).toFixed(1)}%;--y:${(y * 100).toFixed(1)}%" data-x="${x}" data-y="${y}" data-label="${label}"><i></i><span>${n2(i)} ${sgn(x * 2 - 1)} ${sgn(1 - y * 2)} ${label}</span></span>`).join('');
@@ -23,7 +23,7 @@ function heroStage() {
         <div class="stage-trackers" aria-hidden="true">${trackers}</div>
       </div>
       <div class="live-trackers" aria-hidden="true"></div>
-      <div class="live-legend"><span class="mono">Пхукет, 2025</span><button type="button" class="mono" data-toggle="trackers" aria-pressed="true">трекеры</button><button type="button" class="mono" data-toggle="scan" aria-pressed="true">скан</button></div>
+      <div class="live-legend"><button type="button" class="mono" data-toggle="trackers" aria-pressed="true">трекеры</button><button type="button" class="mono" data-toggle="scan" aria-pressed="true">скан</button></div>
     </div>`;
 }
 
@@ -124,7 +124,7 @@ export function home(posts) {
       <p>Вторая моя половина инженерная. Handpan Sphere, виртуальный ханг в браузере и Telegram, я собрал сам, от идеи до кода.</p>
       <div class="actions">${action({ label: 'Моя история', href: '/about/' }, 'btn btn-line')}</div>
     </div>
-    ${photo('portrait-smile', { ratio: '4/5', pos: '50% 30%', tag: 'на уроке', sizes: '(max-width: 760px) 100vw, 40vw', cls: 'intro-photo' })}
+    ${photo('andy-hat', { ratio: '4/5', pos: '40% 30%', tag: 'Алтай', sizes: '(max-width: 760px) 100vw, 40vw', cls: 'intro-photo' })}
   </div>
   <div class="wrap">${facts()}</div>
 </section>
@@ -161,27 +161,29 @@ ${ctaBand()}`;
 // ─── learn ─────────────────────────────────────────────────────────────────────────────────────────
 
 export function learn() {
-  const offers = OFFERS.map((o, i) => `<article class="offer" id="${o.id}">
-  ${photo(o.photo, { ratio: '4/5', tag: n2(i) + ' / 0' + OFFERS.length, sizes: '(max-width: 980px) 100vw, 42vw', cls: 'offer-photo resin' })}
-  <div class="offer-text">
-    <h2>${split(o.title)}</h2>
-    <p class="lead">${esc(o.lead)}</p>
+  // two columns that keep their own heights: 01 and 03 on the left, 02 and 04 on the right;
+  // on a phone they fold back into one column in order (--i)
+  const cards = OFFERS.map((o, i) => `<article class="offer-card resin" id="${o.id}" style="--i:${i}">
+  ${photo(o.photo, { ratio: '3/2', pos: o.pos || '', tag: n2(i) + ' / 0' + OFFERS.length, sizes: '(max-width: 900px) 100vw, 46vw', cls: 'offer-photo' })}
+  <div class="offer-body">
+    <h2>${esc(o.title)}</h2>
+    <p class="offer-sub">${esc(o.lead)}</p>
     ${o.steps ? `<ol class="tiers">${o.steps.map(([name, count, t]) => `<li><b class="tier-count">${esc(count.split(' ')[0])}</b><span class="tier-word mono">${esc(count.split(' ').slice(1).join(' '))}</span><h3>${esc(name)}</h3><p>${esc(t)}</p></li>`).join('')}</ol>` : ''}
     <ul class="ticks">${o.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
-    <p class="meta mono">${esc(o.meta)}</p>
     <div class="actions">${action(o.cta)}</div>
   </div>
-</article>`).join('');
+</article>`);
+  const offers = `<div class="offers-col">${cards.filter((_, i) => i % 2 === 0).join('')}</div><div class="offers-col">${cards.filter((_, i) => i % 2 === 1).join('')}</div>`;
 
-  const strip = [['hero-play', 'Пхукет'], ['play-close', 'Руки'], ['hands-top', 'Ритм'], ['event-portrait', 'Звук'], ['hangs-back', 'Дуэт']]
+  const strip = [['hero-play', 'Пхукет'], ['altai-glow', 'Алтай'], ['play-close', 'Руки'], ['hands-top', 'Ритм'], ['hangs-back', 'Дуэт']]
     .map(([n, t], i) => photo(n, { ratio: '3/4', pos: n === 'hangs-back' ? '50% 20%' : '', tag: n2(i) + ' ' + t, sizes: '(max-width: 760px) 70vw, 22vw', cls: 'resin' })).join('');
 
   return `${pageHead({
     label: 'обучение',
-    title: 'Обучение игре на ханге',
-    lead: 'Учу тех, кто никогда не держал инструмент в руках, и тех, кто уже играет и ищет свой почерк. Музыкальный опыт не нужен: ханг настроен в один строй, фальшивой ноты в нём нет.',
+    title: 'Учиться играть на ханге',
+    lead: 'Учу тех, кто никогда не держал инструмент в руках, и тех, кто уже играет и ищет свой почерк. Музыкальный опыт не нужен: достаточно интереса и желания прикоснуться к инструменту.',
     cta: [action({ label: 'Записаться на пробное занятие', msg: 'trial' }), action({ label: 'Форматы', href: '#formats' }, 'btn btn-line')],
-    img: 'river-play', pos: '50% 40%', tag: 'Алтай · Катунь',
+    img: 'andy-river', pos: '44% 50%', tag: 'Алтай · Катунь',
   })}
 
 <section class="section about-teacher" aria-labelledby="teacher-title">
@@ -198,6 +200,14 @@ export function learn() {
   <div class="strip" aria-label="Фото с занятий">${strip}</div>
 </section>
 
+<section class="section offers" id="formats" aria-labelledby="formats-title">
+  <div class="wrap">
+    ${secHead('formats-title', 'как можно заниматься', 'Онлайн и вживую. Начать можно с бесплатного пробного занятия курса.')}
+    <div class="offers-grid">${offers}</div>
+    <p class="offers-more">${link('/about/#temple-title', 'Подробнее о Храме Звука')}</p>
+  </div>
+</section>
+
 <section class="section" aria-labelledby="first-title">
   <div class="wrap split-grid">
     ${secHead('first-title', 'первое занятие', 'Сорок минут, после которых понятно, куда идти.', { align: 'left' })}
@@ -206,13 +216,6 @@ export function learn() {
       ['Звучим', 'Ставим руки, находим чистый звук, собираем первый ритм и первую мелодию. Её можно играть уже вечером.'],
       ['Строим путь', 'Определяем ваш уровень и договариваемся, как двигаться дальше: в каком темпе и к какой цели.'],
     ])}
-  </div>
-</section>
-
-<section class="section offers" id="formats" aria-labelledby="formats-title">
-  <div class="wrap">
-    ${secHead('formats-title', 'как можно заниматься', 'Онлайн и вживую. Начать можно с бесплатного пробного занятия курса.')}
-    ${offers}
   </div>
 </section>
 
@@ -421,7 +424,7 @@ export function digital() {
         <h3>andynow.ru</h3><p>Этот сайт: фото первого экрана рассыпается на десятки тысяч точек и собирается в ханг, волны и куб на WebGL. Журнал из канала, единая цветовая обработка фото. Статический, быстрый, без лишних зависимостей.</p>
       </div>
       <div class="case">
-        ${photo('scarf-gong', { ratio: '3/4', pos: '70% 50%', tag: 'next.js · payload', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
+        ${photo('otf-sphere', { ratio: '3/4', tag: 'next.js · payload', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'resin' })}
         <h3>~ontheflow./</h3><p>Магазин редких артефактов на Next.js и Payload CMS: витрина, корзина, заказы с уведомлениями в Telegram, админка на русском.</p>
       </div>
     </div>

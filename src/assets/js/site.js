@@ -76,18 +76,27 @@
       el.classList.add('is-seen');
       if (!still) el._alive = setTimeout(() => el.classList.add('is-alive'), 700);
     };
+    // Near the screen the photo is asked for at once (loading = eager): a hidden lazy image may never be
+    // fetched by the browser on its own (Safari waits for it to be visible, and it is clipped until it
+    // develops). It develops when loaded, and after 2.5 s in any case.
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       const el = e.target;
       if (e.isIntersecting && !el._asked) {
         el._asked = true;
         const img = $('img', el);
-        if (!img || (img.complete && img.naturalWidth)) develop(el);
-        else { img.addEventListener('load', () => develop(el), { once: true }); img.addEventListener('error', () => develop(el), { once: true }); }
+        if (!img || (img.complete && img.naturalWidth)) { develop(el); return; }
+        let done = false;
+        const go = () => { if (!done) { done = true; develop(el); } };
+        img.addEventListener('load', go, { once: true });
+        img.addEventListener('error', go, { once: true });
+        setTimeout(go, 2500);
+        img.loading = 'eager';
+        if (img.complete && img.naturalWidth) go();
       } else if (el.classList.contains('is-seen') && !still) {
         clearTimeout(el._alive);
         el.classList.toggle('is-alive', e.isIntersecting);
       }
-    }), { rootMargin: '0px 0px 6% 0px', threshold: 0.01 });
+    }), { rootMargin: '0px 0px 25% 0px', threshold: 0.01 });
     photos.forEach((el) => io.observe(el));
   } else photos.forEach((el) => el.classList.add('is-seen'));
 

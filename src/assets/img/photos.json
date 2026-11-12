@@ -8,18 +8,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAwBACdASoQABUAPt1apkyopSOiMAgBEBuJZQCsACPbHaA22u3kcnx+urAA/tyZmiZOUdAVBOYE8MfB+7rel1OkQt55GM4CivLCX52Q5eLSuQR00FDZ4S+fuL4AZal9Ebs2NcigfbaSq9+nLiW+kMXxuux9ENJj2iZ8y1cAAAA="
- },
- "portrait-smile": {
-  "w": 853,
-  "h": 1280,
-  "alt": "Andy Now смеётся и играет на ханге",
-  "widths": [
-   480,
-   800,
-   853
-  ],
-  "lq": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABwBACdASoQABgAPt1ep00opSOiMAgBEBuJYwCdMoADcZBfcfEtqr1ZqQi7gAD+3tRrpkrrEg5N9GTY7wS1C7enmb8JqQ2xRAbcPbb4WSZwSdUa+2A23quHHSz3kp3UhfRMix8WIxL+SUg/r7eYAA=="
+  "lq": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAABwBACdASoQABUAPt1apkyopSOiMAgBEBuJZQAAYX4POqGn+s6nyMpsOpTmAAD+5b7zOII8GFzZ1+Nmzk3huHnCgLkcxgbXPSmMg95C72EJjzzov1gydTfTthI4uHV0sVqaA3wwl1EyKctOOuwS5sfWDfarrX6tor0VnaENR/lQgziCDOAAAA=="
  },
  "portrait-band": {
   "w": 1200,
@@ -30,7 +19,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoQABUAPt1apkyopSOiMAgBEBuJQBUehA8SJM7+YdUOBrLIAAD7dj/QUbse64kjuzVVy7t8n1i199e0mqIUDCpejwoR6tgxmvIcnEiKrsIn/NOYUB7AQ6XCuyPzXeAuTgne31XBve13Kt1eFd1tj2j0XFiv5PPrPgKBmWx60AA="
+  "lq": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoQABUAPt1cpkyopSOiMAgBEBuJZQCsMoADKvzF/wPbug1aAAD9kC3VHz3tF8QhWnDjOwPIdt8jQmiBZLuQWWN29+hrORhMNHNTkvuvA3iZKF3spSja31ZJOibqZSDcVAXevJZuzX5FY61jVFZSyvHZvUzRPPbywHxAN/+Jz5AAAA=="
  },
  "play-sun": {
   "w": 1200,
@@ -41,7 +30,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADwAwCdASoQABUAPt1apkyopSOiMAgBEBuJZQC06CFlz1U5mGIWSTJAAP7PXUABamtYt7EBw1gbasTZAzh/PTloeTm+4R1IHqcJ24o+EsKmYzDUOXFQUnYM7WJAWVLooW3Bm5OGetz1PUwhgbuYGL0iXxQ1gAAA"
+  "lq": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoQABUAPt1cpkyopSOiMAgBEBuJZQAAXKPY2BeUJ3m7zE+wAP7kRs3rj6kWep3adbdedf/yn9aPwyTSWnDOk/LU2lTZErF+m0cIEnTHH3RMeHJCUV/DszeAZbfO8nyTaYb7UmhKwl3gdgNEGi9oIJqAAAA="
  },
  "river-hat": {
   "w": 1079,
@@ -52,18 +41,7 @@
    809,
    1079
   ],
-  "lq": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAwBACdASoQABgAPt1cpkyopSOiMAgBEBuJZQCdACP/xIt4hKPgWMJy9KAA/kEh+0ndDQy9mkdICDH1pJ2aXU9DEs8GuHq+OZ79HB6Q6klhqGXhVx0XlD+pfUv0wra+//i6Hv59HjeSRnY9kZ4aIslLdCoAAA=="
- },
- "river-play": {
-  "w": 1067,
-  "h": 1600,
-  "alt": "Andy Now с хангом на камнях у Катуни",
-  "widths": [
-   480,
-   800,
-   1067
-  ],
-  "lq": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwBACdASoQABgAPt1cp0yopSOiMAgBEBuJZQC06Glfk/ZY6GvxsoNlr0AA/v2c8/Cvcs/2ax6HkAGz0RArGaKogqXz8kO81c7UKbrtk6LbSzqdH7Dan7yPM515M97qXQ17LbSxCcgAAA=="
+  "lq": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQBACdASoQABgAPt1cpkyopSOiMAgBEBuJZwDMHCPtg85zrAn6PNMvXaYAAP6D/YhiXxpF8Pb9ocLy1CVvODmRSysSaixjuNuAywT/fnzPZ2notBX3bBHS78wSz+/Z55/IVWLo62iIiIKIPAZQPUjaoCPiK8AA"
  },
  "river-wide": {
   "w": 1600,
@@ -74,7 +52,7 @@
    1200,
    1600
   ],
-  "lq": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAQAgCdASoQAAsAAwBSJZQCdAEO5MR+dN/QAP4LJkDITLki1Tea+2aDVdmcJ1dsXx/BWjAR+92QwDfIAAA="
+  "lq": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAsAAwBSJZwAAuOHJLKupYAA/QGh0TiFVpGROS+EnwEpSPd2NZhdlbhyyWjt9StzNm/R64wHAAAA"
  },
  "sculpture": {
   "w": 1067,
@@ -85,18 +63,7 @@
    800,
    1067
   ],
-  "lq": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAQBACdASoQABgAPt1cpkyopSOiMAgBEBuJYwCdMoADKTrPy9AHFuWCnAD2LGA93mgbr9i8uyzqfl2NKKgch/Fz73bEMVYUjKJRSpYwWdZ/uFKhwvTVUbv98298n1sZzoU+QjgT8vhPkQmRwwKeAAAA"
- },
- "lesson-temple": {
-  "w": 1107,
-  "h": 1600,
-  "alt": "Занятие на ханге у зеркального Храма Звука",
-  "widths": [
-   498,
-   830,
-   1107
-  ],
-  "lq": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAACQBACdASoQABcAPt1cpkyopSOiMAgBEBuJYwCw7d0Y43+FryuC8R9a00XxiwAA/vHSv3aY46NmicEcjgpg7auOBgRquIXOAdsLJ4q5oGToMHdO8rhgOdVdI2kHxEcEMY0Z8+Be2BdDnuuNE6G1IGrgoGGNAHcO5rqhGW5+mNhrXRDzcSrTdjjnG+2ENmE9tIzvAMLWFQAAAA=="
+  "lq": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoQABgAPt1cpkyopSOiMAgBEBuJQBOkDgBcAVOYO87/rivaMAD7nlDdNUlfLajdlHI1MN6eotcJZ8+zDa/yQS4qtcdhj8173Lo7HOiY7aw8SopmakYXo396t8YfHCrIt52qS7pEM/EGgPFugWh60AAA"
  },
  "temple-arch": {
   "w": 1067,
@@ -107,7 +74,7 @@
    800,
    1067
   ],
-  "lq": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwBACdASoQABgAPt1cpkyopSOiMAgBEBuJYgC2yB5z3fNGOQ15yN0TRIAA/ugzGvfFqYQcLtaS8U3Cr+lj0BJ+q48BSdiNY0j2+wzujMmcc09k/2YxqHxxZMGtQRnoHNCF9mFqPxhCAAAA"
+  "lq": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQBACdASoQABgAPt1cp0yopSOiMAgBEBuJYgCdACP7WVSk04b4Jjfg+HFAAP7XDfkqz+c/wURfJHzMhAoVi6ScaVPcaGG9lwxDhmSF7Kv+xIOgk4jgWFLTnrHYkdjJZDgiB1UnD4oQko1QbdpfsMiyAAA="
  },
  "hang-chest": {
   "w": 1600,
@@ -118,18 +85,7 @@
    1200,
    1600
   ],
-  "lq": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAQCdASoQAAwAAwBSJQBOgBUofDpkAAD+sg1OFzDaHGTocR8VqggXFr+Pg8bw/ZroCdJzUXwHXuYc0wV49JL1IjnZ+5NDPulB3Q4bRQXMg9QAAAA="
- },
- "hangs-duo": {
-  "w": 1600,
-  "h": 1200,
-  "alt": "Два ханга в руках на фоне моря",
-  "widths": [
-   720,
-   1200,
-   1600
-  ],
-  "lq": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoQAAwAAwBSJZACdADRD+5B+cAA/tKEApT2H0fn1sPU5nyEFi4TsetgKMngTLJWAQkI0mVzzzjpuhrv670f4DPRjd0RJ6mVZQh65qVUtc4AAA=="
+  "lq": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAQCdASoQAAwAAwBSJQBOgBUqn3XYAAD+ZoPiaxfPv5DxWl0XCDOxUlEQ6C81zju0RnvmuFJdh+R7b/MdWKRnt3v8E59gYLfz4VJuT5tZZgAA"
  },
  "hangs-back": {
   "w": 1200,
@@ -140,7 +96,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAADQAwCdASoQABUAPt1apkyopSOiMAgBEBuJQBOgAza/2JLABr7n9QAA/lv+ZQ+5RRd4CKnvA8uTE6yM1VIde501E7aJ9ufXpby3iCfwkdhH42w00xrYpE01K1cr5bYkcSZ8abWHOEyecnAPgytrKqbpJT8XgZepKfbHVMTt51mVsdlDGBytev8YA+uPp2PRmQn5C9QtYfBi4AAA"
+  "lq": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAADQAwCdASoQABUAPt1apkyopSOiMAgBEBuJZACdABm1/tD0tfSozdAA/eO8Y2VQ1YC2KKXvA8uIL4k2U9mmVTIea7aJ9ufXpby3qEXD7SCY76o67ROu0y3X4ygAXPnkzfeLKbdDOCyweOOcOevxIguN8qamJk34dAPr6OPcmVKjg0LngO+EVM4eCQvH+6iHKfTsejMbu5jhUTtAgQrIAA=="
  },
  "hang-detail": {
   "w": 1200,
@@ -151,7 +107,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAwBACdASoQABUAPt1apkyopSOiMAgBEBuJZQCnFCIHjiwj+n3P8WH9yAAA/ktFHhFvoszcPkX9IBK5qgHfzfDQaBIzSOWNBkcV8cNPK1C3IIrUgKhIQNYcrP6ZwgcgFTMoHiOo+4YLWUDFrcb2cB8NncqWtKmAAAA="
+  "lq": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwBACdASoQABUAPt1apkyopSOiMAgBEBuJZQCnFCIJLddj96MnXbh++tQA/ohx8zFuaCEIc1mG9/udr4VSuDwosYNJxUkoDRoPqtxQ2ms/ph217Mn906cpVdByvjAfTV8SYaTJu5WauwO/D7QhTlgGy7qsakd67wAAAA=="
  },
  "play-close": {
   "w": 1200,
@@ -162,7 +118,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABQBACdASoQABUAPt1apkyopSOiMAgBEBuJYwCdAywBTKuhlIwtW9Vor/sAAPZ1UeyaS1u7aKResyhaxOku12mpJlL3iV5N11uIR56mnFNmNqUgTj1NA93F8r5rujgqK1SAzJZv+Jyt9FxUjS0NJwQlss1AhjHZalv3mqC77sKQAA=="
+  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABQBACdASoQABUAPt1apkyopSOiMAgBEBuJYwC06CBsu23AP7jASDvucFzwAPshJllXW0HqI4DZVnZdzbJEfpYHFtbeUSVy4R/pFQqBhCV79g4d06DL6QxwMghenggoFJ7/2IydSTvmI0qmMKVgUyJCzqSJlZb6HdGX1GrAAAA="
  },
  "hands-top": {
   "w": 1200,
@@ -173,7 +129,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABQBACdASoQABUAPt1apkyopSOiMAgBEBuJQBOmUABqa3uLym8dwZxlGdQAAP7SmhN04Fr6a0oh6zMNFaRe7jHd6LLJXWU2EwH9XqahXNsf1T5qaHzFQWrfubG+/oOQ5nj3PT4q48sJyfEWH4nQMNAHkwj91Wgs1K2iWUOCAAA="
+  "lq": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAABQBACdASoQABUAPt1cpkyopSOiMAgBEBuJQBTihEHTNCohDMmtLIpkM/sAAP7m60BTsR46evaFBdI15hgqIoOf7W5NBGuspsJgQ7+OYc+8+cWkIuPGvp3wF1tgyLJaFDo6O+0v8Zh8lPLZLMAHB/UlMkzm0DS2eROpLeVZ1GWCs6m4sNwAAA=="
  },
  "lesson-beach": {
   "w": 1600,
@@ -184,7 +140,7 @@
    1200,
    1600
   ],
-  "lq": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAQCdASoQAAwAAwBSJQBOgB3wVm+mIAD+NH+fGmmXNjYJJXgPLezON0Yxc1RY4inHftgW0hLCCtYbLSrPnIce92x2LCt0tXcxqo00q7Ni5coDPw9IryAA"
+  "lq": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQAgCdASoQAAwAAwBSJaACdADvgpxvZG5AAP6jf9e4OPfAXhpVh8u5I0EzA7VykbeveRBzqTMkuy0r3c1c+BlyIPOt2XpkXLYCuWW7mfM2HnHsZ04JifIccyL1U92AAAA="
  },
  "lesson-dome": {
   "w": 1206,
@@ -195,18 +151,7 @@
    910,
    1206
   ],
-  "lq": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQBACdASoQABUAPt1apkyopSOiMAgBEBuJZwCdACIIzR/6r4rTtAGIYAD+8dqagrMpXWO2T8WjHw7IbnSzlNecN+ObdsHMW1qFkmAQP+lijdbyppjuTmVFXvGnP9Xz0lf1P+Ws8M7z+AAA"
- },
- "lesson-outdoor": {
-  "w": 960,
-  "h": 1280,
-  "alt": "Andy Now играет для группы на открытом воздухе",
-  "widths": [
-   540,
-   900,
-   960
-  ],
-  "lq": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAABwAwCdASoQABUAPt1apkyopSOiMAgBEBuJQBOgAZ8zBADkDdAA+yIXcmNLpqa2NjmJkZ1NOaB3yT5CokebKxX8t3JMyUfsSNtpkwXrsRmn6pFR5bWouMFhbn15MYJuj6FUgyeSpMUydncOXlHtGvBU2/h+g0cOQiC+acrq1SMiyDTeB1T6o0rwqwIUbZC9Bm3MMAAA"
+  "lq": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABQBACdASoQABUAPt1apkyopSOiMAgBEBuJZwDG9CIJNrUmTQxtJYipzfAgAP7tUJoVzjEFx+1hnOq0HvVlD9kuAQLkWBasg2eu9m/9mmiZo6tGpPqsUTZ7eX33Wv9kuxNU15X9GUmh0ASvW+Ae/kAA"
  },
  "school-group": {
   "w": 1600,
@@ -217,7 +162,7 @@
    1200,
    1600
   ],
-  "lq": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoQAAsAAwBSJYwC7AEQ/ZqIc2iUgAD+9XBi9tfq2i4iowIhNpxepvrQIxsBuKrbxHPOma5+1FkgvGXtN06N4vc4LK60AA=="
+  "lq": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAwAgCdASoQAAsAAwBSJZQCdAEQ/Un4BMSHwAD+93n+UJfwYq6k20sPnRJOduJcJqoEK6W7iRoTp4Z1khUXnOE+UOwtYL8SsAA="
  },
  "session-bowl": {
   "w": 1200,
@@ -228,7 +173,7 @@
    900,
    1200
   ],
-  "lq": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACwAwCdASoQABUAPt1apkyopSOiMAgBEBuJYwCdABgHp7aEFzi6AAD+wTeUzDxZa8lpHdk6I9YvGSjg39fH8T9J3EcGN69aYB1Azf2X12qFN+2UcY8f3balaK7Mxk1JDaUHv+nQ6VTlrz2zuStcSkKqJkwAAA=="
+  "lq": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAACwAwCdASoQABUAPt1apkyopSOiMAgBEBuJQBYdgwD07YLX8BdcAAD+0ZVDLYYI3MNiYvqHhHY2mrruC38F89iTmBZZIs5YLr0ukLHGWO/8g79bNzEQLWoqPdyL+T3CAFDc5JbNcwXoLp2PtJT1bgG1X1mvbI4ZvAA="
  },
  "session-hand": {
   "w": 1206,
@@ -239,18 +184,7 @@
    912,
    1206
   ],
-  "lq": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAwCdASoQABUAPt1apkyopSOiMAgBEBuJZwDE2CLDJYIFQqei3V4AAP7vW6g1pmnN1veQFyPwKlTw5w1RhI6EZ4uDYBWaAAA="
- },
- "session-group": {
-  "w": 1280,
-  "h": 720,
-  "alt": "Медитация под открытым небом в Таиланде",
-  "widths": [
-   720,
-   1200,
-   1280
-  ],
-  "lq": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAkAAwBSJQBOkCYi4y6CToAA/uYxOjaMhtKRdeLskpJtdeG2x4b17lMh95MIuSU0VW1dlCUIoI8V1cAAAA=="
+  "lq": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACQAwCdASoQABUAPt1cpkyopSOiMAgBEBuJZwDE2CLGOHT50AJ8AP7zL/DKZgKK1QIleIwB1Xh70lYvtjuqZYO0/J0flr26FL/TgFAA"
  },
  "session-lake": {
   "w": 1206,
@@ -261,7 +195,7 @@
    1200,
    1206
   ],
-  "lq": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQABAAAwBSJYwC7ADdshCtBYAA/vaLX7tYCUXaOUJRblkOL8Yqz3JT8BWZDvma6RM30pM+p8HxWCU4JbAAAA=="
+  "lq": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQABAAAwBSJZQAAlzO1wNAAAD++RI31raJn8F+xyNYZhXvOZYSHVVmmEKNcfR31LVXYc48JPJPhnx5AAA="
  },
  "session-forest": {
   "w": 1600,
@@ -272,7 +206,7 @@
    1200,
    1600
   ],
-  "lq": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAsAAwBSJZQCdAaTeiHxqDAA/Nl+NLOyjvyjfOLetK/L6cGCw33udeHFs67W94DL1ocMwyHRmwWgAAA="
+  "lq": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoQAAsAAwBSJZwAAlobDx4i1AD5QrZ8TD73x3IEJmmAIt/tWbHdKk/YN0s5qP+UhQdecBfPC7P3hAAA"
  },
  "session-wedding": {
   "w": 854,
@@ -283,7 +217,7 @@
    801,
    854
   ],
-  "lq": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoQABgAPt1cpkyopSOiMAgBEBuJZQC06CFUB5Aq0zQmCZLMAAD+70ncqdi9rEP+Be6A9i+Zzg6c7AG/b093H9LGgSkvX64G3k0oAnZkmgZqUGvo34m/fvXncfhXG/YFdYVunysIEWRJWLu63SiV2QAA"
+  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAQBACdASoQABgAPt1cpkyopSOiMAgBEBuJZQC+SBjYw2NZTvr727qEgAD+8X+N3RQ/HOYPI/8yKfUrDUsZsTMCPVEl6dPnM1dfrp2mgb+XdRUTMRwNsfY1rrl5deJfiAE2lQbL+dJsrqsPLyQhsg7svA+vcVpWfTudur/MAAA="
  },
  "event-portrait": {
   "w": 1280,
@@ -294,7 +228,7 @@
    960,
    1280
   ],
-  "lq": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAQBACdASoQABQAPt1apkyopSOiMAgBEBuJYwC/OCH4TT7Y+XcRfrGEAAD+7Ja3JR9uA32yiA3t1hsMkHK5KSCYvE9DkIuvL4ymn0OAzYPCSjcbmrMh7J1fip7S50Ws1nZ0N/7+Y2vPiXqP2CvTEGLEDdjZXbeSJ5izAAAA"
+  "lq": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoQABQAPt1apkyopSOiMAgBEBuJYwC1CMo/+AsmRHOud+mIwAD+8U9fA5YDbodbjoi+5+dxu9AD0Z5XeXGb8zhrhe1dV6l9IHlSvRc+r+TYxrdfn7IECttGBtOXZi4pj912UD5gk9xNlz/L1H1wodGEk9wP1UuJu/IQBPjd/rgQAA=="
  },
  "temple-inside": {
   "w": 1028,
@@ -305,7 +239,7 @@
    910,
    1028
   ],
-  "lq": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoQABUAPt1apkyopSOiMAgBEBuJZwC2yCHOEf8UOpJ1yyMgAP7r15E6Z3CmskxpPuRsX6NnKUnnkI4/lE9qFKt6zTA5iGs0CvvBAvIlbANoAA=="
+  "lq": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAwCdASoQABUAPt1apkyopSOiMAgBEBuJZwCo9CHNzaHATxRW2OgA/u6Jjk2f9lKgdqESacIlWyKJw+neUkvuJNQ5eO7/eRiVaPzTFlb9GZBczSyPKnHO+ydOAAAA"
  },
  "temple-winter": {
   "w": 1130,
@@ -315,7 +249,7 @@
    720,
    1130
   ],
-  "lq": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoQAAwAAwBSJQBYdiPfH0npMAD+1cTsNICXvvBf1Y0jud/RCeAf0K9TGpRtVP9tp4hr1Mlxi/o+9aL+r4goAAAA"
+  "lq": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoQAAwAAwBSJZgCdAEekorI6b3oAAD+s3ZaUek2qCdfKEK7jlGGWgkmE+upsv+i9H0liIvyaWcWAB4O7Jq9y2tTNYAAAA=="
  },
  "temple-sunrise": {
   "w": 1386,
@@ -326,7 +260,84 @@
    1200,
    1386
   ],
-  "lq": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQAgCdASoQABAAAwBSJYgCdAD0ZmnZFKgAAP7qAZtxQ6J3oukHvXyQ2implRZaL4XWM3Xp460Vc50Fh4kcre7vWXZS2e8kbR+LAgR3MLgAAA=="
+  "lq": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoQABAAAwBSJQBOgB6MzUIM2hoA/uzhqtv6SJ5aT+9V59Qnh/plRwYzyMIATHHzVZp66aw8TSOQbvrXvJnJWK/xY28iY5arW+yIlVClAAA="
+ },
+ "andy-hat": {
+  "w": 1108,
+  "h": 1600,
+  "alt": "Andy Now в шляпе играет на ханге на закате, Алтай",
+  "widths": [
+   499,
+   831,
+   1108
+  ],
+  "lq": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAABQBACdASoQABcAPt1cp0yopSOiMAgBEBuJQBOgA/C7EEDcsRahTJLDJTpAAP7HYVtZEsa1WlAAguksLJ7h699N2zmVNDLv7HVcJhFfE4b2PTxTjC0w81AtkHC8aEE2UAAAAA=="
+ },
+ "andy-river": {
+  "w": 1600,
+  "h": 898,
+  "alt": "Andy Now с хангом у горной реки на Алтае",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAQCdASoQAAkAAwBSJZQCsAELz3bzXAAA/cag/NeBzwCEX99VUmigXkwxls+DiAmzXEw66sNAAAAA"
+ },
+ "altai-glow": {
+  "w": 1600,
+  "h": 1080,
+  "alt": "Ханг у светящейся скульптуры в долине Алтая",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAsAAwBSJYwAAudfgcC0TQAA/s+D7nYhAvXBLqRAzFfv/E+r0XhWXgpFVnCpPQPWcthAKaXBgAAA"
+ },
+ "beach-djembe": {
+  "w": 1200,
+  "h": 1600,
+  "alt": "Занятие на пляже: ханг и джембе",
+  "widths": [
+   540,
+   900,
+   1200
+  ],
+  "lq": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAwBACdASoQABUAPt1apkyopSOiMAgBEBuJYgCdMoRwACnEk/6Q62Ix6zQAy06JdOuac7EvYRF7rQ+vO1bG95Ah8Kbx8chf1OzSTy6aGo5z/vfbK6ppT2j88rxVrEOtpI+AmIOr3/5LDpy6bklteK0u5qHPJYBt649yl9LYz5vnhtiwaAAAAA=="
+ },
+ "beach-duo": {
+  "w": 1600,
+  "h": 1200,
+  "alt": "Andy Now и ученица играют на хангах на пляже",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAQCdASoQAAwAAwBSJaACdADu9rc8HYAA/qN/17g498BeGlWHy7kjQTMDtXKRt7SxBLCdJQikQGIW8yAPugG54qr03/YDvx2BuFRMGjOy4Vdi1ph08N0Oq3qhcgAA"
+ },
+ "offer-lesson": {
+  "w": 1280,
+  "h": 853,
+  "alt": "Andy Now играет на ханге у воды на закате",
+  "widths": [
+   720,
+   1200,
+   1280
+  ],
+  "lq": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAsAAwBSJZwAAmpf5y4lmQAA/vkrhJ1xUyD3OtN/mXqpJvQPJEa7EfOSzI60IsofUkUsP84L5+qdSsqoFtBC3fd/vCAA"
+ },
+ "offer-healing": {
+  "w": 1206,
+  "h": 1522,
+  "alt": "Звуковая сессия с хангом",
+  "widths": [
+   571,
+   951,
+   1206
+  ],
+  "lq": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADwAwCdASoQABQAPt1apkyopSOiMAgBEBuJZwAAUz8c6rhk0K1AQ9FcAP6YIaffTfcWm/fHLGQ4jtEhpz7yhoHhNdRfoSWRlbHM0gXlNXYzO6Qsb9qnUpEfDEyTjv0feLt5W18qAGdzL+KFdbJftyXjeLgAAA=="
  },
  "laptop": {
   "w": 960,
@@ -337,18 +348,7 @@
    900,
    960
   ],
-  "lq": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACwAwCdASoQABUAPt1cpkyopSOiMAgBEBuJQAAKWr9sP3dFvOO3QAD9K0VI42EQkxtKST/FkWH5P/baZYcajHqmcsiI0PtpjtVEpsMEUHn+Ut8pqzUyK9LL+gRsmFVZQFxqy+ygmiIF3xBfILMohSCDsDTaKHgae5O3SjQAAAA="
- },
- "scarf-gong": {
-  "w": 1600,
-  "h": 1067,
-  "alt": "Andy Now играет на ханге рядом с гонгом",
-  "widths": [
-   720,
-   1200,
-   1600
-  ],
-  "lq": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQAgCdASoQAAsAAwBSJQBOgCPP4pH6o5joAP7kU56NExtmmk9AkT3FA5nSSV+eQ8k7ce6M+Icst5ac81pGg9FLymU7SN79edkjfPxzwlX/xUZYhQAAAA=="
+  "lq": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAAAQBACdASoQABUAPt1apkyopSOiMAgBEBuJZACsACKPaR7RZ/YKDA5uAAD+cx9oxordU2DZJlY6GF9aOJaNUnv+k17SORk/KtWH06fLJk3JHqvcgdoVAlkdMlW7VonOZtyEwQ9Cm2O0wh2W7bUTzNo+66bXFir6Wd47BFRqwezT5QAA"
  },
  "hps-atmo": {
   "w": 1080,
@@ -372,16 +372,16 @@
   ],
   "lq": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwBACdASoQABUAPt1cqE0opSQiMAgBEBuJZwC7AB4bIm7WTCcXKBMM2gAA/vF0MLlHl2StPGM28fsCXLAT3Ud1RJNLcxxLcVwQAA=="
  },
- "hps-start": {
-  "w": 1080,
-  "h": 1440,
-  "alt": "Handpan Sphere: начни за минуту, бесплатно и без регистрации",
+ "otf-sphere": {
+  "w": 1200,
+  "h": 1600,
+  "alt": "~ontheflow./: оранжевая сфера в мурмурации (tools/sphere.py)",
   "widths": [
    540,
    900,
-   1080
+   1200
   ],
-  "lq": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADQAwCdASoQABUAPt1cpkyopSOiMAgBEBuJQBZwBCzetNKBHpevWUAA/un5vE95A/GojhzbLT8Q7a/o175te/FnIhahCgQMWzpGbS4JXMj7TqKkNJjRfr5FgLMQQNtGZ4AAAA=="
+  "lq": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAABQAwCdASoQABUAPt1apkyopSOiMAgBEBuJaQAAW+oWZHIIcAD+9Bt5mn8SL6VG+PW0es54E9I5sSZkry14QAAA"
  },
  "hero-sea": {
   "w": 1200,
