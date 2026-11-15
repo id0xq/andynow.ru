@@ -1,14 +1,12 @@
-// The journal: posts of the channel «Музыка Сфер».
-// Two sources, merged: content/journal/*.md (curated, with a photo of the site's series)
-// and content/telegram/posts.json (collected by tools/telegram.mjs whenever the channel lets the web read it).
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+// The journal: posts of the Telegram channel «Музыка Сфер», its only source.
+// tools/telegram.mjs reads the channel into content/telegram/posts.json (albums already joined into one
+// post, pictures in content/telegram/img); this module turns those posts into the journal's entries.
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { esc } from './layout.mjs';
 import { SITE } from './content.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const MD_DIR = join(ROOT, 'content', 'journal');
 const TG_FILE = join(ROOT, 'content', 'telegram', 'posts.json');
 
 const MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
@@ -23,56 +21,53 @@ const slugify = (s) => s.toLowerCase().split('').map((c) => TR[c] ?? c).join('')
 
 const EMOJI_START = /^[\p{Extended_Pictographic}️‍\s]+/u;
 const stripEmoji = (s) => s.replace(EMOJI_START, '');
+const tagless = (html) => html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').trim();
 
-// plain text → HTML: paragraphs, line breaks, links for addresses and @names
-function linkify(text) {
-  return esc(text)
-    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
-    .replace(/(^|[\s(])((?:[a-z0-9-]+\.)+(?:ru|com|xyz|link|pro)\b(?:\/[^\s<]*)?)/g, '$1<a href="https://$2" target="_blank" rel="noopener">$2</a>')
-    .replace(/(^|[\s(])@([A-Za-z0-9_]{4,})/g, '$1<a href="https://t.me/$2" target="_blank" rel="noopener">@$2</a>');
-}
-const toHtml = (paras) => paras.map((p) => '<p>' + linkify(p).replace(/\n/g, '<br>') + '</p>').join('');
-
-function readMd(file) {
-  const raw = readFileSync(join(MD_DIR, file), 'utf8');
-  const m = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  const meta = Object.fromEntries(m[1].split('\n').map((l) => { const i = l.indexOf(':'); return [l.slice(0, i).trim(), l.slice(i + 1).trim()]; }));
-  const body = m[2].trim().split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
-  const poetic = meta.kind === 'poem';
-  return { source: 'md', date: meta.date, number: meta.number, title: meta.title, photo: meta.photo || null, body, poetic };
+// The title is the post's first line; a long first line gives its first sentence, or its first words.
+function titleOf(line) {
+  if (line.length <= 90) return { title: line, whole: true };
+  const sentence = line.match(/^(.{20,90}?[.!?…])(\s|$)/);
+  if (sentence) return { title: sentence[1], whole: false };
+  return { title: line.slice(0, 80).replace(/\s+\S*$/, '') + '…', whole: false };
 }
 
-function readTelegram() {
-  if (!existsSync(TG_FILE)) return [];
-  return JSON.parse(readFileSync(TG_FILE, 'utf8')).filter((p) => p.text).map((p) => {
-    const paras = p.text.split('\n').map((s) => s.trim()).filter(Boolean);
-    return { source: 'tg', id: p.id, date: p.date.slice(0, 10), title: paras[0].slice(0, 140), html: p.html, images: p.images || [], link: p.link, body: paras.slice(1), poetic: false };
-  });
+// When the first line became the title, it leaves the body so it is not read twice.
+function dropFirstLine(html, line) {
+  const m = html.match(/^<p>([\s\S]*?)(<br>|<\/p>)/);
+  if (!m || stripEmoji(tagless(m[1])) !== line) return html;
+  return m[2] === '<br>' ? '<p>' + html.slice(m[0].length) : html.slice(m[0].length);
 }
-
-const norm = (s) => stripEmoji(s).toLowerCase().replace(/[^a-zа-яё0-9]/g, '').slice(0, 40);
 
 export function loadPosts() {
-  const md = readdirSync(MD_DIR).filter((f) => f.endsWith('.md')).map(readMd);
-  const tg = readTelegram();
-  const seen = new Set(md.map((p) => p.date + norm(p.title)));
-  const all = [...md, ...tg.filter((p) => !seen.has(p.date + norm(p.title)))];
-  all.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  if (!existsSync(TG_FILE)) return [];
+  const raw = JSON.parse(readFileSync(TG_FILE, 'utf8')).filter((p) => p.text && p.date);
+  raw.sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+  // a first line that several posts share ("Релиз нового видео на YouTube!") takes the next line along,
+  // so that different posts never look like copies of each other
+  const firsts = raw.map((p) => stripEmoji(p.text.split('\n')[0].trim()));
+  const repeated = new Set(firsts.filter((f, i) => firsts.indexOf(f) !== i));
   const used = new Set();
-  return all.map((p) => {
-    let slug = p.date + '-' + (slugify(stripEmoji(p.title)) || 'post');
+  return raw.map((p) => {
+    const lines = p.text.split('\n').map((s) => s.trim()).filter(Boolean);
+    const first = stripEmoji(lines[0]);
+    let { title, whole } = titleOf(first);
+    if (repeated.has(first) && whole && lines[1]) {
+      title = first + ' ' + (lines[1].length > 60 ? lines[1].slice(0, 58).replace(/\s+\S*$/, '') + '…' : lines[1]);
+    }
+    const date = p.date.slice(0, 10);
+    let slug = date + '-' + (slugify(title) || 'post');
     while (used.has(slug)) slug += '-2';
     used.add(slug);
-    const title = p.poetic ? null : stripEmoji(p.title);
-    const html = p.source === 'tg' ? p.html : toHtml(p.body);
-    const plain = p.body.join(' ').replace(/\s+/g, ' ').trim();
-    const excerpt = plain.length > 220 ? plain.slice(0, 220).replace(/\s+\S*$/, '') + '…' : plain;
+    const rest = (whole ? lines.slice(1) : [first.slice(title.replace(/…$/, '').length), ...lines.slice(1)]).join(' ').replace(/\s+/g, ' ').trim();
+    const excerpt = rest.length > 220 ? rest.slice(0, 220).replace(/\s+\S*$/, '') + '…' : rest;
     return {
-      ...p, slug, title, html, excerpt,
-      poem: p.poetic ? p.body.join('\n\n') : null,
+      id: p.id, date, slug, title, excerpt,
+      html: whole ? dropFirstLine(p.html, first) : p.html,
+      images: p.images || [],
+      photo: null, poem: null,
       url: `/journal/${slug}/`,
       link: p.link || SITE.channel,
-      human: humanDate(p.date),
+      human: humanDate(date),
     };
   });
 }

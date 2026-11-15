@@ -1,12 +1,17 @@
-// Journal from the Telegram channel «Музыка Сфер» (@Music_ofSpheres).
+// The journal's only source: the Telegram channel «Музыка Сфер» (@Music_ofSpheres).
 //
-// The channel has its web preview (t.me/s/…) turned off, but every public post is still served as an
-// embed: https://t.me/Music_ofSpheres/<id>?embed=1. This script walks the post numbers, reads each embed,
-// keeps text, date, views and photos, saves the photos next to the data and writes content/telegram/posts.json.
-// Run it before the build; the GitHub workflow runs it on a schedule, so new posts appear by themselves.
+// Every public post is served as an embed: https://t.me/Music_ofSpheres/<id>?embed=1. This script walks
+// the post numbers, reads each embed (text, date, views, photos; for a video or a link, its preview
+// picture), and writes content/telegram/posts.json with the pictures next to it in content/telegram/img.
 //
-// Usage: node tools/telegram.mjs [--from=ID] [--limit=N]
-import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
+// An album in Telegram is several messages in a row with the same text, and each of them answers with
+// the whole album: such messages become one post, linked to the first of them. A post the network
+// failed to read keeps its last known version; a post Telegram says is gone leaves the journal.
+// The GitHub workflow runs this before every build, so new posts appear by themselves; the posts.json
+// in the repository is the last snapshot and the fallback if Telegram does not answer.
+//
+// Usage: node tools/telegram.mjs [--from=ID]
+import { mkdir, readFile, writeFile, readdir, unlink, access } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -17,10 +22,10 @@ const IMG = join(OUT, 'img');
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
 const MISSES_TO_STOP = 30; // consecutive missing ids after the newest post
 const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')));
-const LIMIT = Number(args.limit || 80);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const exists = (p) => access(p).then(() => true, () => false);
+const FAILED = Symbol('failed');   // the network did not answer: not the same as "no such post"
 
 async function get(url, tries = 3) {
   for (let i = 0; i < tries; i++) {
@@ -31,10 +36,15 @@ async function get(url, tries = 3) {
     } catch (e) { /* retry */ }
     await sleep(800 * (i + 1));
   }
-  return null;
+  return FAILED;
 }
 
-const decode = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+// named and numeric entities (&#33; is "!")
+const decode = (s) => s
+  .replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)))
+  .replace(/&#x([0-9a-f]+);/gi, (m, n) => String.fromCodePoint(parseInt(n, 16)))
+  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ')
+  .replace(/&amp;/g, '&');
 
 // The message text as safe, minimal HTML: paragraphs, line breaks, bold, italic, links.
 function cleanText(raw) {
@@ -59,16 +69,16 @@ function cleanText(raw) {
 }
 
 const plain = (html) => decode(html.replace(/<br>/g, ' ').replace(/<\/p><p>/g, '\n').replace(/<[^>]+>/g, '')).trim();
+const bg = (html, cls) => [...html.matchAll(new RegExp(cls + '[^"]*"[^>]*style="[^"]*background-image:url\\(\'([^\']+)\'\\)', 'g'))].map((m) => m[1]);
 
 function parse(id, html) {
   if (/tgme_widget_message_error|Post not found/.test(html) || !/tgme_widget_message_bubble/.test(html)) return null;
   const textMatch = html.match(/<div class="tgme_widget_message_text[^"]*"[^>]*>([\s\S]*?)<\/div>(?=\s*<div class="tgme_widget_message_(?:footer|link_preview|reply_markup)|\s*<\/div>)/);
   const time = (html.match(/<time[^>]*datetime="([^"]+)"/) || [])[1] || null;
   const views = (html.match(/tgme_widget_message_views">([^<]*)</) || [])[1] || '';
-  const photos = [...html.matchAll(/tgme_widget_message_photo_wrap[^"]*"[^>]*style="[^"]*background-image:url\('([^']+)'\)/g)].map((m) => m[1]);
-  const videoThumbs = [...html.matchAll(/tgme_widget_message_video_thumb"[^>]*style="[^"]*background-image:url\('([^']+)'\)/g)].map((m) => m[1]);
-  const forwarded = /tgme_widget_message_forwarded_from/.test(html);
-  const audio = /tgme_widget_message_(voice|audio|document)/.test(html);
+  const photos = bg(html, 'tgme_widget_message_photo_wrap');
+  const videos = bg(html, 'tgme_widget_message_video_thumb');
+  const previews = bg(html, 'link_preview_(?:right_)?image');
   const htmlText = textMatch ? cleanText(textMatch[1]) : '';
   return {
     id,
@@ -76,17 +86,15 @@ function parse(id, html) {
     views,
     html: htmlText,
     text: plain(htmlText),
-    photos,
-    videos: videoThumbs,
-    audio,
-    forwarded,
+    pictures: photos.length || videos.length ? [...photos, ...videos] : previews.slice(0, 1),
+    forwarded: /tgme_widget_message_forwarded_from/.test(html),
     link: `https://t.me/${CHANNEL}/${id}`,
   };
 }
 
 async function fetchPost(id) {
   const res = await get(`https://t.me/${CHANNEL}/${id}?embed=1&mode=tme`);
-  if (!res) return null;
+  if (res === FAILED || res === null) return res;
   return parse(id, await res.text());
 }
 
@@ -94,50 +102,69 @@ async function saveImage(url, name) {
   const file = join(IMG, name);
   if (await exists(file)) return name;
   const res = await get(url.startsWith('//') ? 'https:' + url : url);
-  if (!res) return null;
+  if (!res || res === FAILED) return null;
   await writeFile(file, Buffer.from(await res.arrayBuffer()));
   return name;
 }
+
+const same = (a, b) => a.text === b.text && (a.date || '').slice(0, 10) === (b.date || '').slice(0, 10) && a.pictures.length === b.pictures.length;
 
 async function main() {
   await mkdir(IMG, { recursive: true });
   let known = [];
   try { known = JSON.parse(await readFile(join(OUT, 'posts.json'), 'utf8')); } catch (e) { /* first run */ }
-  const start = Number(args.from || (known[0] && known[0].id) || 69);
+  const knownById = new Map(known.map((p) => [p.id, p]));
+  const start = Number(args.from || Math.max(0, ...known.map((p) => p.id)) || 69);
 
-  // 1. find the newest post: walk up until a long run of missing ids
+  // 1. the newest post: walk up from the last known one until a long run of missing ids
   let newest = start, misses = 0, id = start;
   while (misses < MISSES_TO_STOP) {
     id++;
     const post = await fetchPost(id);
-    if (post) { newest = id; misses = 0; } else misses++;
+    if (post && post !== FAILED) { newest = id; misses = 0; } else misses++;
     await sleep(120);
   }
   console.log('newest post', newest);
 
-  // 2. collect backwards; an album answers on each of its ids, keep it once
-  const posts = [];
-  const seen = new Set();
-  for (let i = newest; i > 0 && posts.length < LIMIT; i--) {
+  // 2. every message from the first to the newest
+  const messages = [];
+  let failed = 0;
+  for (let i = 1; i <= newest; i++) {
     const post = await fetchPost(i);
     await sleep(120);
-    if (!post) continue;
-    const key = post.photos[0] || post.videos[0] || post.text.slice(0, 120);
-    if (!key || seen.has(key)) continue;
-    seen.add(key);
-    if (!post.text && !post.photos.length && !post.videos.length) continue;
-    post.images = [];
-    for (const [k, url] of [...post.photos, ...post.videos].entries()) {
-      const saved = await saveImage(url, `${post.id}-${k}.jpg`);
-      if (saved) post.images.push(saved);
+    if (post === FAILED) {                         // keep what we knew
+      failed++;
+      if (knownById.has(i)) messages.push({ ...knownById.get(i), kept: true });
+      continue;
     }
-    delete post.photos;
-    posts.push(post);
+    if (post && (post.text || post.pictures.length)) messages.push(post);
     process.stdout.write('.');
   }
-  posts.sort((a, b) => b.id - a.id);
-  await writeFile(join(OUT, 'posts.json'), JSON.stringify(posts, null, 1));
-  console.log('\nposts', posts.length, 'from', posts.at(-1)?.id, 'to', posts[0]?.id);
+
+  // 3. albums: messages in a row with the same text, day and pictures are one post (the first id)
+  messages.sort((a, b) => a.id - b.id);
+  const posts = [];
+  for (const m of messages) {
+    const prev = posts.at(-1);
+    if (prev && !m.kept && !prev.kept && m.id - prev.lastId <= 1 && same(prev, m)) { prev.lastId = m.id; continue; }
+    posts.push({ ...m, lastId: m.id });
+  }
+
+  // 4. pictures of the posts that stay; pictures nobody uses go away
+  const keep = new Set();
+  for (const p of posts) {
+    if (p.kept) { (p.images || []).forEach((n) => keep.add(n)); continue; }
+    p.images = [];
+    for (const [k, url] of p.pictures.entries()) {
+      const saved = await saveImage(url, `${p.id}-${k}.jpg`);
+      if (saved) { p.images.push(saved); keep.add(saved); }
+    }
+  }
+  for (const f of await readdir(IMG)) if (!keep.has(f)) await unlink(join(IMG, f));
+
+  const out = posts.map(({ pictures, lastId, kept, ...p }) => p).sort((a, b) => b.id - a.id);
+  await writeFile(join(OUT, 'posts.json'), JSON.stringify(out, null, 1));
+  console.log('\nposts', out.length, 'messages', messages.length, 'not read', failed);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
