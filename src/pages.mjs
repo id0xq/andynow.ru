@@ -392,6 +392,24 @@ ${ctaBand({ title: 'Пригласить звучать', text: 'Напишит�
 
 // ─── digital ───────────────────────────────────────────────────────────────────────────────────────
 
+// «сделано»: the digital projects of PROJECTS, each as a card (made); one list for both pages
+function madeCases() {
+  return PROJECTS.filter((p) => p.made).map((p) => {
+    const m = p.made;
+    const first = p.links.find((l) => l.href);
+    const href = m.link === false ? null : first && first.href;
+    const body = `${photo(m.photo || p.photo, { ratio: '3/4', pos: m.pos || '', tag: m.tag, sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
+        <h3>${esc(p.name)}</h3><p>${esc(m.text || p.text)}</p>${href ? `<span class="link">${esc(first.label)}</span>` : ''}`;
+    return href
+      ? `<a class="case" href="${esc(href)}"${attrs(href)}>
+        ${body}
+      </a>`
+      : `<div class="case">
+        ${body}
+      </div>`;
+  }).join('\n      ');
+}
+
 export function digital() {
   const what = [
     ['Сайты и магазины', 'Быстрые, красивые, удобные на телефоне. Ставятся на телефон как приложение и работают без сети.'],
@@ -418,28 +436,7 @@ export function digital() {
 <section class="section night" aria-labelledby="cases-title">
   <div class="wrap">
     ${secHead('cases-title', 'сделано')}
-    <div class="cases">
-      <a class="case" href="${SITE.hps}" target="_blank" rel="noopener">
-        ${photo('hps-chords', { ratio: '3/4', tag: 'web · telegram', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
-        <h3>Handpan Sphere</h3><p>Виртуальный ханг и атмосферный бэк: аккорды, ритм и природа звучат в строе инструмента. Сайт, офлайн-приложение и Telegram Mini App на одном коде, бот на Cloudflare Workers.</p><span class="link">handpansphere.ru</span>
-      </a>
-      <a class="case" href="${SITE.cinematic}" target="_blank" rel="noopener">
-        ${photo('cinematic', { ratio: '3/4', pos: '38% 50%', tag: 'telegram · оплаты', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
-        <h3>Синематик</h3><p>Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Настроил приём оплат и веду проект целиком как технический специалист.</p><span class="link">@cinematiqbot</span>
-      </a>
-      <a class="case" href="${SITE.zemli}" target="_blank" rel="noopener">
-        ${photo('temple-sunrise', { ratio: '3/4', tag: 'процессы · команда', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
-        <h3>Земли Силы</h3><p>Операционный менеджер автономного комплекса в первозданной природе Алтая. Настраиваю и автоматизирую процессы, управляю персоналом, вместе с единомышленниками развиваю проект.</p><span class="link">Проект «Земли Силы»</span>
-      </a>
-      <div class="case">
-        ${photo('play-sun', { ratio: '3/4', tag: 'webgl · скан', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
-        <h3>andynow.ru</h3><p>Этот сайт: фото первого экрана рассыпается на десятки тысяч точек и собирается в ханг, волны и куб на WebGL. Журнал из канала, единая цветовая обработка фото. Статический, быстрый, без лишних зависимостей.</p>
-      </div>
-      <div class="case">
-        ${photo('otf-sphere', { ratio: '3/4', tag: 'next.js · payload', sizes: '(max-width: 760px) 100vw, 30vw', cls: 'ice' })}
-        <h3>~ontheflow./</h3><p>Магазин редких артефактов на Next.js и Payload CMS: витрина, корзина, заказы с уведомлениями в Telegram, админка на русском.</p>
-      </div>
-    </div>
+    <div class="cases">${madeCases()}</div>
   </div>
 </section>
 

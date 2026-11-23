@@ -92,19 +92,24 @@ export const PLATFORMS = [
   ['VK', 'https://vk.com/music_ofspheres', 'vk'],
 ];
 
+// projects in the order they are shown; made: the project's card in «сделано» on the digital page
+// (photo, tag, text and link fall back to the project's own)
 export const PROJECTS = [
   {
     name: 'Handpan Sphere', state: 'работает', live: true, photo: 'hps-atmo',
+    made: { photo: 'hps-chords', tag: 'web · telegram', text: 'Виртуальный ханг и атмосферный бэк: аккорды, ритм и природа звучат в строе инструмента. Сайт, офлайн-приложение и Telegram Mini App на одном коде, бот на Cloudflare Workers.' },
     text: 'Виртуальный ханг и атмосферный бэк в строе вашего инструмента: танпура, бас, кахон, запись игры. Бесплатно, в браузере и в Telegram.',
     links: [{ href: SITE.hps, label: 'handpansphere.ru' }, { href: SITE.bot, label: '@handpansbot' }],
   },
   {
     name: 'Синематик', state: 'работает', live: true, photo: 'cinematic',
+    made: { pos: '38% 50%', tag: 'telegram · оплаты' },
     text: 'Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Веду проект целиком как технический специалист: от уроков до приёма оплат.',
     links: [{ href: SITE.cinematic, label: '@cinematiqbot' }],
   },
   {
     name: 'Земли Силы', state: 'работает', live: true, photo: 'temple-sunrise',
+    made: { tag: 'процессы · команда' },
     text: 'Операционный менеджер автономного комплекса в первозданной природе Алтая. Настраиваю и автоматизирую процессы, управляю персоналом, вместе с единомышленниками развиваю проект.',
     links: [{ href: SITE.zemli, label: 'проект «Земли Силы»' }],
   },
@@ -115,26 +120,31 @@ export const PROJECTS = [
   },
   {
     name: 'Kinamwood', state: 'работает', live: true, photo: 'kinamwood',
+    made: { tag: 'tilda · юkassa' },
     text: 'Магазин редких ремесленных масел и благовоний: уд, сандал, винтажные аттары. Подключил приём оплат через ЮKassa и ЮMoney.',
     links: [{ href: 'https://kinamwood.ru', label: 'kinamwood.ru' }],
   },
   {
     name: 'K-OUD', state: 'работает', live: true, photo: 'k-oud',
+    made: { tag: 'tilda · оплата · доставка' },
     text: 'Международный магазин редких масел уда и сандала, аттаров и благовоний. Собрал сайт на Tilda и подключил оплату и доставку по миру.',
     links: [{ href: 'https://k-oud.com', label: 'k-oud.com' }],
   },
   {
     name: 'andynow.ru', state: 'работает', live: true, photo: 'play-sun',
+    made: { tag: 'webgl · скан', link: false, text: 'Этот сайт: фото первого экрана рассыпается на десятки тысяч точек и собирается в ханг, волны и куб на WebGL. Журнал сам собирается из канала, у всех фото одна кинематографичная обработка. Статический и быстрый, без лишних зависимостей.' },
     text: 'Этот сайт: свой дизайн-код, первый экран на WebGL, журнал, который сам собирается из канала «Музыка Сфер», одна кинематографичная обработка фото. Статический и быстрый.',
     links: [{ href: '/digital/', label: 'цифровые продукты' }],
   },
   {
     name: 'SCAZY / Скáзи', state: 'на паузе', live: false, photo: 'scazy',
+    made: { tag: 'web3 · nfc' },
     text: '3D-фигурка в духе art toys и цифровой аватар, которого Зóриан создал в 2016 году: хулиганская сущность, которая играючи дразнит тренды. В цифровом мире он всемогущ, как ИИ, обретший человеческие черты. Я был техническим специалистом: связывал физическую фигурку с её цифровым двойником на web3, в основе программируемый NFC-чип с паспортом изделия.',
     links: [{ href: 'https://zorian.studio/scazy', label: 'zorian.studio/scazy' }],
   },
   {
     name: '~ontheflow./', state: 'скоро', live: false, photo: 'otf-sphere',
+    made: { tag: 'next.js · payload', text: 'Магазин редких артефактов на Next.js и Payload CMS: витрина, корзина, заказы с уведомлениями в Telegram, админка на русском.' },
     text: 'Пространство редких артефактов и состояний. Первые изделия: музыкальные инструменты и шарфы.',
     links: [{ msg: 'ontheflow', label: 'узнать о запуске' }],
   },
