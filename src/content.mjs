@@ -131,7 +131,7 @@ export const PROJECTS = [
   {
     name: 'SCAZY / Скáзи', state: 'на паузе', live: false, photo: 'scazy',
     text: '3D-фигурка в духе art toys и цифровой аватар, которого Зóриан создал в 2016 году: хулиганская сущность, которая играючи дразнит тренды. В цифровом мире он всемогущ, как ИИ, обретший человеческие черты. Я был техническим специалистом: связывал физическую фигурку с её цифровым двойником на web3, в основе программируемый NFC-чип с паспортом изделия.',
-    links: [],
+    links: [{ href: 'https://zorian.studio/scazy', label: 'zorian.studio/scazy' }],
   },
   {
     name: '~ontheflow./', state: 'скоро', live: false, photo: 'otf-sphere',
