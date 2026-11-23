@@ -412,5 +412,35 @@
    1600
   ],
   "lq": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoQAAgAAwBSJZACdACeersEAP717+MYZiSPvy3sIMjED7aNfMpjsiHa41JEjYNYcnpGvSC4mknO2AXmN9wAAA=="
+ },
+ "kinamwood": {
+  "w": 700,
+  "h": 700,
+  "alt": "Благовония и щепа уда Kinamwood",
+  "widths": [
+   700
+  ],
+  "lq": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACQAQCdASoQABAAAwBSJZwAAQue1gAA/oQM6tv1o0wZMBH9qj9zAmtX+YOGJ+vskB25aZxrfUBZoM8TGT0GeSt9oQAAAA=="
+ },
+ "k-oud": {
+  "w": 1600,
+  "h": 1067,
+  "alt": "Масла, уд и курильница K-OUD",
+  "widths": [
+   720,
+   1200,
+   1600
+  ],
+  "lq": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAABQAQCdASoQAAsAAwBSJZwAAOEAAP6pnuHhtVIzeCfzT/4hlM+Z8XCWR8ZEIAAA"
+ },
+ "scazy": {
+  "w": 838,
+  "h": 1122,
+  "alt": "SCAZY: фигурка в коричневом пальто и наушниках рядом с низкополигональным доберманом",
+  "widths": [
+   538,
+   838
+  ],
+  "lq": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAwCdASoQABUAPt1apkyopSOiMAgBEBuJaQAAUWtKjXeeui1XYAD+yi0QdEmA0G3oaXPtVutll90HKC+ULyWiT16ZSq/ojWpJomc3QHUKQ8ywJqOuUAAA"
  }
 }

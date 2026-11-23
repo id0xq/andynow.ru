@@ -99,9 +99,9 @@ export const PROJECTS = [
     links: [{ href: SITE.hps, label: 'handpansphere.ru' }, { href: SITE.bot, label: '@handpansbot' }],
   },
   {
-    name: 'Музыка Сфер', state: 'канал', live: true, photo: 'river-hat',
-    text: 'Канал о музыке ханга: практики, релизы, заметки о звуке и состоянии. Здесь выходит альбом Music of the Sphere’s.',
-    links: [{ href: SITE.channel, label: 'открыть канал' }, { href: SITE.album, label: 'слушать альбом' }],
+    name: 'Синематик', state: 'работает', live: true, photo: 'cinematic',
+    text: 'Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Веду проект целиком как технический специалист: от уроков до приёма оплат.',
+    links: [{ href: SITE.cinematic, label: '@cinematiqbot' }],
   },
   {
     name: 'Земли Силы', state: 'работает', live: true, photo: 'temple-sunrise',
@@ -109,9 +109,29 @@ export const PROJECTS = [
     links: [{ href: SITE.zemli, label: 'проект «Земли Силы»' }],
   },
   {
-    name: 'Синематик', state: 'работает', live: true, photo: 'cinematic',
-    text: 'Telegram-бот школы мобильной видеосъёмки. Уроки приходят автоматически, учиться можно в любое время. Веду проект целиком как технический специалист: от уроков до приёма оплат.',
-    links: [{ href: SITE.cinematic, label: '@cinematiqbot' }],
+    name: 'Музыка Сфер', state: 'канал', live: true, photo: 'river-hat',
+    text: 'Канал о музыке ханга: практики, релизы, заметки о звуке и состоянии. Здесь выходит альбом Music of the Sphere’s.',
+    links: [{ href: SITE.channel, label: 'открыть канал' }, { href: SITE.album, label: 'слушать альбом' }],
+  },
+  {
+    name: 'Kinamwood', state: 'работает', live: true, photo: 'kinamwood',
+    text: 'Магазин редких ремесленных масел и благовоний: уд, сандал, винтажные аттары. Подключил приём оплат через ЮKassa и ЮMoney.',
+    links: [{ href: 'https://kinamwood.ru', label: 'kinamwood.ru' }],
+  },
+  {
+    name: 'K-OUD', state: 'работает', live: true, photo: 'k-oud',
+    text: 'Международный магазин редких масел уда и сандала, аттаров и благовоний. Собрал сайт на Tilda и подключил оплату и доставку по миру.',
+    links: [{ href: 'https://k-oud.com', label: 'k-oud.com' }],
+  },
+  {
+    name: 'andynow.ru', state: 'работает', live: true, photo: 'play-sun',
+    text: 'Этот сайт: свой дизайн-код, первый экран на WebGL, журнал, который сам собирается из канала «Музыка Сфер», одна кинематографичная обработка фото. Статический и быстрый.',
+    links: [{ href: '/digital/', label: 'цифровые продукты' }],
+  },
+  {
+    name: 'SCAZY / Скáзи', state: 'на паузе', live: false, photo: 'scazy',
+    text: '3D-фигурка в духе art toys и цифровой аватар, которого Зóриан создал в 2016 году: хулиганская сущность, которая играючи дразнит тренды. В цифровом мире он всемогущ, как ИИ, обретший человеческие черты. Я был техническим специалистом: связал физическую фигурку с её цифровым двойником на web3, в основе программируемый NFC-чип с паспортом изделия.',
+    links: [],
   },
   {
     name: '~ontheflow./', state: 'скоро', live: false, photo: 'otf-sphere',

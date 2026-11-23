@@ -61,6 +61,8 @@ PHOTOS = {
     'temple-sunrise':  (HPS + '/temple-sunrise.webp', 'Зеркальный Храм Звука на рассвете, Алтай'),
     'temple-summer':   (BANK + '/DJI_20240401003113_0213_D.JPG', 'Зеркальный Храм Звука летом в долине Катуни'),
     'sunset':          (os.path.join(ROOT, 'sources', 'sunset.jpg'), 'Andy Now с хангом на камне в море на закате'),
+    'kinamwood':       (os.path.join(ROOT, 'sources', 'kinamwood.jpg'), 'Благовония и щепа уда Kinamwood'),
+    'k-oud':           (os.path.join(ROOT, 'sources', 'k-oud.jpg'), 'Масла, уд и курильница K-OUD'),
     'sky-play':        (os.path.join(ROOT, 'sources', 'sky.jpg'), 'Andy Now играет на ханге под открытым небом'),
     'cinematic':       (os.path.expanduser('~/Downloads/now./синематик 2/DSC01232.jpg'), 'Съёмка на телефон: кадр школы мобильной видеосъёмки Синематик'),
     # the learning photos of handpansphere.ru
@@ -76,6 +78,7 @@ PHOTOS = {
 SCREENS = {
     'hps-atmo':   (CAROUSEL + '/01-intro/01.jpg', 'Handpan Sphere: атмосфера в строе твоего ханга', None),
     'hps-chords': (CAROUSEL + '/03-learn/01.jpg', 'Handpan Sphere: аккорды загораются на схеме', None),
+    'scazy':      (os.path.join(ROOT, 'sources', 'scazy.jpg'), 'SCAZY: фигурка в коричневом пальто и наушниках рядом с низкополигональным доберманом', None),
     'otf-sphere': (os.path.join(ROOT, 'sources', 'ontheflow-sphere.png'), '~ontheflow./: оранжевая сфера в мурмурации (tools/sphere.py)', None),
 }
 # the first screen: DSC00134 at 2400x3200 and its subject mask (swift tools/lift.swift sources/sea.jpg cut.png sources/sea-mask.png)
